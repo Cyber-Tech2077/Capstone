@@ -44,29 +44,6 @@
         }
         
     }
-
-	function testData($timeData) {
-		
-		$conn = new mysqli("127.0.0.1", "root", "Purple12", "final_project_database");
-        
-        $stmt = $conn->prepare("INSERT INTO HelloWorld (time_data) values (?)");
-		$stmt->bind_param("s", $timeData);
-        $stmt->execute();
-	}
-    function selectDateTime() {
-        $conn = new mysqli("127.0.0.1", "root", "Purple12", "final_project_database");
-        
-        $stmt = $conn->query("SELECT time_data from HelloWorld ORDER BY id DESC LIMIT 1");
-        if ($stmt->num_rows > 0) {
-            echo "<p>";
-            while ($row = $stmt->fetch_object()) {
-                echo "$row->time_data";
-            }
-            echo "</p>";
-        }
-        $stmt->close();
-    }
-
 ?>
 <!DOCTYPE html>
 <html>
