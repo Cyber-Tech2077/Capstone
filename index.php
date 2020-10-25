@@ -66,7 +66,7 @@
 <body>
 
   <?php
-    include ("./php/headernav.html");
+    include ("./page-navigation/home-navbar.html");
   ?>
   
   <div class="jumbotron jumbotron-sm">

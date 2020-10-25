@@ -32,7 +32,7 @@
 <body>
 
 <?php
-    include (__DIR__ . "/../php/headernav.html");
+    include ("../page-navigation/seperate-navbar.html");
 ?>
 
 <div class="jumbotron jumbotron-sm">
