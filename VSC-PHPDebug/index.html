@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body style="background-color: #ff5733;">
+		<div id="">
+			<p style="text-align: center;font-size: 27px;">Debugging PHP with Visual Studio Code</p>
+			<p style="text-align: center;">Step 1: Turn off your apache in xampp and go to your php.ini file, scroll to the bottom. Paste these properties:</p>
+			<div style="width: 300px;margin: auto;">
+				<ul>
+					<li>
+						[XDebug]
+						<br/>
+						zend_extension = "c:\xampp\php\ext\php_xdebug.dll"
+						<br/>
+						xdebug.default_enable = 1
+						<br/>
+						xdebug.idekey="xdebug" ; (note: use the same key in your web browser extension)
+						<br/>
+						xdebug.remote_autostart = 1
+						<br/>
+						xdebug.profiler_append = 0
+						<br/>
+						xdebug.profiler_enable = 0
+						<br/>
+						xdebug.profiler_enable_trigger = 1
+						<br/>
+						xdebug.profiler_output_dir = "c:\xampp\tmp"
+						<br/>
+						xdebug.profiler_output_name = "cachegrind.out.%t-%s"
+						<br/>
+						xdebug.remote_connect_back = 0
+						<br/>
+						xdebug.remote_enable = 1
+						<br/>
+						xdebug.remote_handler = "dbgp"
+						<br/>
+						xdebug.remote_mode=req
+						<br/>
+						xdebug.remote_connect_back=0
+						<br/>
+						xdebug.remote_host = "127.0.0.1"
+						<br/>
+						xdebug.remote_log = "c:\xampp\tmp\xdebug.txt"
+						<br/>
+						xdebug.remote_port = 9000
+						<br/>
+						xdebug.trace_output_dir = "c:\xampp\tmp"
+						<br/>
+						xdebug.remote_cookie_expire_time = -9999
+						<br/>
+						xdebug.show_local_vars = 0
+						<br/>
+						xdebug.max_nesting_level = 1000
+					</li>
+				</ul>
+			</div>
+			<p style="text-align: center;"><strong style="font-size: 18px;">Note: depending where your xampp php files are located, the drive letter may differ on your local machine from the file paths listed above.</strong></p>
+			<p style="text-align: center;">Step 2: Open Visual Studio Code and click the block icon on the left pane. This is the extensions panel.<br/><img src="./img/extension-symbol.JPG"/></p>
+            <p style="text-align: center;">Type in 'PHP Debug', you should see a result with PHP Debug by Felix Becker.<br/><img src="./img/extension-php-debug.JPG"/></p>
+			<p style="text-align: center;">Install the extension and click the settings gear on the bottom left hand corner of the window.<br/><img src="./img/vscode-settings-icon.jpg"/></p>
+			<p style="text-align: center;">Step 3: Go to settings, extensions, then PHP on the bottom of the list.<br/><img src="./img/step3-directions.jpg"/></p>
+			<p style="text-align: center;">Look for a 'Edit in Settings.json' link.<br/> <img src="./img/edit-settings-json-file.jpg"/></p>
+			<p style="text-align: center;">Here you will see, "php.validate.executablePath". This requires the path to your php.exe file in your xampp/php folder.<br/><img src="./img/php-executable-path.JPG"/></p>
+			<p style="text-align: center;">Step 4: Once the path has been added, save the file and close out of the current tab. Open a php file of your choice from the xampp/htdocs folder.</p>
+			<p style="text-align: center;">Click on the debug button on the left pane as shown to proceed to the next step.<br/><img src="./img/debug-button.JPG"/></p>
+			<p style="text-align: center;">Step 5: Click the 'Run' category in the task bar on top of window and go to 'Add Configuration'.<br/><img src="./img/add-configuration.JPG"/></p>
+			<p style="text-align: center;">A dropdown will appear from top of window, select the 'PHP' option and it will bring you too a launch.json file.<br/><img src="./img/configuration-language-selection.jpg"/></p>
+			<p style="text-align: center;">Save and close the launch.json file and select 'Launch currently open script' from combobox next to green play button in the upper left hand corner of window.<br/><img src="./img/debug-selection.jpg"/></p>
+			<p style="text-align: center;">Step 6: Select your opened php file as described in step 4 and put a breakpoint within your php script. Then press the green play button.</p>
+			<p style="text-align: center;">Your debugger should be up and running as shown. <br/><img src="./img/Debug-Panel.jpg"/></p>
+            <p style="text-align: center;">Turn on apache in xampp and go to your browser. Type in localhost in the address bar / the path to your currently opened file in Visual Studio Code.</p>
+            <p style="text-align: center;">You should now see a yellow bar that starts from the breakpoint on the left side going across one line of code. If you do, you are now in debugging mode.<br/><img src="./img/debug-start-line.jpg"/></p>
+            <p style="text-align: center;">To exit debugging mode, press Shift+F5 on your keyboard or press the red stop square button on the debug panel on top of window.<br/><img src="./img/stop-button.jpg"/></p>
+            <p style="text-align: center;font-size: 27px;">Debugging Mode</p>
+            <p style="text-align: center;">In debugging mode, you can view the statuses of your local variables, arrays, php super global variables and more as they occur when you step over (F10 on keyboard) each line in your php code.<br/><img src="./img/debug-console.JPG"/><br/><br/>Note: you can open the debug console by going to View->Debug Console in Visual Studio Code tool bar.</p>
+		</div>
+	</body>
+</html>
