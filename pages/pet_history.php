@@ -2,27 +2,10 @@
 <?php
 	session_start();
 	include ("../php/headernav.html");
-	include_once("../php/DBConnect.php");
-	function comboboxOptions() {
-		// This php code works, all values come out as normal.
-		// No need to mess with this.
-		$conn = databaseConnect("Pet");
-		try {
-			$sql = "select id, name from Pets";
-			$stmt = sqlsrv_query($conn, $sql);
-			if ($stmt === false) {
-				echo "Error Occurred: " . sqlsrv_errors();
-			} else {
-				$storeValueId;
-				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
-				}
-			}
-		} catch (Throwable $e) {
-			echo "Throwable Error: " . $e;
-		}
-		sqlsrv_close($conn);
-	}
+	include ("../php/petHistoryDB.php");
+
+	
+
 ?>
 
 <!DOCTYPE html>
@@ -34,12 +17,44 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
   
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <style href="../css/bootstrap.min" rel="stylesheet" type="text/css"></style>
   <script src="../js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/bootstrap.min.css">	
 </head>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$("#selectHistory").click(function() {
+
+			var petChosen = document.getElementsByName("petSelector");
+			for(var i = 0;i < petChosen.length;i++){
+				if(petChosen[i].selected) {
+					var pet = petChosen[i].id;
+					break;
+				}
+			}
+
+			//alert(pet);
+
+			$.post({
+				url: "../php/petHistoryDB.php",
+				data: { pet_id: pet },
+				success: function() {
+					alert("It worked!");
+				},
+				error: function(err) {
+					alert("Err " + err);
+				}
+			});
+
+		});
+	});
+
+</script>
 
 <body>
  
@@ -61,6 +76,23 @@
 		<?php comboboxOptions(); ?>
 
 	</select>					
+</div>
+
+<div class="form-group text-center">
+	<button type="submit" class="btn btn-primary" id="selectHistory">Submit</button>
+</div>
+
+<div class="table" id="outputHistory">
+	<thead>
+		<tr>
+			<th scope="col">ID #</th>
+			<th scope="col">Pet</th>
+			<th scope="col">Service</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+	</tbody>
 </div>
 
 </body>
