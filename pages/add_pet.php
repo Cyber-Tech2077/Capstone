@@ -1,23 +1,74 @@
+
+<?php
+    include (__DIR__ . "/../php/headernav.html");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Team Purple B03</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
   
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="../js/bootstrap.min.js"></script>
+
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="../js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<script type="text/javascript">
 
-<?php
-    include (__DIR__ . "/../php/headernav.html");
-?>
+    $(document).ready(function() {
+        $("#addPet").click(function() {
+			
+			//assign form pieces to variables
+			var name = document.getElementById("petname_id").value;
+			var speciesRadios = document.getElementsByName("speciesRadios");	//array of different radio buttons
+			for(var i = 0;i < speciesRadios.length;i++){
+				if(speciesRadios[i].checked) {
+					var species = speciesRadios[i].value;
+					break;
+				}
+			}
+			var birthdate = document.getElementById("birthday_id").value;
+			var weight = document.getElementById("weight_id").value;
+			var street = document.getElementById("street_id").value;
+			var city = document.getElementById("city_id").value;
+			var state = document.getElementById("state_id").value;
+			var zip = document.getElementById("zip_id").value;
+
+			//send to file to send to DB
+			$.post({
+                url: "../php/add_petDB.php", 
+                data: {	pet_name: name,
+						pet_species: species,
+						pet_birthday: birthdate,
+						pet_weight: weight,
+						pet_street: street,
+						pet_city: city,
+						pet_state: state,
+						pet_zip: zip
+				}, 
+				success: function() {
+						location.reload();
+						alert("It worked!");
+						//location.reload();
+				},
+				error: function(err) {
+					alert("Err " + err);
+				}
+            
+			});
+        });
+        
+    });
+</script>
+
+<body>
  
 <div class="jumbotron jumbotron-sm">
   <div class="container">
@@ -44,11 +95,11 @@
 		<label class="col-form-label">Species</label>
 	    <div class="form-check">
 			<label class="form-check-label">
-			<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>Dog</label>
+			<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="dog" checked>Dog</label>
   		</div>
     	<div class="form-check">
     		<label class="form-check-label">
-    		<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">Cat</label>
+    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="cat">Cat</label>
     	</div>
   	</div>
 
@@ -139,12 +190,13 @@
 		<label class="control-label">Zip Code</label>
 	<input class="form-control col-8" type="text" id="zip_id" name="zip">
   </div> 
-
- <!-- Submit Button -->
-	<div class="form-group text-center">
-		<button type="submit" class="btn btn-primary">Submit</button>
-	</div> 
+ 
 </form>
+
+<!-- Submit Button -->
+<div class="form-group text-center">
+	<button type="submit" class="btn btn-primary" id="addPet">Submit</button>
+</div>
 
 </body>
 </html>
