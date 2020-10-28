@@ -39,3 +39,7 @@
 .collapsible-link {
     width: 100%;
 }
+
+.hoverable:hover, .hoverable:active, .hoverable:focus{
+  transform: translateY(-5px);
+}
