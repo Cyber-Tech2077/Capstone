@@ -11,7 +11,7 @@ try {
     
     $sql = "INSERT INTO Pets (name, species, birthdate, weight, street, city, state, zip) VALUES (?,?,?,?,?,?,?,?)";
 
-    var_dump($_POST["pet_name"]);
+    //var_dump($_POST["pet_name"]);
     $params = array($_POST["pet_name"], $_POST["pet_species"],$_POST["pet_birthday"],$_POST["pet_weight"],
         $_POST["pet_street"],$_POST["pet_city"],$_POST["pet_state"], $_POST["pet_zip"]);
     $stmt = sqlsrv_prepare($conn, $sql, $params);
