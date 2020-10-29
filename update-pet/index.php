@@ -23,16 +23,6 @@
 		}
 		sqlsrv_close($conn);
 	}
-	function fillOutFields() {
-		$conn = databaseConnect("Pet");
-		try {
-
-			
-
-		} catch (Throwable $e) {
-
-		}
-	}
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +44,9 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
+		$("#update_pet").change(function() {
+			
+		});
 		$("#update_pet").click(function() {
 			// Changed id assocaited with select html element.
 			var idNum = document.getElementById("select_pet_control");
