@@ -44,12 +44,32 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
-		$("#update_pet").change(function() {
-			
+		var idNum = document.getElementById("select_pet_control");
+		$("#select_pet_control").change(function() {
+			$.post({
+				url: "./php/post-usages/retrievePet.php",
+				data: {pet_id: idNum.options[idNum.selectedIndex].id},
+				success: function(retrievePetData) {
+					var json = JSON.parse(retrievePetData);
+					document.getElementById("petname_id").value = json["Name"];
+					if (json["Species"] == "Dog") {
+						document.getElementById("speciesRadios1").checked = true;
+					} else {
+						document.getElementById("speciesRadios2").checked = true;
+					}
+					document.getElementById("weight_id").value = json["Weight"];
+					document.getElementById("street_id").value = json["Street"];
+					document.getElementById("city_id").value = json["City"];
+					document.getElementById("state_id").value = json["State"];
+					document.getElementById("zip_id").value = json["Zip"];
+				},
+				error: function(err) {
+					alert(err);
+				}
+			})
 		});
 		$("#update_pet").click(function() {
 			// Changed id assocaited with select html element.
-			var idNum = document.getElementById("select_pet_control");
 			var petSpecies;
 			if (document.getElementById("speciesRadios1").checked) {
 				petSpecies = "Dog";
