@@ -1,32 +1,7 @@
-
 <?php
-	
+	session_start();
 	include ("../php/headernav.html");
-	require_once "../php/DBConnect.php";
-
-	//Drop Down Selector for the Pets
-	function comboboxOptions() {
-
-		$conn = databaseConnect("Pet");
-		
-		try {
-			$sql = "select id, name from Pets";
-			$stmt = sqlsrv_query($conn, $sql);
-			if ($stmt === false) {
-				echo "Error Occurred: " . sqlsrv_errors();
-			} else {
-				$storeValueId;
-				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
-				}
-			}
-		} catch (Throwable $e) {
-			echo "Throwable Error: " . $e;
-		}
-
-		sqlsrv_close($conn);
-	}
-
+	include ("../php/petHistoryDB.php");
 ?>
 
 <!DOCTYPE html>
@@ -49,24 +24,23 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
-
 		$("#selectHistory").click(function() {
 
-			var petChosen = document.getElementById("select_pet_control");
+			var petChosen = document.getElementsByName("petSelector");
+			for(var i = 0;i < petChosen.length;i++){
+				if(petChosen[i].selected) {
+					var pet = petChosen[i].id;
+					break;
+				}
+			}
 
 			//alert(pet);
 
 			$.post({
 				url: "../php/petHistoryDB.php",
-				data: { pet_id: petChosen.options[petChosen.selectedIndex].id },
-				success: function(feedback) {
-					//debugger;
-					
-					var json = JSON.parse(feedback);
-					//alert(json.length);
-					document.getElementById("row1").innerText = json["Service0"];
-					//document.getElementById("row2").innerText = json["Service1"];
-					
+				data: { pet_id: pet },
+				success: function() {
+					alert("It worked!");
 				},
 				error: function(err) {
 					alert("Err " + err);
@@ -74,7 +48,6 @@
 			});
 
 		});
-
 	});
 
 </script>
@@ -93,7 +66,7 @@
 
 <div class="form-group col-8">
 	<legend class="control-legend" id="select_pet">Select Pet</legend>
-	<select class="form-control" id="select_pet_control">
+	<select class="form-control" id="select_pet">
 
 		<!-- Select Pet Dropdown Options - Goes Here -->
 		<?php comboboxOptions(); ?>
@@ -105,22 +78,17 @@
 	<button type="submit" class="btn btn-primary" id="selectHistory">Submit</button>
 </div>
 
-<div class="container">
-<table class="table" id="outputHistory">
+<div class="table" id="outputHistory">
 	<thead>
 		<tr>
 			<th scope="col">ID #</th>
+			<th scope="col">Pet</th>
 			<th scope="col">Service</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<th scope="row">1</th>
-			<td id="row1" values=""></td>
-		</tr>
 		
 	</tbody>
-</table>
 </div>
 
 </body>
