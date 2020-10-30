@@ -1,24 +1,41 @@
 <?php
 
 include_once ("../php/DBConnect.php");
+//require_once ("../pages/pet_history.php");
 
-$conn = databaseConnect("Pet");
 
-try {
+try 
+{
+    $conn = databaseConnect("Pet");
 
     //var_dump($_POST["pet_name"]);
+    $param = array($_POST["pet_id"]);
+    //$param = 5;
     
-    $sql = "SELECT * FROM PetHistory";
-    $stmt = sqlsrv_query($conn, $sql);
+    $sql = "SELECT * FROM PetHistory WHERE petId=?";
+    //$stmt = sqlsrv_query($conn, $sql);
+    $stmt = sqlsrv_prepare($conn,$sql,$param);
 
-    if ($stmt === false) {
-        echo "Error Occurred: " . sqlsrv_errors();
-    } else {
-        while ($row = sqlsrv_fetch_object($stmt)) {
-            //echo "<option name = 'petSelector' id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
-            echo "<tr> <th scope='row'>" . $row->id . "</th> <td>" . $row->serviceName . "</td> ";
+    $execute = sqlsrv_execute($stmt);
+
+    $rowKeyValues;
+    if($execute){
+        
+        $num = 0;
+        while($row = sqlsrv_fetch_object($stmt)) {
+            $jsonName = "Service" . $num++;
+            $rowKeyValues = array($jsonName =>$row->serviceName);
+            //$num++;
+
+            
         }
+        
     }
+
+    sqlsrv_close($conn);
+        
+    //echo $rowKeyValues;
+    echo json_encode($rowKeyValues);
     
 } catch (Throwable $e) {
     echo "Throwable Caught: " . $e;
@@ -26,28 +43,6 @@ try {
     echo "Exception Caught: " . $ee;
 }
 
-sqlsrv_close($conn);
+    //sqlsrv_close($conn);
 
-//Drop Down Selector for the Pets
-function comboboxOptions() {
-
-    $conn = databaseConnect("Pet");
-    
-    try {
-        $sql = "select id, name from Pets";
-        $stmt = sqlsrv_query($conn, $sql);
-        if ($stmt === false) {
-            echo "Error Occurred: " . sqlsrv_errors();
-        } else {
-            $storeValueId;
-            while ($row = sqlsrv_fetch_object($stmt)) {
-                echo "<option name = 'petSelector' id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
-            }
-        }
-    } catch (Throwable $e) {
-        echo "Throwable Error: " . $e;
-    }
-
-    sqlsrv_close($conn);
-
-}
+?>

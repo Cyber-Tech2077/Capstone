@@ -1,8 +1,9 @@
-
 <?php
+                     
 	session_start();
 	include ("../php/headernav.html");
 	include_once("../php/DBConnect.php");
+                     
 	function comboboxOptions() {
 		// This php code works, all values come out as normal.
 		// No need to mess with this.

@@ -1,11 +1,7 @@
-
 <?php
 	session_start();
 	include ("../php/headernav.html");
 	include ("../php/petHistoryDB.php");
-
-	
-
 ?>
 
 <!DOCTYPE html>
