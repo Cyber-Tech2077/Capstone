@@ -64,7 +64,8 @@
 					document.getElementById("street_id").value = json["Street"];
 					document.getElementById("city_id").value = json["City"];
 					document.getElementById("state_id").value = json["State"];
-					document.getElementById("zip_id").value = json["Zip"];				
+					document.getElementById("zip_id").value = json["Zip"];	
+					document.getElementById("chip_id").value = json["Chip"];
 				}
 				
 			});
@@ -72,30 +73,29 @@
 		
 		$("#update_pet").click(function() {
 
-
-
 			// Here is the select combobox for 'Select pet'
-			var idNum = document.getElementById("select_pet");
-			// Goal: Retrieve the selected index, then use selectedIndex in an array like this: idNum[selectedIndex].
-			// then get the id from the array using the selected index.
-			// Online answers suggest searching an array with the selectedIndex inside. For example, idNum[idNum.selectedIndex].id
+			//var idNum = document.getElementById("select_pet");
 
-			// Everything else down here works, its been tested. We only need to fetch a dynamic id.
-			// You will see the idNum in the alert is messed up because the id cannot be retrieved from the select element #select_pet.
-			// You can change idNum where the 'pet_ID' is and put "id-number-from-database" in between double quotes.
 			var petSpecies;
 			if (document.getElementById("speciesRadios1").checked) {
 				petSpecies = "Dog";
 			} else {
 				petSpecies = "Cat";
 			}
-			alert ("ID: " + idNum + "Name:" + document.getElementById("petname_id").value + " Species: " + petSpecies + " Weight: " + document.getElementById("weight_id").value + "Street: " + document.getElementById("street_id").value + " City: " + document.getElementById("city_id").value + " State: " + document.getElementById("state_id").value + " Zip: " + document.getElementById("zip_id").value);
+			//alert ("ID: " + idNum + "Name:" + document.getElementById("petname_id").value + " Species: " + petSpecies + " Weight: " + document.getElementById("weight_id").value + "Street: " + document.getElementById("street_id").value + " City: " + document.getElementById("city_id").value + " State: " + document.getElementById("state_id").value + " Zip: " + document.getElementById("zip_id").value);
 			$.post({
-				url: "../php/update.php",
-				data: {pet_name: document.getElementById("petname_id").value, pet_species: petSpecies, 
-				pet_birthdate: document.getElementById("birthday_id").value, pet_weight: document.getElementById("weight_id").value,
-				pet_street: document.getElementById("street_id").value, pet_city: document.getElementById("city_id").value,
-				pet_state: document.getElementById("state_id").value, pet_zip: document.getElementById("zip_id").value, pet_chip: document.getElementById("chip_id").value, pet_ID: idNum},
+				url: "../php/update_petDB.php",
+				data: {	pet_name: document.getElementById("petname_id").value, 
+						pet_species: petSpecies, 
+						pet_birthdate: document.getElementById("birthday_id").value, 
+						pet_weight: document.getElementById("weight_id").value,
+						pet_street: document.getElementById("street_id").value, 
+						pet_city: document.getElementById("city_id").value,
+						pet_state: document.getElementById("state_id").value, 
+						pet_zip: document.getElementById("zip_id").value, 
+						pet_chip: document.getElementById("chip_id").value, 
+						pet_ID: idNum.options[idNum.selectedIndex].id
+				},
 				success: function(feedback) {
 					alert(feedback);
 				}
@@ -121,7 +121,7 @@
 
 <div class="form-group col-8">
 	<legend class="control-legend" id="select_pet">Select Pet</legend>
-	<select class="form-control" id="select_pet">
+	<select class="form-control" id="select_pet_control">
 
 		<!-- Select Pet Dropdown Options - Goes Here -->
 		<?php comboboxOptions(); ?>
