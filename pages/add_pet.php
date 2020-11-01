@@ -40,6 +40,7 @@
 			var city = document.getElementById("city_id").value;
 			var state = document.getElementById("state_id").value;
 			var zip = document.getElementById("zip_id").value;
+			var chipId = document.getElementById("chip_id").value;
 
 			//send to file to send to DB
 			$.post({
@@ -51,7 +52,9 @@
 						pet_street: street,
 						pet_city: city,
 						pet_state: state,
-						pet_zip: zip
+						pet_zip: zip,
+						pet_chip: chipId
+					
 				}, 
 				success: function() {
 						location.reload();
