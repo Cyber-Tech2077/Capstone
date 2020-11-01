@@ -45,7 +45,35 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
+
+		var idNum = document.getElementById("select_pet_control");
+			$("#select_pet_control").change(function(){
+			$.post({
+				url: "../php/retrieve_pet.php",
+				data: {pet_ID: idNum.options[idNum.selectedIndex].id},
+				success: function(feedback){
+					var json = JSON.parse(feedback);
+					document.getElementById("petname_id").value = json["Name"];
+					if (json["Species"]=="Dog"){
+						document.getElementById("speciesRadios1").checked = true;
+					} else {
+						document.getElementById("speciesRadios2").checked = true;
+					}
+
+					document.getElementById("weight_id").value = json["Weight"];
+					document.getElementById("street_id").value = json["Street"];
+					document.getElementById("city_id").value = json["City"];
+					document.getElementById("state_id").value = json["State"];
+					document.getElementById("zip_id").value = json["Zip"];				
+				}
+				
+			});
+		});
+		
 		$("#update_pet").click(function() {
+
+
+
 			// Here is the select combobox for 'Select pet'
 			var idNum = document.getElementById("select_pet");
 			// Goal: Retrieve the selected index, then use selectedIndex in an array like this: idNum[selectedIndex].
@@ -67,7 +95,7 @@
 				data: {pet_name: document.getElementById("petname_id").value, pet_species: petSpecies, 
 				pet_birthdate: document.getElementById("birthday_id").value, pet_weight: document.getElementById("weight_id").value,
 				pet_street: document.getElementById("street_id").value, pet_city: document.getElementById("city_id").value,
-				pet_state: document.getElementById("state_id").value, pet_zip: document.getElementById("zip_id").value, pet_ID: idNum},
+				pet_state: document.getElementById("state_id").value, pet_zip: document.getElementById("zip_id").value, pet_chip: document.getElementById("chip_id").value, pet_ID: idNum},
 				success: function(feedback) {
 					alert(feedback);
 				}
@@ -132,6 +160,12 @@
 		<label class="col-form-label">Weight in lbs.</label>
 		<input class="form-control" type="number" min="0" step="0.1" pattern="d+(.d{1})?" id="weight_id" placeholder="0.0">
 	</div>
+
+<!-- chipId -->
+<div class="form-group col-sm-10">
+ 		<label class="control-label">Chip ID</label>
+ 		<input type="text" class="form-control col-8" id="chip_id" chipNum="chipId">
+ 	</div>
 
 <!-- Address -->
 	<div class="form-group col-sm-10">
