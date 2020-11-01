@@ -1,9 +1,8 @@
+
 <?php
-                     
-	session_start();
-	include ("../php/headernav.html");
-	include_once("../php/DBConnect.php");
-                     
+	//session_start();
+	include (__DIR__ . "/../php/headernav.html");
+	include_once(__DIR__."/../php/DBConnect.php");
 	function comboboxOptions() {
 		// This php code works, all values come out as normal.
 		// No need to mess with this.
@@ -24,6 +23,7 @@
 		}
 		sqlsrv_close($conn);
 	}
+
 ?>
 
 <!DOCTYPE html>
@@ -45,9 +45,8 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
-
 		var idNum = document.getElementById("select_pet_control");
-			$("#select_pet_control").change(function(){
+		$("#select_pet_control").change(function(){
 			$.post({
 				url: "../php/retrieve_pet.php",
 				data: {pet_ID: idNum.options[idNum.selectedIndex].id},
@@ -64,25 +63,25 @@
 					document.getElementById("street_id").value = json["Street"];
 					document.getElementById("city_id").value = json["City"];
 					document.getElementById("state_id").value = json["State"];
-					document.getElementById("zip_id").value = json["Zip"];	
-					document.getElementById("chip_id").value = json["Chip"];
+					document.getElementById("zip_id").value = json["Zip"];
+					document.getElementById("chip_id").value = json["Chip"];				
 				}
 				
 			});
 		});
 		
 		$("#update_pet").click(function() {
-
-			// Here is the select combobox for 'Select pet'
-			//var idNum = document.getElementById("select_pet");
-
+			// Changed id assocaited with select html element.
 			var petSpecies;
 			if (document.getElementById("speciesRadios1").checked) {
 				petSpecies = "Dog";
 			} else {
 				petSpecies = "Cat";
 			}
-			//alert ("ID: " + idNum + "Name:" + document.getElementById("petname_id").value + " Species: " + petSpecies + " Weight: " + document.getElementById("weight_id").value + "Street: " + document.getElementById("street_id").value + " City: " + document.getElementById("city_id").value + " State: " + document.getElementById("state_id").value + " Zip: " + document.getElementById("zip_id").value);
+			// Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the
+			// selected pet name.
+
+
 			$.post({
 				url: "../php/update_petDB.php",
 				data: {	pet_name: document.getElementById("petname_id").value, 
@@ -94,11 +93,7 @@
 						pet_state: document.getElementById("state_id").value, 
 						pet_zip: document.getElementById("zip_id").value, 
 						pet_chip: document.getElementById("chip_id").value, 
-						pet_ID: idNum.options[idNum.selectedIndex].id
-				},
-				success: function(feedback) {
-					alert(feedback);
-				}
+						pet_ID: idNum.options[idNum.selectedIndex].id}
 			});
 		});
 	});
@@ -121,7 +116,7 @@
 
 <div class="form-group col-8">
 	<legend class="control-legend" id="select_pet">Select Pet</legend>
-	<select class="form-control" id="select_pet_control">
+	<select class="form-control" id="select_pet_control" >
 
 		<!-- Select Pet Dropdown Options - Goes Here -->
 		<?php comboboxOptions(); ?>
@@ -162,7 +157,7 @@
 	</div>
 
 <!-- chipId -->
-<div class="form-group col-sm-10">
+	<div class="form-group col-sm-10">
  		<label class="control-label">Chip ID</label>
  		<input type="text" class="form-control col-8" id="chip_id" chipNum="chipId">
  	</div>
