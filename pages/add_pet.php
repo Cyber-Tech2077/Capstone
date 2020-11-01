@@ -40,7 +40,6 @@
 			var city = document.getElementById("city_id").value;
 			var state = document.getElementById("state_id").value;
 			var zip = document.getElementById("zip_id").value;
-			var chipId = document.getElementById("chip_id").value;
 
 			//send to file to send to DB
 			$.post({
@@ -52,9 +51,7 @@
 						pet_street: street,
 						pet_city: city,
 						pet_state: state,
-						pet_zip: zip,
-						pet_chip: chipId
-					
+						pet_zip: zip
 				}, 
 				success: function() {
 						location.reload();
@@ -117,12 +114,6 @@
 		<label class="col-form-label">Weight in lbs.</label>
 		<input class="form-control" type="number" min="0" step="0.1" pattern="d+(.d{1})?" id="weight_id" placeholder="0.0">
 	</div>
-
-<!-- chipId -->
-<div class="form-group col-sm-10">
- 		<label class="control-label">Chip ID</label>
- 		<input type="text" class="form-control col-8" id="chip_id" chipNum="chipId">
- 	</div>
 
 <!-- Address -->
 	<div class="form-group col-sm-10">
