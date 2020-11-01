@@ -115,6 +115,12 @@
 		<input class="form-control" type="number" min="0" step="0.1" pattern="d+(.d{1})?" id="weight_id" placeholder="0.0">
 	</div>
 
+<!-- chipId -->
+<div class="form-group col-sm-10">
+ 		<label class="control-label">Chip ID</label>
+ 		<input type="text" class="form-control col-8" id="chip_id" chipNum="chipId">
+ 	</div>
+
 <!-- Address -->
 	<div class="form-group col-sm-10">
 		<legend class="control-legend">Address</legend>
