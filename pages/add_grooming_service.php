@@ -1,7 +1,7 @@
 <?php
-    session_start();
+    //session_start();
     include ("../php/headernav.html");
-    include_once("../php/DBConnect.php");
+    include_once ("../php/DBConnect.php");
 
     //Pet Selector
 	function comboboxOptions() {
@@ -21,10 +21,9 @@
 			echo "Throwable Error: " . $e;
 		}
         sqlsrv_close($conn);
-
     }
-        
-?>
+?>       
+
 <!DOCTYPE html>
 <html>
 
@@ -43,44 +42,61 @@
 
 <head>
 </head>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#save_grooming_service").click(function() {
+			
+			//assign form pieces to variables
+            var petChosen = document.getElementById("select_pet_control").selectedIndex;
+			var grooming_date = document.getElementById("grooming_date_id").value;
+
+			//send to file to send to DB
+			$.post({
+                url: "../php/add_gooming_serviceDB.php", 
+                data: {
+                        pet_id: petChosen,
+						serviceDate: grooming_date
+				}            
+			});
+        });        
+    });
+
+</script>
 <body>
 
     <div class="jumbotron jumbotron-sm">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">FORM NAME - CHANGE THIS</h1>
+                <h1 class="h1">Grooming</h1>
             </div>
         </div>
     </div>
     </div>
 
     <div class="form-group col-8">
-	<legend class="control-legend" id="select_pet">Select Pet</legend>
-        <select class="form-control" id="select_pet">
+	<legend class="control-legend" id="select_pet">Select Pet:</legend>
+        <select class="form-control" id="select_pet_control">
 
             <!-- Select Pet Dropdown Options -->
+            <option></option>
             <?php comboboxOptions(); ?>
 
         </select>					
     </div>
 
-    <form>
+    <form method="post">    
+        <!-- Grooming Service Date -->
         <div class="form-group col-sm-10">
-            <legend class="control-legend">Select Date for _[Fill in type]_ Service:</legend>
+            <legend class="control-legend">Date of Grooming Service:</legend>
+            <input class="form-control col-8" type="date" id="grooming_date_id" name="date">
         </div>
-    
-        <!-- Birth Date -->
-        <div class="form-group col-sm-10">
-            <label class="control-label">Service Date:</label>
-            <input class="form-control col-8" type="date" id="service_date_id" name="service_date">
-        </div>
-
     </form>
 
     <!-- Save Button -->
     <div class="form-group text-center">
-        <button class="btn btn-primary" id="save_service">Save</button>
+        <button class="btn btn-primary" id="save_grooming_service">Save</button>
     </div>
 
 </body>
