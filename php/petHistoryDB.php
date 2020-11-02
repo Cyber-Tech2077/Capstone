@@ -1,6 +1,6 @@
 <?php
 
-include_once ("../php/.DBConnectphp");
+include_once ("../php/DBConnect.php");
 //require_once ("../pages/pet_history.php");
 
 
@@ -8,33 +8,40 @@ try
 {
     $conn = databaseConnect("Pet");
 
-    //var_dump($_POST["pet_name"]);
-    $param = array($_POST["pet_id"]);
-    //$param = 5;
     
-    $sql = "SELECT * FROM PetHistory WHERE petId=?";
+    //$param = array($_POST["pet_id"]);
+    $param = array(9);
+    
+    $sql = "SELECT * FROM PetHistory WHERE petId=? ORDER BY date";
     //$stmt = sqlsrv_query($conn, $sql);
     $stmt = sqlsrv_prepare($conn,$sql,$param);
 
     $execute = sqlsrv_execute($stmt);
 
-    $rowKeyValues;
+    $rowKeyValues = array();
     if($execute){
         
-        $num = 0;
-        while($row = sqlsrv_fetch_object($stmt)) {
-            $jsonName = "Service" . $num++;
-            $rowKeyValues = array($jsonName =>$row->serviceName);
-            //$num++;
-
+            //$rowKeyValues = array("Service0" => "No Services");
             
-        }
-        
-    }
+            $num = 0;
+            while($row = sqlsrv_fetch_object($stmt)) {
+                
+                $jsonService = "Service" . $num;
+                $jsonDate = "Date" . $num;
 
-    sqlsrv_close($conn);
+                $instance = array($jsonService =>$row->serviceName, $jsonDate =>$row->date);
+                $rowKeyValues = array_merge($rowKeyValues, $instance);
+
+                $num++;
+            }
+
+        print_r($rowKeyValues);
+    
+    } else {
+        $rowKeyValues = array("Service0" => "No Services");
+    }
         
-    //echo $rowKeyValues;
+    //send array of files to pet_history.php;
     echo json_encode($rowKeyValues);
     
 } catch (Throwable $e) {
@@ -43,6 +50,5 @@ try
     echo "Exception Caught: " . $ee;
 }
 
-    //sqlsrv_close($conn);
-
+sqlsrv_close($conn);
 ?>

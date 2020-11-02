@@ -60,12 +60,22 @@
 				url: "../php/petHistoryDB.php",
 				data: { pet_id: petChosen.options[petChosen.selectedIndex].id },
 				success: function(feedback) {
-					//debugger;
 					
 					var json = JSON.parse(feedback);
+					var length = Object.keys(json);
+
 					//alert(json.length);
-					document.getElementById("row1").innerText = json["Service0"];
+					//document.getElementById("row1").innerText = json["Service0"];
 					//document.getElementById("row2").innerText = json["Service1"];
+
+					if(json["Service0"] === "No Services"){
+						// row will be entered empty
+						alert("No entries!");
+					} else {
+						//cycle through each row
+						var row = 0;
+						alert("It worked!");
+					}
 					
 				},
 				error: function(err) {
@@ -96,7 +106,6 @@
 	<select class="form-control" id="select_pet_control">
 
 		<!-- Select Pet Dropdown Options - Goes Here -->
-		<option value=""></option>
 		<?php comboboxOptions(); ?>
 
 	</select>					
@@ -110,16 +119,12 @@
 <table class="table" id="outputHistory">
 	<thead>
 		<tr>
-			<th scope="col">ID #</th>
+			<th scrop="col">Date</th>
 			<th scope="col">Service</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<th scope="row">1</th>
-			<td id="row1" values=""></td>
-		</tr>
-		
+		<!-- Loop through each entry here -->
 	</tbody>
 </table>
 </div>
