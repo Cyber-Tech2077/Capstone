@@ -63,7 +63,8 @@
 					document.getElementById("street_id").value = json["Street"];
 					document.getElementById("city_id").value = json["City"];
 					document.getElementById("state_id").value = json["State"];
-					document.getElementById("zip_id").value = json["Zip"];				
+					document.getElementById("zip_id").value = json["Zip"];
+					document.getElementById("chip_id").value = json["Chip"];				
 				}
 				
 			});
@@ -91,6 +92,7 @@
 						pet_city: document.getElementById("city_id").value,
 						pet_state: document.getElementById("state_id").value, 
 						pet_zip: document.getElementById("zip_id").value, 
+						pet_chip: document.getElementById("chip_id").value, 
 						pet_ID: idNum.options[idNum.selectedIndex].id}
 			});
 		});
@@ -153,6 +155,12 @@
 		<label class="col-form-label">Weight in lbs.</label>
 		<input class="form-control" type="number" min="0" step="0.1" pattern="d+(.d{1})?" id="weight_id" placeholder="0.0">
 	</div>
+
+<!-- chipId -->
+	<div class="form-group col-sm-10">
+ 		<label class="control-label">Chip ID</label>
+ 		<input type="text" class="form-control col-8" id="chip_id" chipNum="chipId">
+ 	</div>
 
 <!-- Address -->
 	<div class="form-group col-sm-10">
