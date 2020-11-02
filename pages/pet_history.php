@@ -96,6 +96,7 @@
 	<select class="form-control" id="select_pet_control">
 
 		<!-- Select Pet Dropdown Options - Goes Here -->
+		<option value=""></option>
 		<?php comboboxOptions(); ?>
 
 	</select>					
