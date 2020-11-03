@@ -62,7 +62,8 @@
 					var json = JSON.parse(feedback);
 
 					//get amount of rows to print
-					var rowsTotal = (Object.keys(json)).length /2;		//divided by 2, the amount of columns, may increase later
+					var entriesTotal = (Object.keys(json)).length;
+					var rowsTotal =  entriesTotal/2;		//divided by 2, the amount of columns, may increase later
 
 					//make sure table is clear
 					$("#output_body tr").remove(); 
