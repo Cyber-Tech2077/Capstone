@@ -55,7 +55,7 @@
 				}, 
 				success: function() {
 						location.reload();
-						alert("It worked!");
+						alert("Pet added!");
 						//location.reload();
 				},
 				error: function(err) {
