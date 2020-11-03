@@ -43,6 +43,34 @@
 
 <head>
 </head>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			$("#save_service").click(function() {
+				var petName = document.getElementById("select_pet_control");
+				$.post({
+					url: "../php/insertService.php", 
+					data: {petId: petName.options[petName.selectedIndex].id, petName: petName.options[petName.selectedIndex].value, serviceDate: document.getElementById("service_date_id").value}, 
+					success: function(returnValue){
+						alert(returnValue);
+					},
+					error: function(err){
+						alert(err);
+					}
+				});
+				
+			});
+			
+		});
+	
+	
+	</script>
+	
+	
+
+
+
 <body>
 
     <div class="jumbotron jumbotron-sm">
@@ -57,7 +85,7 @@
 
     <div class="form-group col-8">
 	<legend class="control-legend" id="select_pet">Select Pet</legend>
-        <select class="form-control" id="select_pet">
+        <select class="form-control" id="select_pet_control">
 
             <!-- Select Pet Dropdown Options -->
             <?php comboboxOptions(); ?>
