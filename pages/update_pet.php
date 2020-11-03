@@ -95,7 +95,7 @@
 						pet_ID: idNum.options[idNum.selectedIndex].id
 				}, 
 				success: function() {
-					location.reload();
+					//location.reload();
 					alert("Update saved");
 				}
 			});
