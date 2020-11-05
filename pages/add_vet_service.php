@@ -51,7 +51,7 @@
 				var petName = document.getElementById("select_pet_control");
 				$.post({
 					url: "../php/insertService.php", 
-					data: {petId: petName.options[petName.selectedIndex].id, petName: petName.options[petName.selectedIndex].value, serviceDate: document.getElementById("service_date_id").value}, 
+					data: {petId: petName.options[petName.selectedIndex].id, petName: "Veterinary", serviceDate: document.getElementById("service_date_id").value}, 
 					success: function(returnValue){
 						alert(returnValue);
 					},
