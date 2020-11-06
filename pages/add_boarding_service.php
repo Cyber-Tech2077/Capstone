@@ -53,12 +53,12 @@
             var petChosen = document.getElementById("select_pet_control").selectedIndex;
             
             $.post({
-                url: "../php/add_boardingDB.php",
+                url: "../php/add_boarding_serviceDB.php",
                 data: {
                     service_date: startDate,
                     pet_id: petChosen
                 }, success: function() {
-                    alert("Page sent to php");
+                    alert("Boarding service added!");
                 }, error: function(err){
                     alert("Err " + err);
                 }

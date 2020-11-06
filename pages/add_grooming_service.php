@@ -58,7 +58,7 @@
                         pet_id: petChosen,
 						serviceDate: grooming_date
                     }, success: function() {
-                    alert("Page sent to php");
+                    alert("Grooming service added!");
                 }, error: function(err){
                     alert("Err " + err);
                 }            
