@@ -9,9 +9,10 @@ try
     $conn = databaseConnect("Pet");
 
     
-    $param = array($_POST["pet_id"]);
+    //$param = array($_POST["pet_id"]);
+    $param = array(9);
     
-    $sql = "SELECT * FROM PetHistory WHERE petId=? ORDER BY date DESC";
+    $sql = "SELECT * FROM PetHistory WHERE petId=? ORDER BY date";
     //$stmt = sqlsrv_query($conn, $sql);
     $stmt = sqlsrv_prepare($conn,$sql,$param);
 
@@ -28,15 +29,13 @@ try
                 $jsonService = "Service" . $num;
                 $jsonDate = "Date" . $num;
 
-                //change date format to string
-                $sqlDate = $row->date;
-                $dateString =$sqlDate->format('Y-m-d');
-
-                $instance = array($jsonService =>$row->serviceName, $jsonDate =>$dateString);
+                $instance = array($jsonService =>$row->serviceName, $jsonDate =>$row->date);
                 $rowKeyValues = array_merge($rowKeyValues, $instance);
 
                 $num++;
             }
+
+        print_r($rowKeyValues);
     
     } else {
         $rowKeyValues = array("Service0" => "No Services");
