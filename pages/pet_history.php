@@ -1,3 +1,4 @@
+
 <?php
 	
 	include ("../php/headernav.html");
@@ -53,34 +54,29 @@
 
 			var petChosen = document.getElementById("select_pet_control");
 
+			//alert(pet);
+
 			$.post({
 				url: "../php/petHistoryDB.php",
 				data: { pet_id: petChosen.options[petChosen.selectedIndex].id },
 				success: function(feedback) {
-
-					//Read entries pulled
+					
 					var json = JSON.parse(feedback);
+					var length = Object.keys(json);
 
-					//get amount of rows to print
-					var entriesTotal = (Object.keys(json)).length;
-					var rowsTotal =  entriesTotal/2;		//divided by 2, the amount of columns, may increase later
+					//alert(json.length);
+					//document.getElementById("row1").innerText = json["Service0"];
+					//document.getElementById("row2").innerText = json["Service1"];
 
-					//make sure table is clear
-					$("#output_body tr").remove(); 
-
-					//loop through array to make new row for each service with date
-					var tbodyRef = document.getElementById('output_body');
-
-					for(var row = 0; row < rowsTotal; row++) {
-						var newRow = tbodyRef.insertRow(newRow);
-
-						var cell1 = newRow.insertCell(0);
-						var cell2 = newRow.insertCell(1);
-
-						cell1.innerHTML = json["Date" + row];
-						cell2.innerHTML = json["Service" + row];
+					if(json["Service0"] === "No Services"){
+						// row will be entered empty
+						alert("No entries!");
+					} else {
+						//cycle through each row
+						var row = 0;
+						alert("It worked!");
 					}
-
+					
 				},
 				error: function(err) {
 					alert("Err " + err);
@@ -128,7 +124,7 @@
 			<th scope="col">Service</th>
 		</tr>
 	</thead>
-	<tbody id="output_body">
+	<tbody>
 		<!-- Loop through each entry here -->
 	</tbody>
 </table>

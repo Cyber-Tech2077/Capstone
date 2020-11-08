@@ -1,4 +1,4 @@
-<<?php
+<?php
     session_start();
     include ("../php/headernav.html");
     include_once("../php/DBConnect.php");
@@ -73,7 +73,7 @@
     </div>
 
     <div class="form-group col-8">
-	<legend class="control-legend" id="select_pet">Select Pet</legend>
+	<legend class="control-legend" id="select_pet">Pet Name</legend>
         <select class="form-control" id="select_pet_control">
 
             <!-- Select Pet Dropdown Options -->
@@ -84,13 +84,9 @@
     </div>
 
     <form>
+         <!-- Birth Date -->
         <div class="form-group col-sm-10">
-            <legend class="control-legend">Select Date for Veterinary Service:</legend>
-        </div>
-    
-        <!-- Birth Date -->
-        <div class="form-group col-sm-10">
-            <label class="control-label">Service Date:</label>
+            <legend class="control-legend">Date of Veterinary Service</legend>
             <input class="form-control col-8" type="date" id="service_date_id" name="service_date">
         </div>
 
