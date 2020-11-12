@@ -22,6 +22,6 @@
     echo json_encode($arrkeyvalues);
 
     } catch (Throwable $e){	
-    echo "Throwable error " . $e;
+        echo "Throwable error " . $e;
     }
 ?>

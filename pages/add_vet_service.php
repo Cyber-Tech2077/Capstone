@@ -23,6 +23,27 @@
         sqlsrv_close($conn);
 
     }
+
+    //Vet Selector
+	function chooseLocation() {
+		$conn = databaseConnect("Pet");
+		try {
+			$sql = "select id, businessName from Locations WHERE vetChecked = 1";
+			$stmt = sqlsrv_query($conn, $sql);
+			if ($stmt === false) {
+				echo "Error Occurred: " . sqlsrv_errors();
+			} else {
+				$storeValueId;
+				while ($row = sqlsrv_fetch_object($stmt)) {
+					echo "<option id = " . $row->id . " value = " . $row->businessName . ">" . $row->businessName . "</option>";
+				}
+			}
+		} catch (Throwable $e) {
+			echo "Throwable Error: " . $e;
+		}
+        sqlsrv_close($conn);
+
+    }
         
 ?>
 <!DOCTYPE html>
@@ -46,10 +67,16 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#save_service").click(function() {
-            var pet = document.getElementById("select_pet_control");
+            //petChosen.options[petChosen.selectedIndex].id
+            var pet = (document.getElementById("select_pet_control")).selectedIndex;
+            var location = document.getElementById("select_location_control");
+
 			$.post({
 				url: "../php/add_vet_serviceDB.php", 
-				data: {petId: pet.selectedIndex, serviceDate: document.getElementById("service_date_id").value}, 
+                data: { petId: pet, 
+                        serviceDate: document.getElementById("service_date_id").value,
+                        locationId: location.options[location.selectedIndex].id
+                    }, 
 				success: function(){
 					alert("Veterinary service added!");
 				},
@@ -84,6 +111,17 @@
     </div>
 
     <form>
+        <div class="form-group col-8">
+        <legend class="control-legend" id="select_location">Vet Location</legend>
+            <select class="form-control" id="select_location_control">
+
+                <!-- Select Location Dropdown Options -->
+                <option value=""></option>
+                <?php chooseLocation(); ?>
+
+            </select>					
+        </div>
+
          <!-- Birth Date -->
         <div class="form-group col-sm-10">
             <legend class="control-legend">Date of Veterinary Service</legend>

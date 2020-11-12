@@ -105,11 +105,11 @@
 				<label class="custom-control-label" for="vetservice_id">Veterinary</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-3">	<!-- Boarding Service -->
-				<input type="checkbox" class="custom-control-input" id="boardingservice_id" value="" disabled>
+				<input type="checkbox" class="custom-control-input" id="boardingservice_id" value="" >
 				<label class="custom-control-label" for="boardingservice_id">Boarding</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-3">	<!-- Grooming Service -->
-				<input type="checkbox" class="custom-control-input" id="groomingservice_id" value="" disabled>
+				<input type="checkbox" class="custom-control-input" id="groomingservice_id" value="" >
 				<label class="custom-control-label" for="groomingservice_id">Grooming</label>
 			</div>
 		</div>
