@@ -1,3 +1,4 @@
+
 <?php
 	
 	include ("../php/headernav.html");
@@ -53,17 +54,19 @@
 
 			var petChosen = document.getElementById("select_pet_control");
 
+			//alert(pet);
+
 			$.post({
 				url: "../php/petHistoryDB.php",
 				data: { pet_id: petChosen.options[petChosen.selectedIndex].id },
 				success: function(feedback) {
-
+					
 					//Read entries pulled
 					var json = JSON.parse(feedback);
 
 					//get amount of rows to print
 					var entriesTotal = (Object.keys(json)).length;
-					var rowsTotal =  entriesTotal/2;		//divided by 2, the amount of columns, may increase later
+					var rowsTotal =  entriesTotal/3;		//divided by 3, the amount of columns, may increase later
 
 					//make sure table is clear
 					$("#output_body tr").remove(); 
@@ -72,13 +75,17 @@
 					var tbodyRef = document.getElementById('output_body');
 
 					for(var row = 0; row < rowsTotal; row++) {
-						var newRow = tbodyRef.insertRow(newRow);
+						var newRow = tbodyRef.insertRow(row);
 
 						var cell1 = newRow.insertCell(0);
 						var cell2 = newRow.insertCell(1);
+						var cell3 = newRow.insertCell(2);
 
 						cell1.innerHTML = json["Date" + row];
 						cell2.innerHTML = json["Service" + row];
+
+						cell3.id = "loc" + row;
+						GetLocationName(json["Location" + row], row);
 					}
 
 				},
@@ -90,6 +97,21 @@
 		});
 
 	});
+
+	function GetLocationName(locationId, row) {
+		$.post({
+			url: "../php/pet_history_get_locationDB.php",
+			data: { id : locationId },
+			success: function(feedback){
+				var json = JSON.parse(feedback);
+				var cell = document.getElementById("loc" + row);
+				cell.innerHTML = json["Location"];
+			},
+			error: function(err) {
+				alert("Err " + err);
+			}
+		});
+	}
 
 </script>
 
@@ -126,6 +148,7 @@
 		<tr>
 			<th scrop="col">Date</th>
 			<th scope="col">Service</th>
+			<th scope="col">Location</th>
 		</tr>
 	</thead>
 	<tbody id="output_body">

@@ -58,7 +58,7 @@
                     service_date: startDate,
                     pet_id: petChosen
                 }, success: function() {
-                    alert("Boarding service added!");
+                    alert("Page sent to php");
                 }, error: function(err){
                     alert("Err " + err);
                 }
@@ -76,14 +76,14 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">Boarding Service</h1>
+                <h1 class="h1">Add a Boarding Service</h1>
             </div>
         </div>
     </div>
     </div>
 
     <div class="form-group col-8">
-	<legend class="control-legend" id="select_pet">Select Pet</legend>
+	    <legend class="control-legend" id="select_pet">Pet Name</legend>
         <select class="form-control" id="select_pet_control">
 
             <!-- Select Pet Dropdown Options -->
@@ -94,13 +94,9 @@
     </div>
 
     <form>
-        <div class="form-group col-sm-10">
-            <legend class="control-legend">Select Start Date for Boarding Service:</legend>
-        </div>
-    
         <!-- Service Date -->
         <div class="form-group col-sm-10">
-            <label class="control-label">Service Date:</label>
+            <legend class="control-legend">Start Date for Boarding Service</legend>
             <input class="form-control col-8" type="date" id="service_date_id" name="service_date">
         </div>
 
