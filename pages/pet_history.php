@@ -1,4 +1,3 @@
-
 <?php
 	
 	include ("../php/headernav.html");
@@ -54,19 +53,34 @@
 
 			var petChosen = document.getElementById("select_pet_control");
 
-			//alert(pet);
-
 			$.post({
 				url: "../php/petHistoryDB.php",
 				data: { pet_id: petChosen.options[petChosen.selectedIndex].id },
 				success: function(feedback) {
-					//debugger;
-					
+
+					//Read entries pulled
 					var json = JSON.parse(feedback);
-					//alert(json.length);
-					document.getElementById("row1").innerText = json["Service0"];
-					//document.getElementById("row2").innerText = json["Service1"];
-					
+
+					//get amount of rows to print
+					var entriesTotal = (Object.keys(json)).length;
+					var rowsTotal =  entriesTotal/2;		//divided by 2, the amount of columns, may increase later
+
+					//make sure table is clear
+					$("#output_body tr").remove(); 
+
+					//loop through array to make new row for each service with date
+					var tbodyRef = document.getElementById('output_body');
+
+					for(var row = 0; row < rowsTotal; row++) {
+						var newRow = tbodyRef.insertRow(newRow);
+
+						var cell1 = newRow.insertCell(0);
+						var cell2 = newRow.insertCell(1);
+
+						cell1.innerHTML = json["Date" + row];
+						cell2.innerHTML = json["Service" + row];
+					}
+
 				},
 				error: function(err) {
 					alert("Err " + err);
@@ -96,6 +110,7 @@
 	<select class="form-control" id="select_pet_control">
 
 		<!-- Select Pet Dropdown Options - Goes Here -->
+		<option value=""></option>
 		<?php comboboxOptions(); ?>
 
 	</select>					
@@ -109,16 +124,12 @@
 <table class="table" id="outputHistory">
 	<thead>
 		<tr>
-			<th scope="col">ID #</th>
+			<th scrop="col">Date</th>
 			<th scope="col">Service</th>
 		</tr>
 	</thead>
-	<tbody>
-		<tr>
-			<th scope="row">1</th>
-			<td id="row1" values=""></td>
-		</tr>
-		
+	<tbody id="output_body">
+		<!-- Loop through each entry here -->
 	</tbody>
 </table>
 </div>

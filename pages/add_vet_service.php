@@ -1,4 +1,4 @@
-<?php
+<<?php
     session_start();
     include ("../php/headernav.html");
     include_once("../php/DBConnect.php");
@@ -43,13 +43,30 @@
 
 <head>
 </head>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#save_service").click(function() {
+            var pet = document.getElementById("select_pet_control");
+			$.post({
+				url: "../php/add_vet_serviceDB.php", 
+				data: {petId: pet.selectedIndex, serviceDate: document.getElementById("service_date_id").value}, 
+				success: function(){
+					alert("Veterinary service added!");
+				},
+				error: function(err){
+					alert("Javscript Error: " + err);
+				}
+			});
+        });
+    });
+</script>
 <body>
 
     <div class="jumbotron jumbotron-sm">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">FORM NAME - CHANGE THIS</h1>
+                <h1 class="h1">Add Veterinary Service</h1>
             </div>
         </div>
     </div>
@@ -57,9 +74,10 @@
 
     <div class="form-group col-8">
 	<legend class="control-legend" id="select_pet">Select Pet</legend>
-        <select class="form-control" id="select_pet">
+        <select class="form-control" id="select_pet_control">
 
             <!-- Select Pet Dropdown Options -->
+            <option value=""></option>
             <?php comboboxOptions(); ?>
 
         </select>					
@@ -67,7 +85,7 @@
 
     <form>
         <div class="form-group col-sm-10">
-            <legend class="control-legend">Select Date for _[Fill in type]_ Service:</legend>
+            <legend class="control-legend">Select Date for Veterinary Service:</legend>
         </div>
     
         <!-- Birth Date -->

@@ -42,13 +42,41 @@
 
 <head>
 </head>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $("#save_service").click(function(){
+
+            var startDate = document.getElementById("service_date_id").value;
+            var petChosen = document.getElementById("select_pet_control").selectedIndex;
+            
+            $.post({
+                url: "../php/add_boarding_serviceDB.php",
+                data: {
+                    service_date: startDate,
+                    pet_id: petChosen
+                }, success: function() {
+                    alert("Boarding service added!");
+                }, error: function(err){
+                    alert("Err " + err);
+                }
+            });
+
+        });
+
+    });
+
+</script>
+
 <body>
 
     <div class="jumbotron jumbotron-sm">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">FORM NAME - CHANGE THIS</h1>
+                <h1 class="h1">Boarding Service</h1>
             </div>
         </div>
     </div>
@@ -56,9 +84,10 @@
 
     <div class="form-group col-8">
 	<legend class="control-legend" id="select_pet">Select Pet</legend>
-        <select class="form-control" id="select_pet">
+        <select class="form-control" id="select_pet_control">
 
             <!-- Select Pet Dropdown Options -->
+            <option value=""></option>
             <?php comboboxOptions(); ?>
 
         </select>					
@@ -66,10 +95,10 @@
 
     <form>
         <div class="form-group col-sm-10">
-            <legend class="control-legend">Select Date for _[Fill in type]_ Service:</legend>
+            <legend class="control-legend">Select Start Date for Boarding Service:</legend>
         </div>
     
-        <!-- Birth Date -->
+        <!-- Service Date -->
         <div class="form-group col-sm-10">
             <label class="control-label">Service Date:</label>
             <input class="form-control col-8" type="date" id="service_date_id" name="service_date">

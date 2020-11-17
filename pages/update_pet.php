@@ -1,4 +1,3 @@
-
 <?php
 	//session_start();
 	include (__DIR__ . "/../php/headernav.html");
@@ -93,7 +92,12 @@
 						pet_state: document.getElementById("state_id").value, 
 						pet_zip: document.getElementById("zip_id").value, 
 						pet_chip: document.getElementById("chip_id").value, 
-						pet_ID: idNum.options[idNum.selectedIndex].id}
+						pet_ID: idNum.options[idNum.selectedIndex].id
+				}, 
+				success: function() {
+					//location.reload();
+					alert("Update saved");
+				}
 			});
 		});
 	});
@@ -119,6 +123,7 @@
 	<select class="form-control" id="select_pet_control" >
 
 		<!-- Select Pet Dropdown Options - Goes Here -->
+		<option value=""></option>
 		<?php comboboxOptions(); ?>
 
 	</select>					
