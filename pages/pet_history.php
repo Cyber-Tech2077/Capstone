@@ -66,7 +66,7 @@
 
 					//get amount of rows to print
 					var entriesTotal = (Object.keys(json)).length;
-					var rowsTotal =  entriesTotal/3;		//divided by 3, the amount of columns, may increase later
+					var rowsTotal =  entriesTotal/4;		//divided by 4, the amount of columns, may increase later
 
 					//make sure table is clear
 					$("#output_body tr").remove(); 
@@ -80,12 +80,15 @@
 						var cell1 = newRow.insertCell(0);
 						var cell2 = newRow.insertCell(1);
 						var cell3 = newRow.insertCell(2);
+						var cell4 = newRow.insertCell(3);
 
 						cell1.innerHTML = json["Date" + row];
 						cell2.innerHTML = json["Service" + row];
 
 						cell3.id = "loc" + row;
 						GetLocationName(json["Location" + row], row);
+
+						cell4.innerHTML = "text here";
 					}
 
 				},
@@ -149,6 +152,7 @@
 			<th scrop="col">Date</th>
 			<th scope="col">Service</th>
 			<th scope="col">Location</th>
+			<th scope="col">Details</th>
 		</tr>
 	</thead>
 	<tbody id="output_body">
