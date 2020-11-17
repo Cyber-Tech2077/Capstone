@@ -36,11 +36,7 @@
     </div>
   </div>
 </nav>
-</div> 
-
-  <?php
-    include ("./page-navigation/home-navbar.html");
-  ?>
+</div>
   
   <div class="jumbotron jumbotron-sm">
     <div class="container">
