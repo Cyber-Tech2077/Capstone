@@ -64,7 +64,6 @@
 					}, 
 				success: function() {
 						$('#addition_successful').modal();
-						// location.reload();
 
 				},
 				error: function(err) {

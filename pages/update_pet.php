@@ -107,7 +107,6 @@
 				}, 
 				success: function() {
 					$('#update_successful').modal();
-					// location.reload();
 				}
 			});
 		});
