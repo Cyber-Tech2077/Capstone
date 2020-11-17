@@ -67,8 +67,8 @@
 						pet_chip: chipId
 				}, 
 				success: function() {
-					location.reload();
 					$('#addition_successful').modal();
+					// location.reload();
 				},
 				error: function(err) {
 					alert("Err " + err);

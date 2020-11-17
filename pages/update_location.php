@@ -114,8 +114,8 @@ $(document).ready(function() {
 						location_ID: idNum.options[idNum.selectedIndex].id
 				}, 
 				success: function() {
-						location.reload();
 						$('#update_successful').modal();				
+						// location.reload();
 				}            
 			});
         });    

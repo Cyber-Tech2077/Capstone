@@ -63,8 +63,8 @@
 						business_boardservice: boardingserivce,
 					}, 
 				success: function() {
-						location.reload();
 						$('#addition_successful').modal();
+						// location.reload();
 
 				},
 				error: function(err) {
