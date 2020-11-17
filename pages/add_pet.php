@@ -21,9 +21,56 @@
 
 <script type="text/javascript">
 
-<?php
-    include ("../page-navigation/seperate-navbar.html");
-?>
+    $(document).ready(function() {
+        $("#addPet").click(function() {
+			
+			//assign form pieces to variables
+			var name = document.getElementById("petname_id").value;
+			var speciesRadios = document.getElementsByName("speciesRadios");	//array of different radio buttons
+			for(var i = 0;i < speciesRadios.length;i++){
+				if(speciesRadios[i].checked) {
+					var species = speciesRadios[i].value;
+					break;
+				}
+			}
+			var birthdate = document.getElementById("birthday_id").value;
+			var weight = document.getElementById("weight_id").value;
+			var street = document.getElementById("street_id").value;
+			var city = document.getElementById("city_id").value;
+			var state = document.getElementById("state_id").value;
+			var zip = document.getElementById("zip_id").value;
+			var chipId = document.getElementById("chip_id").value;
+
+			//send to file to send to DB
+			$.post({
+                url: "../php/add_petDB.php", 
+                data: {	pet_name: name,
+						pet_species: species,
+						pet_birthday: birthdate,
+						pet_weight: weight,
+						pet_street: street,
+						pet_city: city,
+						pet_state: state,
+						pet_zip: zip,
+						pet_chip: chipId
+					
+				}, 
+				success: function() {
+						location.reload();
+						alert("It worked!");
+						//location.reload();
+				},
+				error: function(err) {
+					alert("Err " + err);
+				}
+            
+			});
+        });
+        
+    });
+</script>
+
+<body>
  
 <div class="jumbotron jumbotron-sm">
   <div class="container">
@@ -93,57 +140,9 @@
 	<div class="form-group col-8"> <!-- State  -->
 		<label class="control-label">State</label>
 		<select class="form-control" id="state_id">
-			<option value="AL">Alabama</option>
-			<option value="AK">Alaska</option>
-			<option value="AZ">Arizona</option>
-			<option value="AR">Arkansas</option>
-			<option value="CA">California</option>
-			<option value="CO">Colorado</option>
-			<option value="CT">Connecticut</option>
-			<option value="DE">Delaware</option>
-			<option value="DC">District Of Columbia</option>
-			<option value="FL">Florida</option>
-			<option value="GA">Georgia</option>
-			<option value="HI">Hawaii</option>
-			<option value="ID">Idaho</option>
-			<option value="IL">Illinois</option>
-			<option value="IN">Indiana</option>
-			<option value="IA">Iowa</option>
-			<option value="KS">Kansas</option>
-			<option value="KY">Kentucky</option>
-			<option value="LA">Louisiana</option>
-			<option value="ME">Maine</option>
-			<option value="MD">Maryland</option>
-			<option value="MA">Massachusetts</option>
-			<option value="MI">Michigan</option>
-			<option value="MN">Minnesota</option>
-			<option value="MS">Mississippi</option>
-			<option value="MO">Missouri</option>
-			<option value="MT">Montana</option>
-			<option value="NE">Nebraska</option>
-			<option value="NV">Nevada</option>
-			<option value="NH">New Hampshire</option>
-			<option value="NJ">New Jersey</option>
-			<option value="NM">New Mexico</option>
-			<option value="NY">New York</option>
-			<option value="NC">North Carolina</option>
-			<option value="ND">North Dakota</option>
-			<option value="OH">Ohio</option>
-			<option value="OK">Oklahoma</option>
-			<option value="OR">Oregon</option>
-			<option value="PA">Pennsylvania</option>
-			<option value="RI">Rhode Island</option>
-			<option value="SC">South Carolina</option>
-			<option value="SD">South Dakota</option>
-			<option value="TN">Tennessee</option>
-			<option value="TX">Texas</option>
-			<option value="UT">Utah</option>
-			<option value="VT">Vermont</option>
-			<option value="VA">Virginia</option>
-			<option value="WA">Washington</option>
-			<option value="WV">West Virginia</option>
-			<option value="WI">Wisconsin</option>
-			<option value="WY">Wyoming</option>
+		<?php
+    	include (__DIR__ . "/../php/data_lists/states.html");
+		?>
 		</select>					
 	</div>
 	

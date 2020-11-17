@@ -11,7 +11,7 @@ try
     
     $param = array($_POST["pet_id"]);
     
-    $sql = "SELECT * FROM PetHistory WHERE petId=? ORDER BY date DESC";
+    $sql = "SELECT * FROM PetHistory WHERE petId=? ORDER BY date";
     //$stmt = sqlsrv_query($conn, $sql);
     $stmt = sqlsrv_prepare($conn,$sql,$param);
 
@@ -27,12 +27,17 @@ try
                 
                 $jsonService = "Service" . $num;
                 $jsonDate = "Date" . $num;
+                $jsonLocation = "Location" . $num;
 
                 //change date format to string
                 $sqlDate = $row->date;
                 $dateString =$sqlDate->format('Y-m-d');
 
-                $instance = array($jsonService =>$row->serviceName, $jsonDate =>$dateString);
+                $instance = array(
+                                    $jsonService =>$row->serviceName, 
+                                    $jsonDate =>$dateString, 
+                                    $jsonLocation =>$row->locationId
+                                );
                 $rowKeyValues = array_merge($rowKeyValues, $instance);
 
                 $num++;
@@ -41,6 +46,8 @@ try
     } else {
         $rowKeyValues = array("Service0" => "No Services");
     }
+
+    //print_r($rowKeyValues);
         
     //send array of files to pet_history.php;
     echo json_encode($rowKeyValues);
