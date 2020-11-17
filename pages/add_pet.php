@@ -1,5 +1,6 @@
 <?php
-    include (__DIR__ . "/../php/headernav.html");
+	include (__DIR__ . "/../php/headernav.html");
+	include (__DIR__ . "/../php/modals/Modals.html");
 ?>
 
 <!DOCTYPE html>
@@ -20,19 +21,30 @@
 </head>
 
 <script type="text/javascript">
-
     $(document).ready(function() {
+		//Toggle Other Species Text Input
+		$(function() {
+    		$('input[name="speciesRadios"]').on('click', function() {
+        		if ($(this).val() == '') {
+            		$('#speciesRadiosOther').show();
+        		}else {
+            		$('#speciesRadiosOther').hide();
+        		}
+    		});
+		});
+
         $("#addPet").click(function() {
-			
 			//assign form pieces to variables
 			var name = document.getElementById("petname_id").value;
-			var speciesRadios = document.getElementsByName("speciesRadios");	//array of different radio buttons
-			for(var i = 0;i < speciesRadios.length;i++){
-				if(speciesRadios[i].checked) {
-					var species = speciesRadios[i].value;
-					break;
-				}
+
+			if (document.getElementById("speciesRadios1").checked) {
+				var species = document.getElementById("speciesRadios1").value
+			}else if (document.getElementById("speciesRadios2").checked){
+				var species = document.getElementById("speciesRadios2").value
+			}else{
+				var species = document.getElementById("speciesRadiosOther").value
 			}
+
 			var birthdate = document.getElementById("birthday_id").value;
 			var weight = document.getElementById("weight_id").value;
 			var street = document.getElementById("street_id").value;
@@ -53,12 +65,10 @@
 						pet_state: state,
 						pet_zip: zip,
 						pet_chip: chipId
-					
 				}, 
 				success: function() {
-						location.reload();
-						alert("Pet added!");
-						//location.reload();
+					location.reload();
+					$('#addition_successful').modal();
 				},
 				error: function(err) {
 					alert("Err " + err);
@@ -66,7 +76,6 @@
             
 			});
         });
-        
     });
 </script>
 
@@ -95,14 +104,16 @@
 <!-- Species -->
 	<div class="form-group col-sm-10">
 		<label class="col-form-label">Species</label>
-	    <div class="form-check">
-			<label class="form-check-label">
-			<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="dog" checked>Dog</label>
+	    <div class="form-check form-inline">
+			<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="Dog"><label class="form-check-label m-2">Dog</label>
   		</div>
-    	<div class="form-check">
-    		<label class="form-check-label">
-    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="cat">Cat</label>
+    	<div class="form-check form-inline">
+    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="Cat"><label class="form-check-label m-2">Cat</label>
     	</div>
+		<div class="form-check form-inline">
+    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios3" value=""><label class="form-check-label m-2">Other</label>
+			<input class="form-control col-4" type="text" id="speciesRadiosOther" style="display: none">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+		</div>
   	</div>
 
 <!-- Birth Date -->
@@ -140,57 +151,9 @@
 	<div class="form-group col-8"> <!-- State  -->
 		<label class="control-label">State</label>
 		<select class="form-control" id="state_id">
-			<option value="AL">Alabama</option>
-			<option value="AK">Alaska</option>
-			<option value="AZ">Arizona</option>
-			<option value="AR">Arkansas</option>
-			<option value="CA">California</option>
-			<option value="CO">Colorado</option>
-			<option value="CT">Connecticut</option>
-			<option value="DE">Delaware</option>
-			<option value="DC">District Of Columbia</option>
-			<option value="FL">Florida</option>
-			<option value="GA">Georgia</option>
-			<option value="HI">Hawaii</option>
-			<option value="ID">Idaho</option>
-			<option value="IL">Illinois</option>
-			<option value="IN">Indiana</option>
-			<option value="IA">Iowa</option>
-			<option value="KS">Kansas</option>
-			<option value="KY">Kentucky</option>
-			<option value="LA">Louisiana</option>
-			<option value="ME">Maine</option>
-			<option value="MD">Maryland</option>
-			<option value="MA">Massachusetts</option>
-			<option value="MI">Michigan</option>
-			<option value="MN">Minnesota</option>
-			<option value="MS">Mississippi</option>
-			<option value="MO">Missouri</option>
-			<option value="MT">Montana</option>
-			<option value="NE">Nebraska</option>
-			<option value="NV">Nevada</option>
-			<option value="NH">New Hampshire</option>
-			<option value="NJ">New Jersey</option>
-			<option value="NM">New Mexico</option>
-			<option value="NY">New York</option>
-			<option value="NC">North Carolina</option>
-			<option value="ND">North Dakota</option>
-			<option value="OH">Ohio</option>
-			<option value="OK">Oklahoma</option>
-			<option value="OR">Oregon</option>
-			<option value="PA">Pennsylvania</option>
-			<option value="RI">Rhode Island</option>
-			<option value="SC">South Carolina</option>
-			<option value="SD">South Dakota</option>
-			<option value="TN">Tennessee</option>
-			<option value="TX">Texas</option>
-			<option value="UT">Utah</option>
-			<option value="VT">Vermont</option>
-			<option value="VA">Virginia</option>
-			<option value="WA">Washington</option>
-			<option value="WV">West Virginia</option>
-			<option value="WI">Wisconsin</option>
-			<option value="WY">Wyoming</option>
+		<?php
+    	include (__DIR__ . "/../php/data_lists/states.html");
+		?>
 		</select>					
 	</div>
 	

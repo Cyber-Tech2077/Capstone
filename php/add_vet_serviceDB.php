@@ -4,12 +4,16 @@ require_once "./DBConnect.php";
 
 $connection = databaseConnect("Pet");
 try {
-	$sql = "Insert into PetHistory (petId, serviceName, date) values (?, ?, ?)";
-$statement = sqlsrv_prepare($connection, $sql, array($_POST["petId"], "Veterinary", $_POST["serviceDate"]) );
-$final = sqlsrv_execute($statement);
-if ($final === false){
-	return "SQL Server Error: " . sqlsrv_errors();
-}
+	$sql = "Insert into PetHistory (petId, serviceName, date, locationId) values (?, ?, ?, ?)";
+
+	$params = array($_POST["petId"], "Veterinary", $_POST["serviceDate"], $_POST["locationId"]);
+
+	$statement = sqlsrv_prepare($connection, $sql, $params);
+	$final = sqlsrv_execute($statement);
+
+	if ($final === false){
+		return "SQL Server Error: " . sqlsrv_errors();
+	}
 
 } catch (Throwable $e) {
 	return "Throwable error: " . $e;

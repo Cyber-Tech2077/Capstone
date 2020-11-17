@@ -58,7 +58,7 @@
                         pet_id: petChosen,
 						serviceDate: grooming_date
                     }, success: function() {
-                    alert("Grooming service added!");
+                    alert("Page sent to php");
                 }, error: function(err){
                     alert("Err " + err);
                 }            
@@ -73,14 +73,14 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">Grooming</h1>
+                <h1 class="h1">Add a Grooming Service</h1>
             </div>
         </div>
     </div>
     </div>
 
     <div class="form-group col-8">
-	<legend class="control-legend" id="select_pet">Select Pet:</legend>
+	<legend class="control-legend" id="select_pet">Pet Name</legend>
         <select class="form-control" id="select_pet_control">
 
             <!-- Select Pet Dropdown Options -->
@@ -93,7 +93,7 @@
     <form method="post">    
         <!-- Grooming Service Date -->
         <div class="form-group col-sm-10">
-            <legend class="control-legend">Date of Grooming Service:</legend>
+            <legend class="control-legend">Date of Grooming Service</legend>
             <input class="form-control col-8" type="date" id="grooming_date_id" name="date">
         </div>
     </form>

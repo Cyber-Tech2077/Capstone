@@ -2,6 +2,8 @@
 	//session_start();
 	include (__DIR__ . "/../php/headernav.html");
 	include_once(__DIR__."/../php/DBConnect.php");
+	include (__DIR__ . "/../php/modals/Modals.html");
+
 	function comboboxOptions() {
 		// This php code works, all values come out as normal.
 		// No need to mess with this.
@@ -46,6 +48,7 @@
 	$(document).ready(function() {
 		var idNum = document.getElementById("select_pet_control");
 		$("#select_pet_control").change(function(){
+			document.getElementById("speciesRadiosOther").value = ""
 			$.post({
 				url: "../php/retrieve_pet.php",
 				data: {pet_ID: idNum.options[idNum.selectedIndex].id},
@@ -54,10 +57,17 @@
 					document.getElementById("petname_id").value = json["Name"];
 					if (json["Species"]=="Dog"){
 						document.getElementById("speciesRadios1").checked = true;
-					} else {
+					} else if (json["Species"]=="Cat"){
 						document.getElementById("speciesRadios2").checked = true;
+					}else{
+						document.getElementById("speciesRadios3").checked = true;
+						document.getElementById("speciesRadiosOther").value = json["Species"];
+						$('#speciesRadiosOther').show();
 					}
-
+					//  .toISOString().slice(0, 19).replace('T', ' ');
+					//  JSON.stringify(exampleObj)
+					
+					document.getElementById("birthday_id").value = json["Birthdate"];
 					document.getElementById("weight_id").value = json["Weight"];
 					document.getElementById("street_id").value = json["Street"];
 					document.getElementById("city_id").value = json["City"];
@@ -71,15 +81,16 @@
 		
 		$("#update_pet").click(function() {
 			// Changed id assocaited with select html element.
-			var petSpecies;
 			if (document.getElementById("speciesRadios1").checked) {
-				petSpecies = "Dog";
-			} else {
-				petSpecies = "Cat";
+				var petSpecies = document.getElementById("speciesRadios1").value
+			}else if (document.getElementById("speciesRadios2").checked){
+				var petSpecies = document.getElementById("speciesRadios2").value
+			}else{
+				var petSpecies = document.getElementById("speciesRadiosOther").value
 			}
+
 			// Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the
 			// selected pet name.
-
 
 			$.post({
 				url: "../php/update_petDB.php",
@@ -95,13 +106,12 @@
 						pet_ID: idNum.options[idNum.selectedIndex].id
 				}, 
 				success: function() {
-					//location.reload();
-					alert("Update saved");
+					$('#update_successful').modal();
+					// location.reload();
 				}
 			});
 		});
 	});
-
 
 </script>
 
@@ -137,16 +147,18 @@
  	</div>
 
 <!-- Species -->
-	<div class="form-group col-sm-10">
+<div class="form-group col-sm-10">
 		<label class="col-form-label">Species</label>
-	    <div class="form-check">
-			<label class="form-check-label">
-			<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="dog" checked>Dog</label>
+	    <div class="form-check form-inline">
+			<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="Dog"><label class="form-check-label m-2">Dog</label>
   		</div>
-    	<div class="form-check">
-    		<label class="form-check-label">
-    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="cat">Cat</label>
+    	<div class="form-check form-inline">
+    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="Cat"><label class="form-check-label m-2">Cat</label>
     	</div>
+		<div class="form-check form-inline">
+    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios3" value=""><label class="form-check-label m-2">Other</label>
+			<input class="form-control col-4" type="text" id="speciesRadiosOther">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+		</div>
   	</div>
 
 <!-- Birth Date -->
@@ -184,57 +196,9 @@
 	<div class="form-group col-8"> <!-- State  -->
 		<label class="control-label">State</label>
 		<select class="form-control" id="state_id">
-			<option value="AL">Alabama</option>
-			<option value="AK">Alaska</option>
-			<option value="AZ">Arizona</option>
-			<option value="AR">Arkansas</option>
-			<option value="CA">California</option>
-			<option value="CO">Colorado</option>
-			<option value="CT">Connecticut</option>
-			<option value="DE">Delaware</option>
-			<option value="DC">District Of Columbia</option>
-			<option value="FL">Florida</option>
-			<option value="GA">Georgia</option>
-			<option value="HI">Hawaii</option>
-			<option value="ID">Idaho</option>
-			<option value="IL">Illinois</option>
-			<option value="IN">Indiana</option>
-			<option value="IA">Iowa</option>
-			<option value="KS">Kansas</option>
-			<option value="KY">Kentucky</option>
-			<option value="LA">Louisiana</option>
-			<option value="ME">Maine</option>
-			<option value="MD">Maryland</option>
-			<option value="MA">Massachusetts</option>
-			<option value="MI">Michigan</option>
-			<option value="MN">Minnesota</option>
-			<option value="MS">Mississippi</option>
-			<option value="MO">Missouri</option>
-			<option value="MT">Montana</option>
-			<option value="NE">Nebraska</option>
-			<option value="NV">Nevada</option>
-			<option value="NH">New Hampshire</option>
-			<option value="NJ">New Jersey</option>
-			<option value="NM">New Mexico</option>
-			<option value="NY">New York</option>
-			<option value="NC">North Carolina</option>
-			<option value="ND">North Dakota</option>
-			<option value="OH">Ohio</option>
-			<option value="OK">Oklahoma</option>
-			<option value="OR">Oregon</option>
-			<option value="PA">Pennsylvania</option>
-			<option value="RI">Rhode Island</option>
-			<option value="SC">South Carolina</option>
-			<option value="SD">South Dakota</option>
-			<option value="TN">Tennessee</option>
-			<option value="TX">Texas</option>
-			<option value="UT">Utah</option>
-			<option value="VT">Vermont</option>
-			<option value="VA">Virginia</option>
-			<option value="WA">Washington</option>
-			<option value="WV">West Virginia</option>
-			<option value="WI">Wisconsin</option>
-			<option value="WY">Wyoming</option>
+		<?php
+    	include (__DIR__ . "/../php/data_lists/states.html");
+		?>
 		</select>					
 	</div>
 	

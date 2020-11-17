@@ -14,6 +14,7 @@
             $arrkeyvalues = array("Name" => $row->name, "Species" => $row->species, "Birthdate" => $row->birthdate, "Weight" => $row->weight, "Street" => $row->street, "City" => $row->city, "State" => $row->state, "Zip" => $row->zip, "Chip" => $row->chipId);
         }
 
+
     }
     
     sqlsrv_close($conn);
@@ -21,6 +22,6 @@
     echo json_encode($arrkeyvalues);
 
     } catch (Throwable $e){	
-    echo "Throwable error " . $e;
+        echo "Throwable error " . $e;
     }
 ?>
