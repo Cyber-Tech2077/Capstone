@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include ("../php/headernav.html");
+    include ("../php/pages-navbar.html");
     include_once("../php/DBConnect.php");
 
     //Pet Selector
@@ -23,7 +23,24 @@
         sqlsrv_close($conn);
 
     }
-        
+    function boardingLocations() {
+        $conn = databaseConnect("Pet");
+		try {
+			$sql = "select id, businessName as name from Locations where boarderChecked = '1'";
+			$stmt = sqlsrv_query($conn, $sql);
+			if ($stmt === false) {
+				echo "Error Occurred: " . sqlsrv_errors();
+			} else {
+				$storeValueId;
+				while ($row = sqlsrv_fetch_object($stmt)) {
+					echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
+				}
+			}
+		} catch (Throwable $e) {
+			echo "Throwable Error: " . $e;
+		}
+        sqlsrv_close($conn);
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,15 +67,18 @@
         $("#save_service").click(function(){
 
             var startDate = document.getElementById("service_date_id").value;
-            var petChosen = document.getElementById("select_pet_control").selectedIndex;
-            
+            var petChosen = document.getElementById("select_pet_control");
+            var boardingChosen = document.getElementById("select_boarding_location");
+
             $.post({
                 url: "../php/add_boarding_serviceDB.php",
                 data: {
                     service_date: startDate,
-                    pet_id: petChosen
-                }, success: function() {
-                    alert("Page sent to php");
+                    boarding_location: boardingChosen.options[boardingChosen.selectedIndex].id,
+                    pet_id: petChosen.options[petChosen.selectedIndex].id
+                }, success: function(response) {
+                    alert(response);
+                    //alert("Scheduled for " + startDate + ". See you then!");
                 }, error: function(err){
                     alert("Err " + err);
                 }
@@ -89,6 +109,17 @@
             <!-- Select Pet Dropdown Options -->
             <option value=""></option>
             <?php comboboxOptions(); ?>
+
+        </select>					
+    </div>
+
+    <div class="form-group col-8">
+	    <legend class="control-legend" id="select_pet">Choose Boarding Location</legend>
+        <select class="form-control" id="select_boarding_location">
+
+            <!-- Select Pet Dropdown Options -->
+            <option value=""></option>
+            <?php boardingLocations(); ?>
 
         </select>					
     </div>
