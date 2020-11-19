@@ -1,3 +1,4 @@
+
 <?php
 	
 require_once "./DBConnect.php";
@@ -26,7 +27,5 @@ try {
 } catch (Throwable $e) {
 	return "Throwable error: " . $e;
 }
-
-
 
 ?>
