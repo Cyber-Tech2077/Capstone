@@ -1,3 +1,4 @@
+
 <?php
     //session_start();
     include ("../php/headernav.html");
@@ -71,12 +72,8 @@
             var petChosen = document.getElementById("select_pet_control");
 			var grooming_date = document.getElementById("grooming_date_id").value;
             var locationName= document.getElementById("select_groomer_control");
-			//send to file to send to DB
-
-            //Nails Clipped
+			var text = document.getElementById("detail_entry").value;
             var nailsClipped = document.getElementById("nailsClipped");
-           
-
 
 			//send to file to send to DB
 			$.post({
@@ -85,7 +82,8 @@
                         pet_id: petChosen.options[petChosen.selectedIndex].id,
 						serviceDate: grooming_date,
                         locationId: locationName.options[locationName.selectedIndex].id,
-                        nails_trimmed: nailsClipped.checked
+                        nails_trimmed: nailsClipped.checked,
+                        details: text
 
                     }, success: function() {
                     alert("Grooming service added!");
@@ -152,6 +150,11 @@
             <legend class="control-legend">Date of Grooming Service:</legend>
             <input class="form-control col-8" type="date" id="grooming_date_id" name="date">
         </div>
+        <!-- Details -->
+        <div class="form-group col-sm-10">
+            <legend class="control-legend">Enter Details: </legend>
+            <textarea class="from-control" id="detail_entry"></textarea>
+        </div>
     </form>
 
     <!-- Save Button -->
@@ -160,4 +163,5 @@
     </div>
 
 </body>
+
 </html>
