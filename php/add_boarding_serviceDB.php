@@ -1,15 +1,15 @@
 <?php
 
-include_once ("../php/DBConnect.php");
+require_once ("./DBConnect.php");
 
 try {
     $conn = databaseConnect("Pet");
 
     //sql statement
-    $sql = "INSERT INTO PetHistory(petId, serviceName, date) VALUES (?,?,?)";
+    $sql = "INSERT INTO PetHistory (petId, serviceName, date, locationId) VALUES (?, ?, ?, ?)";
 
     //data to pass into DB
-    $params = array($_POST[pet_id], "Boarding" ,$_POST[service_date]);
+    $params = array($_POST["pet_id"], "Boarding", $_POST["service_date"], $_POST["boarding_location"]);
     
 
     $stmt = sqlsrv_prepare($conn, $sql, $params);
@@ -19,7 +19,7 @@ try {
     }
 
 
-} catch (Throwable $e) {
+} catch (Exception $e) {
     echo "Throwable Caught: " . $e;
 } catch (Throwable $ee) {
     echo "Exception caught: " . $ee;
