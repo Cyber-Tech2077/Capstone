@@ -1,4 +1,3 @@
-
 <?php
     //session_start();
     include ("../php/headernav.html");
@@ -24,8 +23,8 @@
         sqlsrv_close($conn);
     }
 
-    //Groomer Select?
-    function groomerOptions() {
+     //Groomer Select?
+     function groomerOptions() {
 		$conn = databaseConnect("Pet");
 		try {
 			$sql = "select id, businessName from Locations WHERE  groomerChecked = 1";
@@ -73,12 +72,21 @@
 			var grooming_date = document.getElementById("grooming_date_id").value;
             var locationName= document.getElementById("select_groomer_control");
 			//send to file to send to DB
+
+            //Nails Clipped
+            var nailsClipped = document.getElementById("nailsClipped");
+           
+
+
+			//send to file to send to DB
 			$.post({
                 url: "../php/add_gooming_serviceDB.php", 
                 data: {
                         pet_id: petChosen.options[petChosen.selectedIndex].id,
 						serviceDate: grooming_date,
-                        locationId: locationName.options[locationName.selectedIndex].id
+                        locationId: locationName.options[locationName.selectedIndex].id,
+                        nails_trimmed: nailsClipped.checked
+
                     }, success: function() {
                     alert("Grooming service added!");
                 }, error: function(err){
@@ -101,7 +109,6 @@
     </div>
     </div>
 
-    <!-- Pet dropdown list -->
     <div class="form-group col-8">
 	<legend class="control-legend" id="select_pet">Select Pet:</legend>
         <select class="form-control" id="select_pet_control">
@@ -112,13 +119,25 @@
 
         </select>					
     </div>
-
-
+    
+    
     
 
-    <form method="post">  
-    <!-- Groomer dropdown list -->
-    <div class="form-group col-8">
+
+    <!-- Service Checkbox -->
+	<div class="form-group col-sm-10">
+		<label class="col-form-label">Service Provided:</label>
+	    <div class="form-check">
+			<label class="form-check-label">
+			<input class="form-check-input" type="checkbox" name="serviceCheckbox" id="nailsClipped" value="nails_trimmed" checked>Nails Trimmed</label>
+  
+    	</div>
+  	</div>
+
+    
+    <form method="post">
+     <!-- Groomer dropdown list -->
+     <div class="form-group col-8">
 	<legend class="control-legend" id="select_groomer">Select Groomer</legend>
         <select class="form-control" id="select_groomer_control">
 
@@ -127,7 +146,7 @@
             <?php groomerOptions(); ?>
 
         </select>					
-    </div>   
+    </div>       
         <!-- Grooming Service Date -->
         <div class="form-group col-sm-10">
             <legend class="control-legend">Date of Grooming Service:</legend>
@@ -141,5 +160,4 @@
     </div>
 
 </body>
-
 </html>
