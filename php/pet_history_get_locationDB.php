@@ -27,6 +27,4 @@ try {
 	return "Throwable error: " . $e;
 }
 
-
-
 ?>

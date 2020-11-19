@@ -23,6 +23,25 @@
         sqlsrv_close($conn);
 
     }
+    
+    function boardingLocations() {
+        $conn = databaseConnect("Pet");
+		try {
+			$sql = "select id, businessName as name from Locations where boarderChecked = '1'";
+			$stmt = sqlsrv_query($conn, $sql);
+			if ($stmt === false) {
+				echo "Error Occurred: " . sqlsrv_errors();
+			} else {
+				$storeValueId;
+				while ($row = sqlsrv_fetch_object($stmt)) {
+					echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
+				}
+			}
+		} catch (Throwable $e) {
+			echo "Throwable Error: " . $e;
+		}
+        sqlsrv_close($conn);
+    }
         
 ?>
 <!DOCTYPE html>
@@ -46,19 +65,58 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-
+        var currentMonth = new Date().getMonth();
+        if (currentMonth > 0 && currentMonth < 10) {
+            currentMonth = "0" + currentMonth;
+        } else {
+            currentMonth += 1;
+        }
+        var currentDay = new Date().getDate();
+        if (currentDay < 10) {
+            currentDay = "0" + currentDay;
+        }
+        document.getElementById("service_date_id").setAttribute("min", new Date().getFullYear() + "-" + currentMonth + "-" + currentDay);
         $("#save_service").click(function(){
-
-            var startDate = document.getElementById("service_date_id").value;
-            var petChosen = document.getElementById("select_pet_control").selectedIndex;
             
+            if (document.getElementById("select_pet_control").value == "" && document.getElementById("select_boarding_location").value == "" && document.getElementById("service_date_id").value == "") {
+                alert("You must select a pet name, boarding location and service date.");
+                return;
+            } else if (document.getElementById("select_pet_control").value == "" && document.getElementById("select_boarding_location").value == "") {
+                alert("You must select a pet name and boarding location.");
+                return;
+            } else if (document.getElementById("select_boarding_location").value == "" && document.getElementById("service_date_id").value == "") {
+                alert("You must select a boarding location and a service date.");
+                return;
+            } else if (document.getElementById("service_date_id").value == "") {
+                alert("You must select a service date.");
+                return;
+            } else if (document.getElementById("select_pet_control").value == "") {
+                alert("You must select a pet name.");
+                return;
+            } else if (document.getElementById("select_boarding_location").value == "") {
+                alert("You must select a boarding location.");
+                return;
+            }
+            
+            var startDate = document.getElementById("service_date_id").value;
+            var petChosen = document.getElementById("select_pet_control");
+            var boardingChosen = document.getElementById("select_boarding_location");
+            var text = document.getElementById("detail_entry").value;
+
             $.post({
                 url: "../php/add_boarding_serviceDB.php",
                 data: {
                     service_date: startDate,
-                    pet_id: petChosen
-                }, success: function() {
-                    alert("Page sent to php");
+                    boarding_location: boardingChosen.options[boardingChosen.selectedIndex].id,
+                    pet_id: petChosen.options[petChosen.selectedIndex].id,
+                    details: text
+                }, success: function(response) {
+                    if (response !== "") {
+                        alert(response);
+                    } else {
+                        alert(petChosen.value + "'s boarding session added for " + startDate + ". See you then!", "Boarding Service");
+                    }
+                    location.reload();
                 }, error: function(err){
                     alert("Err " + err);
                 }
@@ -84,7 +142,7 @@
 
     <div class="form-group col-8">
 	    <legend class="control-legend" id="select_pet">Pet Name</legend>
-        <select class="form-control" id="select_pet_control">
+        <select class="form-control" id="select_pet_control" required>
 
             <!-- Select Pet Dropdown Options -->
             <option value=""></option>
@@ -92,14 +150,29 @@
 
         </select>					
     </div>
+    
+    <div class="form-group col-8">
+	    <legend class="control-legend" id="select_pet">Choose Boarding Location</legend>
+        <select class="form-control" id="select_boarding_location" required>
 
+            <!-- Select Pet Dropdown Options -->
+            <option value=""></option>
+            <?php boardingLocations(); ?>
+
+        </select>					
+    </div>
+    
     <form>
         <!-- Service Date -->
         <div class="form-group col-sm-10">
             <legend class="control-legend">Start Date for Boarding Service</legend>
-            <input class="form-control col-8" type="date" id="service_date_id" name="service_date">
+            <input class="form-control col-8" type="date" id="service_date_id" name="service_date"/>
         </div>
-
+        <!-- Details -->
+        <div class="form-group col-sm-10">
+            <legend class="control-legend">Enter Details: </legend>
+            <textarea class="from-control" id="detail_entry"></textarea>
+        </div>
     </form>
 
     <!-- Save Button -->

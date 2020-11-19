@@ -66,7 +66,7 @@
 
 					//get amount of rows to print
 					var entriesTotal = (Object.keys(json)).length;
-					var rowsTotal =  entriesTotal/4;		//divided by 4, the amount of columns, may increase later
+					var rowsTotal =  entriesTotal/5;		//divided by 5, the amount of columns, may increase later
 
 					//make sure table is clear
 					$("#output_body tr").remove(); 
@@ -88,7 +88,12 @@
 						cell3.id = "loc" + row;
 						GetLocationName(json["Location" + row], row);
 
-						cell4.innerHTML = "text here";
+						//include nails clipped
+						if(json["Nails" + row] == "No"){
+							cell4.innerHTML = json["Details" + row] ;
+						} else {
+							cell4.innerHTML = json["Details" + row] + "\n   Nails Clipped: " + json["Nails" + row];
+						} 
 					}
 
 				},
