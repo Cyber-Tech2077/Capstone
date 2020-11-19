@@ -1,3 +1,4 @@
+
 <?php
 
 include_once ("../php/DBConnect.php");
@@ -18,4 +19,5 @@ include_once ("../php/DBConnect.php");
    }
    sqlsrv_close($conn);
 }
+
 
