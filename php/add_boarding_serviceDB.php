@@ -6,10 +6,12 @@ try {
     $conn = databaseConnect("Pet");
 
     //sql statement
+
     $sql = "INSERT INTO PetHistory (petId, serviceName, date, locationId, details) VALUES (?, ?, ?, ?, ?)";
 
     //data to pass into DB
     $params = array($_POST["pet_id"], "Boarding", $_POST["service_date"], $_POST["boarding_location"], $_POST["details"]);
+
     
 
     $stmt = sqlsrv_prepare($conn, $sql, $params);

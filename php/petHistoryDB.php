@@ -1,3 +1,4 @@
+
 <?php
 
 include_once ("../php/DBConnect.php");
@@ -75,4 +76,3 @@ try
 }
 
 sqlsrv_close($conn);
-?>

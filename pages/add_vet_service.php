@@ -67,6 +67,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#save_service").click(function() {
+
             
             var petChosen = (document.getElementById("select_pet_control"));
             var location = document.getElementById("select_location_control");
@@ -78,6 +79,7 @@
                         serviceDate: document.getElementById("service_date_id").value,
                         locationId: location.options[location.selectedIndex].id,
                         details: text
+
                     }, 
 				success: function(){
 					alert("Veterinary service added!");
@@ -130,11 +132,13 @@
             <input class="form-control col-8" type="date" id="service_date_id" name="service_date">
         </div>
 
+
         <!-- Details -->
         <div class="form-group col-sm-10">
             <legend class="control-legend">Enter Details: </legend>
             <textarea class="from-control" id="detail_entry"></textarea>
         </div>
+
     </form>
 
     <!-- Save Button -->

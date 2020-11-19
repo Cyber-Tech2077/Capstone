@@ -110,6 +110,7 @@
                     boarding_location: boardingChosen.options[boardingChosen.selectedIndex].id,
                     pet_id: petChosen.options[petChosen.selectedIndex].id,
                     details: text
+
                 }, success: function(response) {
                     if (response !== "") {
                         alert(response);
@@ -155,9 +156,11 @@
 	    <legend class="control-legend" id="select_pet">Choose Boarding Location</legend>
         <select class="form-control" id="select_boarding_location" required>
 
+
             <!-- Select Pet Dropdown Options -->
             <option value=""></option>
             <?php boardingLocations(); ?>
+
 
         </select>					
     </div>
@@ -167,11 +170,13 @@
         <div class="form-group col-sm-10">
             <legend class="control-legend">Start Date for Boarding Service</legend>
             <input class="form-control col-8" type="date" id="service_date_id" name="service_date"/>
+
         </div>
         <!-- Details -->
         <div class="form-group col-sm-10">
             <legend class="control-legend">Enter Details: </legend>
             <textarea class="from-control" id="detail_entry"></textarea>
+
         </div>
     </form>
 
