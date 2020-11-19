@@ -1,3 +1,4 @@
+
 <?php
     //session_start();
     include ("../php/headernav.html");
@@ -15,6 +16,26 @@
 				$storeValueId;
 				while ($row = sqlsrv_fetch_object($stmt)) {
 					echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
+				}
+			}
+		} catch (Throwable $e) {
+			echo "Throwable Error: " . $e;
+		}
+        sqlsrv_close($conn);
+    }
+
+    //Groomer Select?
+    function groomerOptions() {
+		$conn = databaseConnect("Pet");
+		try {
+			$sql = "select id, businessName from Locations WHERE  groomerChecked = 1";
+			$stmt = sqlsrv_query($conn, $sql);
+			if ($stmt === false) {
+				echo "Error Occurred: " . sqlsrv_errors();
+			} else {
+				$storeValueId;
+				while ($row = sqlsrv_fetch_object($stmt)) {
+					echo "<option id = " . $row->id . " value = " . $row->businessName . ">" . $row->businessName . "</option>";
 				}
 			}
 		} catch (Throwable $e) {
@@ -48,17 +69,18 @@
         $("#save_grooming_service").click(function() {
 			
 			//assign form pieces to variables
-            var petChosen = document.getElementById("select_pet_control").selectedIndex;
+            var petChosen = document.getElementById("select_pet_control");
 			var grooming_date = document.getElementById("grooming_date_id").value;
-
+            var locationName= document.getElementById("select_groomer_control");
 			//send to file to send to DB
 			$.post({
                 url: "../php/add_gooming_serviceDB.php", 
                 data: {
-                        pet_id: petChosen,
-						serviceDate: grooming_date
+                        pet_id: petChosen.options[petChosen.selectedIndex].id,
+						serviceDate: grooming_date,
+                        locationId: locationName.options[locationName.selectedIndex].id
                     }, success: function() {
-                    alert("Page sent to php");
+                    alert("Grooming service added!");
                 }, error: function(err){
                     alert("Err " + err);
                 }            
@@ -73,14 +95,15 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">Add a Grooming Service</h1>
+                <h1 class="h1">Grooming</h1>
             </div>
         </div>
     </div>
     </div>
 
+    <!-- Pet dropdown list -->
     <div class="form-group col-8">
-	<legend class="control-legend" id="select_pet">Pet Name</legend>
+	<legend class="control-legend" id="select_pet">Select Pet:</legend>
         <select class="form-control" id="select_pet_control">
 
             <!-- Select Pet Dropdown Options -->
@@ -90,10 +113,24 @@
         </select>					
     </div>
 
-    <form method="post">    
+
+    
+
+    <form method="post">  
+    <!-- Groomer dropdown list -->
+    <div class="form-group col-8">
+	<legend class="control-legend" id="select_groomer">Select Groomer</legend>
+        <select class="form-control" id="select_groomer_control">
+
+            <!-- Select Groomer Dropdown Options -->
+            <option value=""></option>
+            <?php groomerOptions(); ?>
+
+        </select>					
+    </div>   
         <!-- Grooming Service Date -->
         <div class="form-group col-sm-10">
-            <legend class="control-legend">Date of Grooming Service</legend>
+            <legend class="control-legend">Date of Grooming Service:</legend>
             <input class="form-control col-8" type="date" id="grooming_date_id" name="date">
         </div>
     </form>
@@ -104,4 +141,5 @@
     </div>
 
 </body>
+
 </html>

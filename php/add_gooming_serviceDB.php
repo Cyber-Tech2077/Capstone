@@ -1,3 +1,4 @@
+
 <?php
 
 include_once ("../php/DBConnect.php");
@@ -5,8 +6,8 @@ include_once ("../php/DBConnect.php");
 {	 
     try {
         $conn = databaseConnect("Pet");
-        $sql = "INSERT INTO PetHistory (petId, serviceName, date) VALUES (?,?,?)";   
-        $params = array($_POST["pet_id"], "Grooming", $_POST["serviceDate"]);     
+        $sql = "INSERT INTO PetHistory (petId, serviceName, date, locationId) VALUES (?,?,?,?)";   
+        $params = array($_POST["pet_id"], "Grooming", $_POST["serviceDate"], $_POST["locationId"]);     
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) === false) {
            echo "SQL Statement Error: " . sqlsrv_errors(); 
@@ -18,4 +19,5 @@ include_once ("../php/DBConnect.php");
    }
    sqlsrv_close($conn);
 }
+
 
