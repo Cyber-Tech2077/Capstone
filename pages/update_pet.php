@@ -2,6 +2,8 @@
 	//session_start();
 	include (__DIR__ . "/../php/headernav.html");
 	include_once(__DIR__."/../php/DBConnect.php");
+	include (__DIR__ . "/../php/modals/Modals.html");
+
 	function comboboxOptions() {
 		// This php code works, all values come out as normal.
 		// No need to mess with this.
@@ -46,6 +48,7 @@
 	$(document).ready(function() {
 		var idNum = document.getElementById("select_pet_control");
 		$("#select_pet_control").change(function(){
+			document.getElementById("speciesRadiosOther").value = ""
 			$.post({
 				url: "../php/retrieve_pet.php",
 				data: {pet_ID: idNum.options[idNum.selectedIndex].id},
@@ -54,10 +57,17 @@
 					document.getElementById("petname_id").value = json["Name"];
 					if (json["Species"]=="Dog"){
 						document.getElementById("speciesRadios1").checked = true;
-					} else {
+					} else if (json["Species"]=="Cat"){
 						document.getElementById("speciesRadios2").checked = true;
+					}else{
+						document.getElementById("speciesRadios3").checked = true;
+						document.getElementById("speciesRadiosOther").value = json["Species"];
+						$('#speciesRadiosOther').show();
 					}
-
+					//  .toISOString().slice(0, 19).replace('T', ' ');
+					//  JSON.stringify(exampleObj)
+					
+					document.getElementById("birthday_id").value = json["Birthdate"];
 					document.getElementById("weight_id").value = json["Weight"];
 					document.getElementById("street_id").value = json["Street"];
 					document.getElementById("city_id").value = json["City"];
@@ -71,15 +81,16 @@
 		
 		$("#update_pet").click(function() {
 			// Changed id assocaited with select html element.
-			var petSpecies;
 			if (document.getElementById("speciesRadios1").checked) {
-				petSpecies = "Dog";
-			} else {
-				petSpecies = "Cat";
+				var petSpecies = document.getElementById("speciesRadios1").value
+			}else if (document.getElementById("speciesRadios2").checked){
+				var petSpecies = document.getElementById("speciesRadios2").value
+			}else{
+				var petSpecies = document.getElementById("speciesRadiosOther").value
 			}
+
 			// Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the
 			// selected pet name.
-
 
 			$.post({
 				url: "../php/update_petDB.php",
@@ -95,13 +106,11 @@
 						pet_ID: idNum.options[idNum.selectedIndex].id
 				}, 
 				success: function() {
-					location.reload();
-					alert("Update saved");
+					$('#update_successful').modal();
 				}
 			});
 		});
 	});
-
 
 </script>
 
@@ -137,16 +146,18 @@
  	</div>
 
 <!-- Species -->
-	<div class="form-group col-sm-10">
+<div class="form-group col-sm-10">
 		<label class="col-form-label">Species</label>
-	    <div class="form-check">
-			<label class="form-check-label">
-			<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="dog" checked>Dog</label>
+	    <div class="form-check form-inline">
+			<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="Dog"><label class="form-check-label m-2">Dog</label>
   		</div>
-    	<div class="form-check">
-    		<label class="form-check-label">
-    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="cat">Cat</label>
+    	<div class="form-check form-inline">
+    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="Cat"><label class="form-check-label m-2">Cat</label>
     	</div>
+		<div class="form-check form-inline">
+    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios3" value=""><label class="form-check-label m-2">Other</label>
+			<input class="form-control col-4" type="text" id="speciesRadiosOther">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+		</div>
   	</div>
 
 <!-- Birth Date -->

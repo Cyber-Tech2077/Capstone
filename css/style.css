@@ -29,11 +29,14 @@
   height: 100%;
 }
 
-
 .collapsible-link {
   width: 100%;
 }
 
 .hoverable:hover, .hoverable:active, .hoverable:focus{
   transform: translateY(-5px);
+}
+
+.dropdown-menu {
+  width: 12rem;
 }
