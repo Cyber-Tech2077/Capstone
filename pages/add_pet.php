@@ -1,5 +1,6 @@
 <?php
-    include (__DIR__ . "/../php/headernav.html");
+	include (__DIR__ . "/../php/headernav.html");
+	include (__DIR__ . "/../php/modals/Modals.html");
 ?>
 
 <!DOCTYPE html>
@@ -20,19 +21,30 @@
 </head>
 
 <script type="text/javascript">
-
     $(document).ready(function() {
+		//Toggle Other Species Text Input
+		$(function() {
+    		$('input[name="speciesRadios"]').on('click', function() {
+        		if ($(this).val() == '') {
+            		$('#speciesRadiosOther').show();
+        		}else {
+            		$('#speciesRadiosOther').hide();
+        		}
+    		});
+		});
+
         $("#addPet").click(function() {
-			
 			//assign form pieces to variables
 			var name = document.getElementById("petname_id").value;
-			var speciesRadios = document.getElementsByName("speciesRadios");	//array of different radio buttons
-			for(var i = 0;i < speciesRadios.length;i++){
-				if(speciesRadios[i].checked) {
-					var species = speciesRadios[i].value;
-					break;
-				}
+
+			if (document.getElementById("speciesRadios1").checked) {
+				var species = document.getElementById("speciesRadios1").value
+			}else if (document.getElementById("speciesRadios2").checked){
+				var species = document.getElementById("speciesRadios2").value
+			}else{
+				var species = document.getElementById("speciesRadiosOther").value
 			}
+
 			var birthdate = document.getElementById("birthday_id").value;
 			var weight = document.getElementById("weight_id").value;
 			var street = document.getElementById("street_id").value;
@@ -53,12 +65,9 @@
 						pet_state: state,
 						pet_zip: zip,
 						pet_chip: chipId
-					
 				}, 
 				success: function() {
-						location.reload();
-						alert("It worked!");
-						//location.reload();
+					$('#addition_successful').modal();
 				},
 				error: function(err) {
 					alert("Err " + err);
@@ -66,7 +75,6 @@
             
 			});
         });
-        
     });
 </script>
 
@@ -95,14 +103,16 @@
 <!-- Species -->
 	<div class="form-group col-sm-10">
 		<label class="col-form-label">Species</label>
-	    <div class="form-check">
-			<label class="form-check-label">
-			<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="dog" checked>Dog</label>
+	    <div class="form-check form-inline">
+			<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="Dog"><label class="form-check-label m-2">Dog</label>
   		</div>
-    	<div class="form-check">
-    		<label class="form-check-label">
-    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="cat">Cat</label>
+    	<div class="form-check form-inline">
+    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="Cat"><label class="form-check-label m-2">Cat</label>
     	</div>
+		<div class="form-check form-inline">
+    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios3" value=""><label class="form-check-label m-2">Other</label>
+			<input class="form-control col-4" type="text" id="speciesRadiosOther" style="display: none">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+		</div>
   	</div>
 
 <!-- Birth Date -->

@@ -46,40 +46,41 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup2">
       <div class="navbar navbar-nav p-2">
         <!-- Veterinary Dropdown -->
-         <div class="dropdown">
+         <div class="dropdown text-center">
           <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Pet</a>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu text-center">
               <a class="dropdown-item nav-link hoverable" href="./pages/add_pet.php">Add a Pet</a>
               <a class="dropdown-item nav-link hoverable" href="./pages/update_pet.php">Update Pet</a>
               <a class="dropdown-item nav-link hoverable" href="./pages/pet_history.php">Pet History</a>
             </div>
           </div>
           <!-- Veterinary Dropdown -->
-        <div class="dropdown">
+        <div class="dropdown text-center">
         <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Veterinary</a>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu text-center">
             <a class="dropdown-item nav-link hoverable" href="./pages/add_vet_service.php">Add Veterinary Service</a>
           </div>
         </div>
         <!-- Grooming Dropdown -->
-        <div class="dropdown">
+        <div class="dropdown text-center">
           <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Grooming</a>
-          <div class="dropdown-menu"> 
+          <div class="dropdown-menu text-center"> 
             <a class="dropdown-item nav-link hoverable" href="./pages/add_grooming_service.php">Add Grooming Service</a>
           </div>
         </div>
         <!-- Boarding Dropdown -->
-        <div class="dropdown">
+        <div class="dropdown text-center">
         <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Boarding</a>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu text-center">
             <a class="dropdown-item nav-link hoverable" href="./pages/add_boarding_service.php">Add Boarding Service</a>
           </div>
         </div>
         <!-- Location Dropdown -->
-        <div class="dropdown">
+        <div class="dropdown text-center">
           <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Location</a>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu text-center">
               <a class="dropdown-item nav-link hoverable" href="./pages/add_location.php">Add a Location</a>
+              <a class="dropdown-item nav-link hoverable" href="./pages/update_location.php">Update a Location</a>
             </div>
           </div>
       </div>
