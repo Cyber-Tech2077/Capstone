@@ -1,6 +1,6 @@
 <?php
-	include (__DIR__ . "/../php/headernav.html");
-	include (__DIR__ . "/../php/modals/Modals.html");
+	include ("../php/headernav.html");
+	include ("../php/modals/Modals.html");
 ?>
 
 <!DOCTYPE html>
