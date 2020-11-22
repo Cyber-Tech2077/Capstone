@@ -1,0 +1,102 @@
+/*
+    Form Elements
+*/
+#formContainer {
+    width: 400px;
+    margin: auto;
+}
+#selectContainer {
+    text-align: center;
+    margin: auto;
+}
+#select_pet_control {
+    text-align: center;
+}
+#nameContainer {
+    text-align: center;
+    margin: auto;
+}
+#petname_id {
+    text-align: center;
+    margin: auto;
+}
+#speciesContainer {
+    text-align: center;
+    padding: 0;
+    margin: auto 50px auto auto;
+}
+#speciesToolContainer {
+    margin: auto -110px auto auto;
+    width: 380px;
+}
+#speciesRadiosOther {
+    text-align: center;
+}
+#birthContainer {
+    text-align: center;
+    margin: auto;
+    width: 250px;
+}
+#birthday_id {
+    text-align: center;
+    margin: auto;
+}
+#weightContainer {
+    text-align: center;
+    margin: auto;
+}
+#weight_id {
+    width: 120px;
+    margin: auto;
+}
+#chipContainer {
+    text-align: center;
+    margin: auto;
+}
+#chip_id {
+    margin: auto;
+    text-align: center;
+}
+#addressContainer {
+    margin: auto;
+    width: 120px;
+}
+#addressLbl {
+    text-align: center;
+    width: 100px;
+}
+#streetContainer {
+    text-align: center;
+    margin: auto;
+}
+#street_id {
+    text-align: center;
+    margin: auto;
+    width: 180px;
+}
+#cityContainer {
+    text-align: center;
+    margin: auto;
+}
+#city_id {
+    text-align: center;
+    margin: auto;
+    width: 160px;
+}
+#stateContainer {
+    text-align: center;
+    margin: auto;
+}
+#state_id {
+    text-align: center;
+    margin: auto;
+    width: 180px;
+}
+#zipContainer {
+    text-align: center;
+    margin: auto;
+}
+#zip_id {
+    text-align: center;
+    margin: auto;
+}

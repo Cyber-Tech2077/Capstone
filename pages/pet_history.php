@@ -44,6 +44,7 @@
   <script src="../js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/organize_elements.css">
   <link rel="stylesheet" href="../css/bootstrap.min.css">	
 </head>
 
@@ -51,7 +52,7 @@
 
 	$(document).ready(function() {
 
-		$("#selectHistory").click(function() {
+		$("#select_pet_control").change(function() {
 
 			var petChosen = document.getElementById("select_pet_control");
 
@@ -136,7 +137,8 @@
   </div>
 </div>
 
-<div class="form-group col-8">
+    <div id="formContainer">
+        <div class="form-group col-8" id="selectContainer">
 	<legend class="control-legend" id="select_pet">Select Pet</legend>
 	<select class="form-control" id="select_pet_control">
 
@@ -146,11 +148,8 @@
 
 	</select>					
 </div>
-
-<div class="form-group text-center">
-	<button type="submit" class="btn btn-primary" id="selectHistory">Submit</button>
-</div>
-
+    </div>
+<br/>
 <div class="container">
 <table class="table" id="outputHistory">
 	<thead>
