@@ -100,3 +100,21 @@
     text-align: center;
     margin: auto;
 }
+/* Vet Service Page */
+#vetContainer {
+    text-align: center;
+    margin: auto;
+    width: 260px;
+}
+#select_location_control {
+    text-align: center;
+    margin: auto;
+}
+#service_date_id {
+    text-align: center;
+    margin: auto;
+}
+#detailsContainer {
+    text-align: center;
+    margin: auto;
+}
