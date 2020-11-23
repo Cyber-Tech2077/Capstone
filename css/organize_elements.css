@@ -118,3 +118,27 @@
     text-align: center;
     margin: auto;
 }
+/* Grooming Service Page */
+#grooming_date_id {
+    text-align: center;
+    margin: auto;
+}
+#dateGroomerContainer {
+    text-align: center;
+    margin: auto;
+    width: 250px;
+}
+#nailsContainer {
+    text-align: center;
+    margin: auto;
+    width: 250px;
+}
+#select_groomer_control {
+    text-align: center;
+    margin: auto;
+}
+/* Boarding Service Page */
+#select_boarding_location {
+    text-align: center;
+    margin: auto;
+}

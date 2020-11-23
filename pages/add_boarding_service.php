@@ -54,10 +54,12 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/organize_elements.css" />
 
 <head>
 </head>
@@ -112,12 +114,12 @@
                     details: text
 
                 }, success: function(response) {
-                    if (response !== "") {
-                        alert(response);
-                    } else {
-                        alert(petChosen.value + "'s boarding session added for " + startDate + ". See you then!", "Boarding Service");
-                    }
-                    location.reload();
+                    Swal.fire({
+                        icon: 'success',
+                        text: petChosen.value + "'s boarding session added for " + startDate + '. See you then!'
+                    }).then(result => {
+                        location.reload();
+                    });
                 }, error: function(err){
                     alert("Err " + err);
                 }
@@ -140,46 +142,42 @@
         </div>
     </div>
     </div>
-
-    <div class="form-group col-8">
-	    <legend class="control-legend" id="select_pet">Pet Name</legend>
-        <select class="form-control" id="select_pet_control" required>
-
-            <!-- Select Pet Dropdown Options -->
-            <option value=""></option>
-            <?php comboboxOptions(); ?>
-
-        </select>					
-    </div>
     
-    <div class="form-group col-8">
-	    <legend class="control-legend" id="select_pet">Choose Boarding Location</legend>
-        <select class="form-control" id="select_boarding_location" required>
+    <div id="formContainer">
+        
+        <div class="form-group col-8" id="selectContainer">
+	       <legend class="control-legend" id="select_pet">Pet Name</legend>
+            <select class="form-control" id="select_pet_control" required>
+                <!-- Select Pet Dropdown Options -->
+                <option value=""></option>
+                <?php comboboxOptions(); ?>
+            </select>					
+        </div>
+        
+        <div class="form-group col-8" id="selectContainer">
+	       <legend class="control-legend" id="select_pet">Choose Boarding Location</legend>
+            <select class="form-control" id="select_boarding_location" required>
+                <!-- Select Pet Dropdown Options -->
+                <option value=""></option>
+                <?php boardingLocations(); ?>
 
-
-            <!-- Select Pet Dropdown Options -->
-            <option value=""></option>
-            <?php boardingLocations(); ?>
-
-
-        </select>					
-    </div>
-    
-    <form>
+            </select>					
+        </div>
         <!-- Service Date -->
-        <div class="form-group col-sm-10">
+        <div class="form-group col-sm-10" id="birthContainer">
             <legend class="control-legend">Start Date for Boarding Service</legend>
-            <input class="form-control col-8" type="date" id="service_date_id" name="service_date"/>
+            <input class="form-control col-8" type="date" id="service_date_id" name="service_date" require/>
 
         </div>
         <!-- Details -->
-        <div class="form-group col-sm-10">
+        <div class="form-group col-sm-10" id="detailsContainer">
             <legend class="control-legend">Enter Details: </legend>
             <textarea class="from-control" id="detail_entry"></textarea>
 
         </div>
-    </form>
-
+    </div>
+    <br />
+    <br />
     <!-- Save Button -->
     <div class="form-group text-center">
         <button class="btn btn-primary" id="save_service">Save</button>

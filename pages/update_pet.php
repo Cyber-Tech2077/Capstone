@@ -35,14 +35,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
-  
-  <style href="../css/bootstrap.min" rel="stylesheet" type="text/css"></style>
-  <script src="../js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/contentControl.js" type="application/ecmascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <link rel="stylesheet" href="../css/style.css"/>
+    
+    <link href="../css/bootstrap.min" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css"/>
     <link rel="stylesheet" href="../css/organize_elements.css"/>
-  <link rel="stylesheet" href="../css/bootstrap.min.css"/>	
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>	
 </head>
 
 <script type="text/javascript">
@@ -50,6 +51,14 @@
 	$(document).ready(function() {
 		var idNum = document.getElementById("select_pet_control");
         var petName = document.getElementById("petname_id");
+        var petBirthDate = document.getElementById("birthday_id");
+        var petWeight = document.getElementById("weight_id");
+        var petStreet = document.getElementById("street_id");
+        var petCity = document.getElementById("city_id");
+        var petState = document.getElementById("state_id");
+        var petZip = document.getElementById("zip_id");
+        var petChip = document.getElementById("chip_id");
+        
 		$("#select_pet_control").change(function(){
 			document.getElementById("speciesRadiosOther").value = ""
 			$.post({
@@ -67,16 +76,13 @@
 						document.getElementById("speciesRadiosOther").value = jsonData["Species"];
 						$('#speciesRadiosOther').show();
 					}
-					//  .toISOString().slice(0, 19).replace('T', ' ');
-					//  JSON.stringify(exampleObj)
-					
-					document.getElementById("birthday_id").value = jsonData["Birthdate"];
-					document.getElementById("weight_id").value = jsonData["Weight"];
-					document.getElementById("street_id").value = jsonData["Street"];
-					document.getElementById("city_id").value = jsonData["City"];
-					document.getElementById("state_id").value = jsonData["State"];
-					document.getElementById("zip_id").value = jsonData["Zip"];
-					document.getElementById("chip_id").value = jsonData["Chip"];				
+					petBirthDate.value = jsonData["Birthdate"];
+					petWeight.value = jsonData["Weight"];
+					petStreet.value = jsonData["Street"];
+					petCity.value = jsonData["City"];
+					petState.value = jsonData["State"];
+					petZip.value = jsonData["Zip"];
+					petChip.value = jsonData["Chip"];				
 				}
 				
 			});
@@ -98,13 +104,13 @@
 				url: "../php/update_petDB.php",
 				data: {	pet_name: petName.value, 
 						pet_species: petSpecies, 
-						pet_birthdate: document.getElementById("birthday_id").value, 
-						pet_weight: document.getElementById("weight_id").value,
-						pet_street: document.getElementById("street_id").value, 
-						pet_city: document.getElementById("city_id").value,
-						pet_state: document.getElementById("state_id").value, 
-						pet_zip: document.getElementById("zip_id").value, 
-						pet_chip: document.getElementById("chip_id").value, 
+						pet_birthdate: petBirthDate.value, 
+						pet_weight: petWeight.value,
+						pet_street: petStreet.value, 
+						pet_city: petCity.value,
+						pet_state: petState.value, 
+						pet_zip: petZip.value, 
+						pet_chip: petChip.value, 
 						pet_ID: idNum.options[idNum.selectedIndex].id
 				}, 
 				success: function() {
