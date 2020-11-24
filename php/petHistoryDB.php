@@ -1,3 +1,4 @@
+
 <?php
 
 include_once ("../php/DBConnect.php");
@@ -19,8 +20,6 @@ try
 
     $rowKeyValues = array();
     if($execute){
-        
-            //$rowKeyValues = array("Service0" => "No Services");
             
             $num = 0;
             while($row = sqlsrv_fetch_object($stmt)) {
@@ -28,15 +27,33 @@ try
                 $jsonService = "Service" . $num;
                 $jsonDate = "Date" . $num;
                 $jsonLocation = "Location" . $num;
+                $jsonDetails = "Details" . $num;
+                $jsonNails = "Nails" . $num;
 
                 //change date format to string
                 $sqlDate = $row->date;
                 $dateString =$sqlDate->format('Y-m-d');
 
+                //check for null details
+                $detailString  = $row->details;
+                if(is_null($detailString)) 
+                    $detailString = "No Details";
+
+                //check nails trimmed
+                $nailsTrimmed = $row->nailsClipped;
+                if($nailsTrimmed == 1){
+                    $nailString = "Yes";
+                } else {
+                    $nailString = "No";
+                }
+
+
                 $instance = array(
                                     $jsonService =>$row->serviceName, 
                                     $jsonDate =>$dateString, 
-                                    $jsonLocation =>$row->locationId
+                                    $jsonLocation =>$row->locationId,
+                                    $jsonDetails =>$detailString,
+                                    $jsonNails => $nailString
                                 );
                 $rowKeyValues = array_merge($rowKeyValues, $instance);
 
@@ -59,4 +76,3 @@ try
 }
 
 sqlsrv_close($conn);
-?>

@@ -1,3 +1,4 @@
+
 <?php
 	include (__DIR__ . "/../php/headernav.html");
 	include_once(__DIR__."/../php/DBConnect.php");
@@ -218,4 +219,5 @@ $(document).ready(function() {
 </div>
 
 </body>
+
 </html>

@@ -1,3 +1,4 @@
+
 <?php
 
     include_once ("./DBConnect.php");
@@ -22,4 +23,5 @@
     } catch (Throwable $e){	
     echo "Throwable error " . $e;
     }
+
 ?>

@@ -67,15 +67,19 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#save_service").click(function() {
-            //petChosen.options[petChosen.selectedIndex].id
-            var pet = (document.getElementById("select_pet_control")).selectedIndex;
+
+            
+            var petChosen = (document.getElementById("select_pet_control"));
             var location = document.getElementById("select_location_control");
+            var text = document.getElementById("detail_entry").value;
 
 			$.post({
 				url: "../php/add_vet_serviceDB.php", 
-                data: { petId: pet, 
+                data: { petId: petChosen.options[petChosen.selectedIndex].id, 
                         serviceDate: document.getElementById("service_date_id").value,
-                        locationId: location.options[location.selectedIndex].id
+                        locationId: location.options[location.selectedIndex].id,
+                        details: text
+
                     }, 
 				success: function(){
 					alert("Veterinary service added!");
@@ -122,10 +126,17 @@
             </select>					
         </div>
 
-         <!-- Birth Date -->
+         <!-- Vet Date -->
         <div class="form-group col-sm-10">
             <legend class="control-legend">Date of Veterinary Service</legend>
             <input class="form-control col-8" type="date" id="service_date_id" name="service_date">
+        </div>
+
+
+        <!-- Details -->
+        <div class="form-group col-sm-10">
+            <legend class="control-legend">Enter Details: </legend>
+            <textarea class="from-control" id="detail_entry"></textarea>
         </div>
 
     </form>
