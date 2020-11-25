@@ -5,140 +5,55 @@
     width: 400px;
     margin: auto;
 }
-#selectContainer {
+#selectContainer, #speciesContainer, #nameContainer, #birthContainer, #weightContainer, #chipContainer {
     text-align: center;
     margin: auto;
 }
-#select_pet_control {
-    text-align: center;
-}
-#nameContainer {
+#select_pet_control, #speciesRadiosOther, #petname_id, #birthday_id, #weight_id, #chip_id {
     text-align: center;
     margin: auto;
 }
-#petname_id {
+#addressContainer, #streetContainer, #cityContainer, #stateContainer, #zipContainer {
     text-align: center;
     margin: auto;
 }
-#speciesContainer {
-    text-align: center;
-    padding: 0;
-    margin: auto 50px auto auto;
-}
-#speciesToolContainer {
-    margin: auto -110px auto auto;
-    width: 380px;
-}
-#speciesRadiosOther {
-    text-align: center;
-}
-#birthContainer {
-    text-align: center;
-    margin: auto;
-    width: 250px;
-}
-#birthday_id {
-    text-align: center;
-    margin: auto;
-}
-#weightContainer {
-    text-align: center;
-    margin: auto;
-}
-#weight_id {
-    width: 120px;
-    margin: auto;
-}
-#chipContainer {
-    text-align: center;
-    margin: auto;
-}
-#chip_id {
-    margin: auto;
-    text-align: center;
-}
-#addressContainer {
-    margin: auto;
-    width: 120px;
-}
-#addressLbl {
-    text-align: center;
-    width: 100px;
-}
-#streetContainer {
-    text-align: center;
-    margin: auto;
-}
-#street_id {
-    text-align: center;
-    margin: auto;
-    width: 180px;
-}
-#cityContainer {
-    text-align: center;
-    margin: auto;
-}
-#city_id {
-    text-align: center;
-    margin: auto;
-    width: 160px;
-}
-#stateContainer {
-    text-align: center;
-    margin: auto;
-}
-#state_id {
-    text-align: center;
-    margin: auto;
-    width: 180px;
-}
-#zipContainer {
-    text-align: center;
-    margin: auto;
-}
-#zip_id {
+#street_id, #city_id, #state_id, #zip_id {
     text-align: center;
     margin: auto;
 }
 /* Vet Service Page */
-#vetContainer {
-    text-align: center;
-    margin: auto;
-    width: 260px;
-}
-#select_location_control {
+#vetContainer, #detailsContainer {
     text-align: center;
     margin: auto;
 }
-#service_date_id {
-    text-align: center;
-    margin: auto;
-}
-#detailsContainer {
+#select_location_control, #service_date_id {
     text-align: center;
     margin: auto;
 }
 /* Grooming Service Page */
-#grooming_date_id {
+#select_groomer_control, #grooming_service_date {
     text-align: center;
     margin: auto;
 }
-#dateGroomerContainer {
-    text-align: center;
-    margin: auto;
-    width: 250px;
-}
-#nailsContainer {
-    text-align: center;
-    margin: auto;
-    width: 250px;
-}
-#select_groomer_control {
+#nailsContainer, #dateGroomerContainer {
     text-align: center;
     margin: auto;
 }
 /* Boarding Service Page */
-#select_boarding_location {
+#boardingServiceContainer {
+    text-align: center;
+    margin: auto;
+}
+#select_boarding_location, #boarding_service_date {
+    text-align: center;
+    margin: auto;
+}
+/* Location Page */
+#businessContainer, #servicesContainer, #contactContainer, #emailContainer, #phoneContainer {
+    text-align: center;
+    margin: auto;
+}
+#businessname_id, #email_id, #phone_id {
     text-align: center;
     margin: auto;
 }

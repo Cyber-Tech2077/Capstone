@@ -56,6 +56,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="../js/bootstrap.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="../js/contentControl.js" type="text/ecmascript"></script>
 
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
@@ -67,29 +68,25 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        var currentMonth = new Date().getMonth();
-        if (currentMonth > 0 && currentMonth < 10) {
-            currentMonth = "0" + currentMonth;
-        } else {
-            currentMonth += 1;
-        }
-        var currentDay = new Date().getDate();
-        if (currentDay < 10) {
-            currentDay = "0" + currentDay;
-        }
-        document.getElementById("service_date_id").setAttribute("min", new Date().getFullYear() + "-" + currentMonth + "-" + currentDay);
+        var startDate = document.getElementById("boarding_service_date");
+        var petChosen = document.getElementById("select_pet_control");
+        var boardingChosen = document.getElementById("select_boarding_location");
+        var text = document.getElementById("detail_entry").value;
+        
+        var limitDatePeriod = new ContentControl(null);
+        startDate.setAttribute("min", limitDatePeriod.limitedDatePeriod());
         $("#save_service").click(function(){
             
-            if (document.getElementById("select_pet_control").value == "" && document.getElementById("select_boarding_location").value == "" && document.getElementById("service_date_id").value == "") {
+            if (document.getElementById("select_pet_control").value == "" && document.getElementById("select_boarding_location").value == "" && startDate.value == "") {
                 alert("You must select a pet name, boarding location and service date.");
                 return;
             } else if (document.getElementById("select_pet_control").value == "" && document.getElementById("select_boarding_location").value == "") {
                 alert("You must select a pet name and boarding location.");
                 return;
-            } else if (document.getElementById("select_boarding_location").value == "" && document.getElementById("service_date_id").value == "") {
+            } else if (document.getElementById("select_boarding_location").value == "" && startDate.value == "") {
                 alert("You must select a boarding location and a service date.");
                 return;
-            } else if (document.getElementById("service_date_id").value == "") {
+            } else if (startDate.value == "") {
                 alert("You must select a service date.");
                 return;
             } else if (document.getElementById("select_pet_control").value == "") {
@@ -99,16 +96,11 @@
                 alert("You must select a boarding location.");
                 return;
             }
-            
-            var startDate = document.getElementById("service_date_id").value;
-            var petChosen = document.getElementById("select_pet_control");
-            var boardingChosen = document.getElementById("select_boarding_location");
-            var text = document.getElementById("detail_entry").value;
 
             $.post({
                 url: "../php/add_boarding_serviceDB.php",
                 data: {
-                    service_date: startDate,
+                    service_date: startDate.value,
                     boarding_location: boardingChosen.options[boardingChosen.selectedIndex].id,
                     pet_id: petChosen.options[petChosen.selectedIndex].id,
                     details: text
@@ -116,12 +108,17 @@
                 }, success: function(response) {
                     Swal.fire({
                         icon: 'success',
-                        text: petChosen.value + "'s boarding session added for " + startDate + '. See you then!'
+                        text: petChosen.value + "'s boarding session added for " + startDate.value + '. See you then!'
                     }).then(result => {
                         location.reload();
                     });
                 }, error: function(err){
-                    alert("Err " + err);
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'An ajax post call error has occurred: ' + err
+                    }).then(result => {
+                        location.reload();
+                    });
                 }
             });
 
@@ -134,13 +131,13 @@
 <body>
 
     <div class="jumbotron jumbotron-sm">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">Add a Boarding Service</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12">
+                    <h1 class="h1">Add a Boarding Service</h1>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     
     <div id="formContainer">
@@ -154,9 +151,9 @@
             </select>					
         </div>
         
-        <div class="form-group col-8" id="selectContainer">
+        <div class="form-group col-sm-10" id="selectContainer">
 	       <legend class="control-legend" id="select_pet">Choose Boarding Location</legend>
-            <select class="form-control" id="select_boarding_location" required>
+            <select class="form-control col-md-8" id="select_boarding_location" required>
                 <!-- Select Pet Dropdown Options -->
                 <option value=""></option>
                 <?php boardingLocations(); ?>
@@ -164,9 +161,9 @@
             </select>					
         </div>
         <!-- Service Date -->
-        <div class="form-group col-sm-10" id="birthContainer">
+        <div class="form-group col-sm-12" id="boardingServiceContainer">
             <legend class="control-legend">Start Date for Boarding Service</legend>
-            <input class="form-control col-8" type="date" id="service_date_id" name="service_date" require/>
+            <input class="form-control col-sm-5" type="date" id="boarding_service_date" name="service_date" require/>
 
         </div>
         <!-- Details -->

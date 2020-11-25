@@ -141,9 +141,9 @@
 </div>
 
 <div id="formContainer">
-    <div class="form-group col-8" id="selectContainer">
+    <div class="form-group col-sm-8" id="selectContainer">
         <legend class="control-legend" id="select_pet">Select Pet</legend>
-        <select class="form-control" id="select_pet_control" >
+        <select class="form-control col-md-10" id="select_pet_control">
             <!-- Select Pet Dropdown Options - Goes Here -->
             <option value=""></option>
             <?php comboboxOptions(); ?>
@@ -155,30 +155,28 @@
         <input type="text" class="form-control col-8" id="petname_id" name="petname"/>
     </div>
     <!-- Species -->
-    <div class="form-group col-sm-10" id="speciesContainer">
+    <div class="form-group col-md-8" id="speciesContainer">
         <label class="col-form-label">Species</label>
-        <div id="speciesToolContainer">
-            <div class="form-check form-inline">
-                <input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="Dog"><label class="form-check-label m-2">Dog</label>
-            </div>
-            <div class="form-check form-inline">
-                <input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="Cat"><label class="form-check-label m-2">Cat</label>
-            </div>
-            <div class="form-check form-inline">
-                <input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios3" value=""><label class="form-check-label m-2">Other</label>
-                <input class="form-control col-4" type="text" id="speciesRadiosOther">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
-            </div>
+        <div class="form-check form-inline">
+            <input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="Dog"><label class="form-check-label m-2">Dog</label>
+        </div>
+        <div class="form-check form-inline">
+            <input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="Cat"><label class="form-check-label m-2">Cat</label>
+        </div>
+        <div class="form-check form-inline">
+            <input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios3" value=""><label class="form-check-label m-2">Other</label>
+            <input class="form-control col-sm-7" type="text" id="speciesRadiosOther">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
         </div>
     </div>
     <!-- Birth Date -->
-    <div class="form-group col-sm-10" id="birthContainer">
+    <div class="form-group col-sm-8" id="birthContainer">
         <label class="control-label">Birth Date</label>
         <input class="form-control col-8" type="date" id="birthday_id" name="birthday">
     </div>
     <!-- Weight -->
     <div class="form-group col-sm-10" id="weightContainer">
-        <label class="col-form-label" id="weightLabel">Weight in lbs.</label>
-        <input class="form-control" type="number" min="0" step="0.1" pattern="d+(.d{1})?" id="weight_id" placeholder="0.0">
+        <label class="col-form-label">Weight in lbs.</label>
+        <input class="form-control col-sm-5" type="number" min="0" step="0.1" pattern="d+(.d{1})?" id="weight_id" placeholder="0.0">
     </div>
     <!-- chipId -->
     <div class="form-group col-sm-10" id="chipContainer">
@@ -189,17 +187,17 @@
     <div class="form-group col-sm-10" id="addressContainer">
         <legend class="control-legend" id="addressLbl">Address</legend>
     </div>
-    <div class="form-group col-sm-10" id="streetContainer">
+    <div class="form-group col-sm-8" id="streetContainer">
         <!-- Street -->
         <label class="control-label">Street</label>
         <input type="text" class="form-control" id="street_id" name="street" >
     </div>					
-    <div class="form-group col-sm-10" id="cityContainer">
+    <div class="form-group col-sm-7" id="cityContainer">
         <!-- City-->
         <label class="control-label">City</label>
         <input type="text" class="form-control" id="city_id" name="city">
     </div>
-    <div class="form-group col-8" id="stateContainer">
+    <div class="form-group col-sm-7" id="stateContainer">
         <!-- State  -->
         <label class="control-label">State</label>
         <select class="form-control" id="state_id">

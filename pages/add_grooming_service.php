@@ -109,16 +109,16 @@
     </div>
     
     <div id="formContainer">
-        <div class="form-group col-8" id="selectContainer">
+        <div class="form-group col-sm-8" id="selectContainer">
             <legend class="control-legend" id="select_pet">Select Pet:</legend>
-            <select class="form-control" id="select_pet_control">
+            <select class="form-control col-md-10" id="select_pet_control">
                 <!-- Select Pet Dropdown Options -->
                 <option value=""></option>
                 <?php comboboxOptions(); ?>
             </select>
         </div>
         <!-- Service Checkbox -->
-        <div class="form-group col-sm-10" id="nailsContainer">
+        <div class="form-group col-sm-5" id="nailsContainer">
             <label class="col-form-label">Service Provided:</label>
             <div class="form-check">
                 <label class="form-check-label">
@@ -126,9 +126,9 @@
             </div>
         </div>
         <!-- Groomer dropdown list -->
-        <div class="form-group col-8" id="selectContainer">
+        <div class="form-group col-sm-10" id="selectContainer">
             <legend class="control-legend" id="select_groomer">Select Groomer</legend>
-            <select class="form-control" id="select_groomer_control">
+            <select class="form-control col-md-8" id="select_groomer_control">
                 <!-- Select Groomer Dropdown Options -->
                 <option value=""></option>
                 <?php groomerOptions(); ?>
@@ -138,7 +138,7 @@
         <!-- Grooming Service Date -->
         <div class="form-group col-sm-10" id="dateGroomerContainer">
             <legend class="control-legend">Date of Grooming Service:</legend>
-            <input class="form-control col-8" type="date" id="grooming_date_id" name="date" />
+            <input class="form-control col-sm-6" type="date" id="grooming_service_date" name="date" />
         </div>
         <!-- Details -->
         <div class="form-group col-sm-10" id="detailsContainer">

@@ -115,7 +115,7 @@
 
     <div id="formContainer">
         
-        <div class="form-group col-8" id="selectContainer">
+        <div class="form-group col-sm-8" id="selectContainer">
             <legend class="control-legend" id="select_pet">Pet Name</legend>
             <select class="form-control" id="select_pet_control">
                 <!-- Select Pet Dropdown Options -->
@@ -124,7 +124,7 @@
             </select>
         </div>
         
-        <div class="form-group col-8" id="selectContainer">
+        <div class="form-group col-sm-8" id="selectContainer">
             <legend class="control-legend" id="select_location">Vet Location</legend>
             <select class="form-control" id="select_location_control">
 
@@ -138,7 +138,7 @@
          <!-- Vet Date -->
         <div class="form-group col-sm-10" id="vetContainer">
             <legend class="control-legend">Date of Veterinary Service</legend>
-            <input class="form-control col-8" type="date" id="service_date_id" name="service_date"/>
+            <input class="form-control col-sm-6" type="date" id="service_date_id" name="service_date"/>
         </div>
 
 
@@ -147,13 +147,12 @@
             <legend class="control-legend">Enter Details: </legend>
             <textarea class="from-control" id="detail_entry"></textarea>
         </div>
-
-    </div>
-    <br/>
-    <br/>
-    <!-- Save Button -->
-    <div class="form-group text-center">
-        <button class="btn btn-primary" id="save_service">Save</button>
+        <br/>
+        <br/>
+        <!-- Save Button -->
+        <div class="form-group text-center">
+            <button class="btn btn-primary" id="save_service">Save</button>
+        </div>
     </div>
 
 </body>
