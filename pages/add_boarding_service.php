@@ -131,59 +131,52 @@
 
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">Add a Boarding Service</h1>
-            </div>
+<div class="container">
+  <div class="row">
+	  <img src=" ../images/title_banner/Add_Boarding_Service.png" class="img-fluid mx-auto" alt="Add Boarding Service">
+  </div>
+</div>
+
+<form>
+<div class="row">
+	<div class="col-md-6">
+		<!-- Pet Name -->
+		<div class="form-group col-md-12">
+	        <legend class="control-legend" id="select_pet">For</legend>
+            <select class="form-control col-8" id="select_pet_control" required>
+                <!-- Select Pet Dropdown Options -->
+                <option value="" selected disabled>Select Pet</option>
+                <?php comboboxOptions(); ?>
+            </select>					
         </div>
-    </div>
-    </div>
-
-    <div class="form-group col-8">
-	    <legend class="control-legend" id="select_pet">Pet Name</legend>
-        <select class="form-control" id="select_pet_control" required>
-
-            <!-- Select Pet Dropdown Options -->
-            <option value=""></option>
-            <?php comboboxOptions(); ?>
-
-        </select>					
-    </div>
-    
-    <div class="form-group col-8">
-	    <legend class="control-legend" id="select_pet">Choose Boarding Location</legend>
-        <select class="form-control" id="select_boarding_location" required>
-
-
-            <!-- Select Pet Dropdown Options -->
-            <option value=""></option>
-            <?php boardingLocations(); ?>
-
-
-        </select>					
-    </div>
-    
-    <form>
+        <div class="form-group col-12">
+	        <legend class="control-legend" id="select_pet">Boarding Location</legend>
+            <select class="form-control col-8" id="select_boarding_location" required>
+                <!-- Select Pet Dropdown Options -->
+                <option value="" selected disabled>Select Boarder</option>
+                <?php boardingLocations(); ?>
+            </select>					
+        </div>
         <!-- Service Date -->
-        <div class="form-group col-sm-10">
+        <div class="form-group col-lg-10">
             <legend class="control-legend">Start Date for Boarding Service</legend>
-            <input class="form-control col-8" type="date" id="service_date_id" name="service_date"/>
-
+            <input class="form-control col-5 col-sm-7 col-md-6 col-lg-5 col-xl-4" type="date" id="service_date_id">
         </div>
-        <!-- Details -->
-        <div class="form-group col-sm-10">
-            <legend class="control-legend">Enter Details: </legend>
-            <textarea class="from-control" id="detail_entry"></textarea>
-
-        </div>
-    </form>
+    </div>
+</div>
+    <!-- Details -->
+<div class="col-md-6 mx-auto">
+    <div class="form-group">
+        <legend class="control-legend">Enter Details</legend>
+        <textarea class="form-control" rows="9" cols="50" id="detail_entry" placeholder="Enter Details..."></textarea>
+    </div>
+</div>
+</form>
 
     <!-- Save Button -->
-    <div class="form-group text-center">
-        <button class="btn btn-primary" id="save_service">Save</button>
-    </div>
+<div class="form-group text-center">
+    <button class="btn btn-primary" id="save_service">Save</button>
+</div>
 
 </body>
 </html>

@@ -37,13 +37,9 @@
     include (__DIR__ . "/../php/headernav.html");
 ?>
 
-<div class="jumbotron jumbotron-sm">
-  <div class="container">
-      <div class="row">
-          <div class="col-sm-12 col-lg-12">
-              <h1 class="h1">Frequently Asked Questions</h1>
-          </div>
-      </div>
+<div class="container">
+  <div class="row">
+	  <img src=" ../images/title_banner/FAQ.png" class="img-fluid mx-auto" alt="Update Location">
   </div>
 </div>
 
@@ -56,7 +52,7 @@
         <div id="headingOne" class="card-header bg-white shadow-sm border-0">
           <h2 class="mb-0">
             <button type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="btn btn-link text-left text-dark font-weight-bold text-decoration-none collapsible-link"><i class="fa fa-angle-right"></i>
-            What is [mock company name]'s mission?</button></h2>
+            What is Companion Vault's mission?</button></h2>
         </div>
           <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion" class="collapse">
             <div class="card-body p-5">
@@ -64,7 +60,7 @@
                 <p>To become your pets virtual filing cabinet!</p>
               </div>
               <p class="font-weight-light m-0">
-              Managing your pet's records & appointments will be as easy as ever.  [Mock company name] creates a database for your pet that holds all of it's medical records & appointment details. We will even work as your pets virtual calendar, reminding you of when appointments & services are due.</p>
+              Managing your pet's records & appointments will be as easy as ever.  Companion Vault creates a database for your pet that holds all of it's medical records & appointment details. We will even work as your pets virtual calendar, reminding you of when appointments & services are due.</p>
             </div>
           </div>
         </div>

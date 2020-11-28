@@ -72,7 +72,6 @@
 				error: function(err) {
 					alert("Err " + err);
 				}
-            
 			});
         });
     });
@@ -80,87 +79,92 @@
 
 <body>
  
-<div class="jumbotron jumbotron-sm">
-  <div class="container">
-      <div class="row">
-          <div class="col-sm-12 col-lg-12">
-              <h1 class="h1">Add a Pet</h1>
-          </div>
-      </div>
+<div class="container">
+  <div class="row">
+	  <img src=" ../images/title_banner/Add_Pet.png" class="img-fluid mx-auto" alt="Add Location">
   </div>
 </div>
 
 <form>
-	<div class="form-group col-sm-10">
-		<legend class="control-legend">Pet</legend>
-	</div>
-<!-- Name -->
-	<div class="form-group col-sm-10">
- 		<label class="control-label">Name</label>
- 		<input type="text" class="form-control col-8" id="petname_id" name="petname">
- 	</div>
-
-<!-- Species -->
-	<div class="form-group col-sm-10">
-		<label class="col-form-label">Species</label>
-	    <div class="form-check form-inline">
-			<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="Dog"><label class="form-check-label m-2">Dog</label>
-  		</div>
-    	<div class="form-check form-inline">
-    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="Cat"><label class="form-check-label m-2">Cat</label>
-    	</div>
-		<div class="form-check form-inline">
-    		<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios3" value=""><label class="form-check-label m-2">Other</label>
-			<input class="form-control col-4" type="text" id="speciesRadiosOther" style="display: none">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+<div class="row">
+	<!-- Left Column-->
+	<div class="col-md-6">
+		<div class="form-group col-md-12">
+			<legend class="control-legend">Pet</legend>
 		</div>
-  	</div>
+		<!-- Name -->
+		<div class="form-group col-lg-10">
+ 			<label class="control-label">Name</label>
+ 			<input type="text" class="form-control col-8" id="petname_id" name="petname">
+ 		</div>
 
-<!-- Birth Date -->
-	<div class="form-group col-sm-10">
-  		<label class="control-label">Birth Date</label>
-  		<input class="form-control col-8" type="date" id="birthday_id" name="birthday">
+		<!-- Species -->
+		<div class="form-group col-lg-10">
+			<label class="col-form-label">Species</label>
+			<div class="form-check form-inline">
+				<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="Dog"><label class="form-check-label m-2">Dog</label>
+			</div>
+			<div class="form-check form-inline">
+				<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="Cat"><label class="form-check-label m-2">Cat</label>
+			</div>
+			<div class="form-check form-inline">
+				<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios3" value=""><label class="form-check-label m-2">Other</label>
+				<input class="form-control col-4" type="text" id="speciesRadiosOther" style="display: none">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+			</div>
+		</div>
+
+		<!-- Birth Date -->
+		<div class="form-group col-lg-10">
+			<label class="control-label">Birth Date</label>
+			<input class="form-control col-5 col-sm-7 col-md-6 col-lg-5 col-xl-4" type="date" id="birthday_id" name="birthday">
+		</div>
+
+		<!-- Weight -->
+		<div class="form-group col-lg-10">
+			<label class="col-form-label">Weight in lbs.</label>
+			<input class="form-control col-3 col-sm-4 col-md-5 col-lg-3" type="number" min="0" step="0.1" pattern="d+(.d{1})?" id="weight_id" placeholder="0.0">
+		</div>
+
+		<!-- Chip Id -->
+		<div class="form-group col-lg-10">
+			<label class="control-label">Chip ID</label>
+			<input type="text" class="form-control col-8" id="chip_id" chipNum="chipId">
+		</div>
 	</div>
 
-<!-- Weight -->
-	<div class="form-group col-sm-10">
-		<label class="col-form-label">Weight in lbs.</label>
-		<input class="form-control" type="number" min="0" step="0.1" pattern="d+(.d{1})?" id="weight_id" placeholder="0.0">
+    <!-- Right Column-->
+	<div class="col-md-6">
+		<!-- Address -->
+		<div class="form-group col-md-12">
+			<legend class="control-legend">Address</legend>
+		</div>
+		<div class="form-group col-lg-10"> <!-- Street -->
+			<label class="control-label">Street</label>
+			<input type="text" class="form-control" id="street_id">
+		</div>					
+
+		<div class="form-group col-lg-10"> <!-- City-->
+			<label class="control-label">City</label>
+			<input type="text" class="form-control" id="city_id">
+		</div>									
+
+		<div class="row col-12">
+			<div class="form-group col-md-8 col-lg-6"> <!-- State  -->
+				<label class="control-label">State</label>
+				<select class="form-control" id="state_id">
+				<?php
+				include (__DIR__ . "/../php/data_lists/states.html");
+				?>
+				</select>					
+			</div>
+			
+			<div class="form-group col-md-4 col-lg-4"> <!-- Zip Code-->
+				<label class="control-label">Zip Code</label>
+				<input class="form-control" type="text" id="zip_id">
+			</div> 
+		</div>
 	</div>
-
-<!-- chipId -->
-<div class="form-group col-sm-10">
- 		<label class="control-label">Chip ID</label>
- 		<input type="text" class="form-control col-8" id="chip_id" chipNum="chipId">
- 	</div>
-
-<!-- Address -->
-	<div class="form-group col-sm-10">
-		<legend class="control-legend">Address</legend>
-	</div>
-	<div class="form-group col-sm-10"> <!-- Street -->
-		<label class="control-label">Street</label>
-		<input type="text" class="form-control" id="street_id" name="street" >
-	</div>					
-
-	<div class="form-group col-sm-10"> <!-- City-->
-		<label class="control-label">City</label>
-		<input type="text" class="form-control" id="city_id" name="city">
-	</div>									
-
-	<div class="form-group col-8"> <!-- State  -->
-		<label class="control-label">State</label>
-		<select class="form-control" id="state_id">
-		<?php
-    	include (__DIR__ . "/../php/data_lists/states.html");
-		?>
-		</select>					
-	</div>
-	
-	<div class="form-group col-4"> <!-- Zip Code-->
-		<label class="control-label">Zip Code</label>
-	<input class="form-control col-8" type="text" id="zip_id" name="zip">
-  </div> 
- 
+</div>
 </form>
 
 <!-- Submit Button -->

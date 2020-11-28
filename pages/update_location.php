@@ -124,93 +124,111 @@ $(document).ready(function() {
 
 <body>
  
-<div class="jumbotron jumbotron-sm">
-  <div class="container">
-      <div class="row">
-          <div class="col-sm-12 col-lg-12">
-              <h1 class="h1">Update a Location</h1>
-          </div>
-      </div>
+<div class="container">
+  <div class="row">
+	  <img src=" ../images/title_banner/Update_Location.png" class="img-fluid mx-auto" alt="Update Location">
   </div>
 </div>
 
-<div class="form-group col-8">
-	<legend class="control-legend" id="select_location">Select a Location</legend>
-	<select class="form-control" id="select_location_control" >
-		<option value=""></option>
-		<?php comboboxOptions(); ?>
-	</select>					
+<div class="row">
+	<div class="col-md-6 mx-auto">
+		<div class="form-group col-md-12">
+			<legend class="control-legend" id="select_location">Select a Location to Update</legend>
+		</div>
+		<div class="form-group col-lg-10">
+			<select class="form-control" id="select_location_control" >
+				<option value=""></option>
+				<?php comboboxOptions(); ?>
+			</select>			
+		</div>
+	</div>
+	<hr class="form-group col-10 solid">	
 </div>
 
 <form>
-<!-- Business Name -->
-	<div class="form-group col-sm-10">
-	<legend class="control-legend">Business Name</legend>
- 		<input type="text" class="form-control col-8" id="businessname_id" name="name">
- 	</div>
+<div class="row">
+    <!-- Left Column-->
+	<div class="col-md-6">
+		<!-- Business Name -->
+		<div class="form-group col-md-12">
+			<legend class="control-legend">Business Name</legend>
+		</div>
+		<div class="form-group col-lg-10">
+			<input type="text" class="form-control" id="businessname_id">
+		</div>
 
-<!-- Business Service Checkboxes -->
-	<div class="form-group col-sm-10">
-	<legend class="control-legend">Services</legend>
-	<div class="row">
-		<div class="col">
-			<div class="custom-control custom-checkbox mb-3">	<!-- Vet Service -->
-				<input type="checkbox" class="custom-control-input" id="vetservice_id" value="">
-				<label class="custom-control-label" for="vetservice_id">Veterinary</label>
-			</div>
-			<div class="custom-control custom-checkbox mb-3">	<!-- Grooming Service -->
-				<input type="checkbox" class="custom-control-input" id="groomingservice_id" value="">
-				<label class="custom-control-label" for="groomingservice_id">Grooming</label>
-			</div>
-			<div class="custom-control custom-checkbox mb-3">	<!-- Boarding Service -->
-				<input type="checkbox" class="custom-control-input" id="boardingservice_id" value="">
-				<label class="custom-control-label" for="boardingservice_id">Boarding</label>
+		<!-- Business Service Checkboxes -->
+		<div class="form-group col-sm-10">
+		<legend class="control-legend">Services</legend>
+			<div class="row">
+				<div class="col">
+					<div class="custom-control custom-checkbox mb-3">	<!-- Vet Service -->
+						<input type="checkbox" class="custom-control-input" id="vetservice_id" value="">
+						<label class="custom-control-label" for="vetservice_id">Veterinary</label>
+					</div>
+					<div class="custom-control custom-checkbox mb-3">	<!-- Grooming Service -->
+						<input type="checkbox" class="custom-control-input" id="groomingservice_id" value="" >
+						<label class="custom-control-label" for="groomingservice_id">Grooming</label>
+					</div>
+					<div class="custom-control custom-checkbox mb-3">	<!-- Boarding Service -->
+						<input type="checkbox" class="custom-control-input" id="boardingservice_id" value="" >
+						<label class="custom-control-label" for="boardingservice_id">Boarding</label>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
+
 	</div>
 
-<!-- Address -->
-	<div class="form-group col-sm-10">
-		<legend class="control-legend">Address</legend>
+    <!-- Right Column-->
+	<div class="col-md-6">
+		<!-- Address -->
+		<div class="form-group col-md-12">
+			<legend class="control-legend">Address</legend>
+		</div>
+		<div class="form-group col-lg-10"> <!-- Street -->
+			<label class="control-label">Street</label>
+			<input type="text" class="form-control" id="street_id">
+		</div>					
+
+		<div class="form-group col-lg-10"> <!-- City-->
+			<label class="control-label">City</label>
+			<input type="text" class="form-control" id="city_id">
+		</div>									
+
+		<div class="row col-12">
+			<div class="form-group col-md-8 col-lg-6"> <!-- State  -->
+				<label class="control-label">State</label>
+				<select class="form-control" id="state_id">
+				<?php
+				include (__DIR__ . "/../php/data_lists/states.html");
+				?>
+				</select>					
+			</div>
+			
+			<div class="form-group col-md-4 col-lg-4"> <!-- Zip Code-->
+				<label class="control-label">Zip Code</label>
+				<input class="form-control" type="text" id="zip_id">
+			</div> 
+		</div>
+
 	</div>
-	<div class="form-group col-sm-10"> <!-- Street -->
-		<label class="control-label">Street</label>
-		<input type="text" class="form-control" id="street_id" name="street" >
-	</div>					
+</div>
 
-	<div class="form-group col-sm-10"> <!-- City-->
-		<label class="control-label">City</label>
-		<input type="text" class="form-control" id="city_id" name="city">
-	</div>									
-
-	<div class="form-group col-8"> <!-- State  -->
-		<label class="control-label">State</label>
-		<select class="form-control" id="state_id">
-		<?php
-    	include (__DIR__ . "/../php/data_lists/states.html");
-		?>
-		</select>					
-	</div>
-	
-	<div class="form-group col-4"> <!-- Zip Code-->
-		<label class="control-label">Zip Code</label>
-		<input class="form-control col-8" type="text" id="zip_id" name="zip">
- 	</div> 
-
-<!-- Contact-->
-	<div class="form-group col-sm-10">
+		<!-- Contact-->
+<div class="col-md-6">
+	<div class="form-group">
 		<legend class="control-legend">Contact</legend>
 	</div>
-
-	<div class="form-group col-4">	<!-- Email -->
+	<div class="form-group col-lg-10">	<!-- Email -->
 		<label class="control-label">Email</label>
-		<input class="form-control col-8" type="text" id="email_id" name="email">
+		<input class="form-control" type="text" id="email_id">
 	</div>
-	<div class="form-group col-4">	<!-- Phone -->
+	<div class="form-group col-lg-10">	<!-- Phone -->
 		<label class="control-label">Phone Number</label>
-		<input class="form-control col-8" type="text" id="phone_id" name="phone">
-  	</div>
+		<input class="form-control" type="text" id="phone_id">
+	</div>
+</div>
 </form>
 
 <!-- Submit Button -->

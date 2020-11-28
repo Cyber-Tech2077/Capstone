@@ -19,7 +19,7 @@
  
 <div id="main_nav"> 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Team Purple B03</a>
+    <a class="navbar-brand" href="#"><img src="./images/title_banner/TeamPurple_Logo.png" width="150" height="60" alt="Team Purple Logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -49,7 +49,7 @@
          <div class="dropdown text-center">
           <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Pet</a>
             <div class="dropdown-menu text-center">
-              <a class="dropdown-item nav-link hoverable" href="./pages/add_pet.php">Add a Pet</a>
+              <a class="dropdown-item nav-link hoverable" href="./pages/add_pet.php">Add Pet</a>
               <a class="dropdown-item nav-link hoverable" href="./pages/update_pet.php">Update Pet</a>
               <a class="dropdown-item nav-link hoverable" href="./pages/pet_history.php">Pet History</a>
             </div>
@@ -79,8 +79,8 @@
         <div class="dropdown text-center">
           <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Location</a>
             <div class="dropdown-menu text-center">
-              <a class="dropdown-item nav-link hoverable" href="./pages/add_location.php">Add a Location</a>
-              <a class="dropdown-item nav-link hoverable" href="./pages/update_location.php">Update a Location</a>
+              <a class="dropdown-item nav-link hoverable" href="./pages/add_location.php">Add Location</a>
+              <a class="dropdown-item nav-link hoverable" href="./pages/update_location.php">Update Location</a>
             </div>
           </div>
       </div>
@@ -88,15 +88,11 @@
   </nav>
   </div>
   
-  <div class="jumbotron jumbotron-sm">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">Team Purple B03</h1>
-            </div>
-        </div>
-    </div>
+  <div class="container">
+  <div class="row">
+	  <img src=" ./images/title_banner/Companion_Vault.png" class="img-fluid mx-auto" alt="Home Page Banner">
   </div>
+</div>
 
   <?php
     include ("./php/carousel.html");

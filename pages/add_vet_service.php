@@ -2,6 +2,7 @@
     session_start();
     include ("../php/headernav.html");
     include_once("../php/DBConnect.php");
+    include (__DIR__ . "/../php/modals/Modals.html");
 
     //Pet Selector
 	function comboboxOptions() {
@@ -48,7 +49,7 @@
 ?>
 <!DOCTYPE html>
 <html>
-
+<head>
     <title>Team Purple B03</title>
 
     <meta charset="utf-8">
@@ -58,11 +59,8 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="../js/bootstrap.min.js"></script>
 
-
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-
-<head>
 </head>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -81,70 +79,64 @@
                         details: text
 
                     }, 
-				success: function(){
-					alert("Veterinary service added!");
-				},
-				error: function(err){
-					alert("Javscript Error: " + err);
-				}
+                    success: function() {
+					    $('#addition_successful').modal();
+				    },
+				    error: function(err) {
+					    alert("Err " + err);
+				    }
 			});
         });
     });
 </script>
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">Add Veterinary Service</h1>
-            </div>
-        </div>
-    </div>
-    </div>
+<div class="container">
+  <div class="row">
+	  <img src=" ../images/title_banner/Add_Veterinary_Service.png" class="img-fluid mx-auto" alt="Add Veterinary Service">
+  </div>
+</div>
 
-    <div class="form-group col-8">
-	<legend class="control-legend" id="select_pet">Pet Name</legend>
-        <select class="form-control" id="select_pet_control">
-
-            <!-- Select Pet Dropdown Options -->
-            <option value=""></option>
-            <?php comboboxOptions(); ?>
-
-        </select>					
-    </div>
-
-    <form>
-        <div class="form-group col-8">
-        <legend class="control-legend" id="select_location">Vet Location</legend>
-            <select class="form-control" id="select_location_control">
-
+<form>
+<div class="row">
+	<div class="col-md-6">
+		<!-- Pet Name -->
+		<div class="form-group col-md-12">
+            <legend class="control-legend" id="select_pet">For</legend>
+            <select class="form-control col-8" id="select_pet_control" required>
+                <!-- Select Pet Dropdown Options -->
+                <option value="" selected disabled>Select Pet</option>
+                <?php comboboxOptions(); ?>
+            </select>					
+        </div>   
+        <div class="form-group col-12">
+            <legend class="control-legend" id="select_location">Veterinary Location</legend>
+            <select class="form-control col-8" id="select_location_control" required>
                 <!-- Select Location Dropdown Options -->
-                <option value=""></option>
+                <option value="" selected disabled>Select Veterinary</option>
                 <?php chooseLocation(); ?>
-
             </select>					
         </div>
-
-         <!-- Vet Date -->
-        <div class="form-group col-sm-10">
+        <!-- Veterinary Service Date -->
+        <div class="form-group col-lg-10">
             <legend class="control-legend">Date of Veterinary Service</legend>
-            <input class="form-control col-8" type="date" id="service_date_id" name="service_date">
+            <input class="form-control col-5 col-sm-7 col-md-6 col-lg-5 col-xl-4" type="date" id="service_date_id">
         </div>
-
-
-        <!-- Details -->
-        <div class="form-group col-sm-10">
-            <legend class="control-legend">Enter Details: </legend>
-            <textarea class="from-control" id="detail_entry"></textarea>
-        </div>
-
-    </form>
+    </div>
+</div>
+    <!-- Details -->
+<div class="col-md-6 mx-auto">
+    <div class="form-group">
+        <legend class="control-legend">Enter Details</legend>
+        <textarea class="form-control" rows="9" cols="50" id="detail_entry" placeholder="Enter Details..."></textarea>
+    </div>
+</div>
+</form>
 
     <!-- Save Button -->
-    <div class="form-group text-center">
-        <button class="btn btn-primary" id="save_service">Save</button>
-    </div>
+<div class="form-group text-center">
+    <button class="btn btn-primary" id="save_service">Save</button>
+</div>
 
 </body>
 </html>

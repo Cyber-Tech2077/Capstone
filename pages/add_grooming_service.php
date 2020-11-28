@@ -3,6 +3,7 @@
     //session_start();
     include ("../php/headernav.html");
     include_once ("../php/DBConnect.php");
+    include (__DIR__ . "/../php/modals/Modals.html");
 
     //Pet Selector
 	function comboboxOptions() {
@@ -85,11 +86,13 @@
                         nails_trimmed: nailsClipped.checked,
                         details: text
 
-                    }, success: function() {
-                    alert("Grooming service added!");
-                }, error: function(err){
-                    alert("Err " + err);
-                }            
+                    },
+                    success: function() {
+					    $('#addition_successful').modal();
+				    },
+				    error: function(err) {
+					    alert("Err " + err);
+				    }           
 			});
         });        
     });
@@ -97,71 +100,64 @@
 </script>
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">Grooming</h1>
+<div class="container">
+  <div class="row">
+	  <img src=" ../images/title_banner/Add_Grooming_Service.png" class="img-fluid mx-auto" alt="Add Grooming Service">
+  </div>
+</div>
+
+<form>
+<div class="row">
+    <!-- Left Column-->
+	<div class="col-md-6">
+		<!-- Pet Name -->
+		<div class="form-group col-md-12">
+            <legend class="control-legend" id="select_pet">For</legend>
+            <select class="form-control col-8" id="select_pet_control" required>
+                <!-- Select Pet Dropdown Options -->
+                <option value="" selected disabled>Select Pet</option>
+                <?php comboboxOptions(); ?>
+            </select>					
+        </div>   
+        <div class="form-group col-12">
+        	<legend class="control-legend" id="select_groomer">Groomer Location</legend>
+            <select class="form-control col-8" id="select_groomer_control" required>
+                <!-- Select Groomer Dropdown Options -->
+                <option value="" selected disabled>Select Groomer</option>
+                <?php groomerOptions(); ?>
+             </select>					
+        </div>
+        <!-- Grooming Service Date -->
+        <div class="form-group col-lg-10">
+            <legend class="control-legend">Date of Grooming Service</legend>
+            <input class="form-control col-5 col-sm-7 col-md-6 col-lg-5 col-xl-4" type="date" id="grooming_date_id">
+        </div>
+    </div>
+    <!-- Right Column-->
+    <div class="col-md-6">
+        <!-- Service Checkbox -->    
+        <div class="form-group col-sm-10">
+            <legend class="control-legend">Service Provided</legend>
+            <div class="custom-control custom-checkbox mb-3">	<!-- Nails Trimmed Service -->
+                <input type="checkbox" class="custom-control-input" id="nailsClipped" value="nails_trimmed">
+                <label class="custom-control-label" for="nailsClipped">Nails Trimmed</label>
             </div>
         </div>
     </div>
+</div>
+    <!-- Details -->
+<div class="col-md-6 mx-auto">
+    <div class="form-group">
+        <legend class="control-legend">Enter Details</legend>
+        <textarea class="form-control" rows="9" cols="50" id="detail_entry" placeholder="Enter Details..."></textarea>
     </div>
-
-    <div class="form-group col-8">
-	<legend class="control-legend" id="select_pet">Select Pet:</legend>
-        <select class="form-control" id="select_pet_control">
-
-            <!-- Select Pet Dropdown Options -->
-            <option></option>
-            <?php comboboxOptions(); ?>
-
-        </select>					
-    </div>
-    
-    
-    
-
-
-    <!-- Service Checkbox -->
-	<div class="form-group col-sm-10">
-		<label class="col-form-label">Service Provided:</label>
-	    <div class="form-check">
-			<label class="form-check-label">
-			<input class="form-check-input" type="checkbox" name="serviceCheckbox" id="nailsClipped" value="nails_trimmed" checked>Nails Trimmed</label>
-  
-    	</div>
-  	</div>
-
-    
-    <form method="post">
-     <!-- Groomer dropdown list -->
-     <div class="form-group col-8">
-	<legend class="control-legend" id="select_groomer">Select Groomer</legend>
-        <select class="form-control" id="select_groomer_control">
-
-            <!-- Select Groomer Dropdown Options -->
-            <option value=""></option>
-            <?php groomerOptions(); ?>
-
-        </select>					
-    </div>       
-        <!-- Grooming Service Date -->
-        <div class="form-group col-sm-10">
-            <legend class="control-legend">Date of Grooming Service:</legend>
-            <input class="form-control col-8" type="date" id="grooming_date_id" name="date">
-        </div>
-        <!-- Details -->
-        <div class="form-group col-sm-10">
-            <legend class="control-legend">Enter Details: </legend>
-            <textarea class="from-control" id="detail_entry"></textarea>
-        </div>
-    </form>
+</div>
+</form>
 
     <!-- Save Button -->
-    <div class="form-group text-center">
-        <button class="btn btn-primary" id="save_grooming_service">Save</button>
-    </div>
+<div class="form-group text-center">
+    <button class="btn btn-primary" id="save_grooming_service">Save</button>
+</div>
 
 </body>
-
 </html>
