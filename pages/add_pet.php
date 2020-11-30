@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Team Purple B03</title>
+  <title>Companion Vault</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -100,16 +100,21 @@
 
 		<!-- Species -->
 		<div class="form-group col-lg-10">
-			<label class="col-form-label">Species</label>
-			<div class="form-check form-inline">
-				<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios1" value="Dog"><label class="form-check-label m-2">Dog</label>
+			<label>Species</label>
+			<div class="custom-control custom-radio">
+  				<input type="radio" id="speciesRadios1" name="speciesRadios" class="custom-control-input" value="Dog">
+				<label class="custom-control-label m-2" for="speciesRadios1">Dog</label>
 			</div>
-			<div class="form-check form-inline">
-				<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios2" value="Cat"><label class="form-check-label m-2">Cat</label>
+			<div class="custom-control custom-radio">
+  				<input type="radio" id="speciesRadios2" name="speciesRadios" class="custom-control-input" value="Cat">
+  				<label class="custom-control-label m-2" for="speciesRadios2">Cat</label>
 			</div>
-			<div class="form-check form-inline">
-				<input class="form-check-input" type="radio" name="speciesRadios" id="speciesRadios3" value=""><label class="form-check-label m-2">Other</label>
-				<input class="form-control col-4" type="text" id="speciesRadiosOther" style="display: none">​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+			<div class="form-inline"> 
+				<div class="custom-control custom-radio">
+  					<input type="radio" id="speciesRadios3" name="speciesRadios" class="custom-control-input" value="">
+  					<label class="custom-control-label m-2" for="speciesRadios3">Other</label>
+				</div>
+					<input class="form-control col-4" type="text" id="speciesRadiosOther" style="display: none">
 			</div>
 		</div>
 

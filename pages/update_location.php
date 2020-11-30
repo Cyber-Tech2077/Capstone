@@ -29,7 +29,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Team Purple B03</title>
+  <title>Companion Vault</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -233,7 +233,7 @@ $(document).ready(function() {
 
 <!-- Submit Button -->
 <div class="form-group text-center">
-	<button type="submit" class="btn btn-primary" id="update_location">Save</button>
+	<button type="submit" class="btn btn-primary" id="update_location">Submit</button>
 </div>
 
 </body>

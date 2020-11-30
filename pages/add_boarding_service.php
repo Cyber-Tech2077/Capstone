@@ -47,7 +47,7 @@
 <!DOCTYPE html>
 <html>
 
-    <title>Team Purple B03</title>
+    <title>Companion Vault</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -175,7 +175,7 @@
 
     <!-- Save Button -->
 <div class="form-group text-center">
-    <button class="btn btn-primary" id="save_service">Save</button>
+    <button class="btn btn-primary" id="save_service">Submit</button>
 </div>
 
 </body>

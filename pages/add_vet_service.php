@@ -50,7 +50,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Team Purple B03</title>
+    <title>Companion Vault</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,6 +99,7 @@
 
 <form>
 <div class="row">
+	<!-- Left Column-->
 	<div class="col-md-6">
 		<!-- Pet Name -->
 		<div class="form-group col-md-12">
@@ -122,8 +123,9 @@
             <legend class="control-legend">Date of Veterinary Service</legend>
             <input class="form-control col-5 col-sm-7 col-md-6 col-lg-5 col-xl-4" type="date" id="service_date_id">
         </div>
-    </div>
+    </div>    
 </div>
+
     <!-- Details -->
 <div class="col-md-6 mx-auto">
     <div class="form-group">
@@ -135,7 +137,7 @@
 
     <!-- Save Button -->
 <div class="form-group text-center">
-    <button class="btn btn-primary" id="save_service">Save</button>
+    <button class="btn btn-primary" id="save_service">Submit</button>
 </div>
 
 </body>
