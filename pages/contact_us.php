@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Team Purple B03</title>
+  <title>Companion Vault</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,19 +22,15 @@
     include (__DIR__ . "/../php/headernav.html");
 ?>
 
-  <div class="jumbotron jumbotron-sm">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">
-                  Contact Us</h1>
-            </div>
-        </div>
-    </div>
+<div class="container">
+  <div class="row">
+	  <img src=" ../images/title_banner/Contact_Us.png" class="img-fluid mx-auto" alt="Update Location">
   </div>
+</div>
 
 <div class="container">
     <div class="row">
+        <!-- Left Column-->
         <div class="col-md-8">
             <div class="well well-sm">
                 <form>
@@ -67,10 +63,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="name">
-                                Message</label>
-                            <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required"
-                                placeholder="Message"></textarea>
+                            <label>Message</label>
+                            <textarea id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Message"></textarea>
                         </div>
                     </div>
                     <div class="col-md-12 text-center">
@@ -80,6 +74,7 @@
                 </form>
             </div>
         </div>
+        <!-- Right Column-->
         <div class="col-md-4 text-center">
             <form>
             <address>
