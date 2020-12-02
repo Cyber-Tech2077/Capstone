@@ -9,14 +9,14 @@
 		// No need to mess with this.
 		$conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, businessName from Locations";
+			$sql = "select id, business from Locations";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();
 			} else {
 				$storeValueId;
 				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->businessName . ">" . $row->businessName . "</option>";
+					echo "<option id = " . $row->id . " value = " . $row->business . ">" . $row->business . "</option>";
 				}
 			}
 		} catch (Throwable $e) {

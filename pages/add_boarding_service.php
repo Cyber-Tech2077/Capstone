@@ -27,7 +27,7 @@
     function boardingLocations() {
         $conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, businessName as name from Locations where boarderChecked = '1'";
+			$sql = "select id, business as name from Locations";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();
@@ -96,15 +96,12 @@
                 alert("You must select a boarding location.");
                 return;
             }
-
+            var detailEntry = document.getElementById("detail_entry");
+            var jsonParams = {values: {petId: petChosen.options[petChosen.selectedIndex].id, serviceName: 'Boarding', locationId: boardingChosen.options[boardingChosen.selectedIndex].id, serviceDate: startDate.value, serviceDetails: detailEntry.value}}
             $.post({
-                url: "../php/add_boarding_serviceDB.php",
+                url: "../php/add_boardingDB.php",
                 data: {
-                    service_date: startDate.value,
-                    boarding_location: boardingChosen.options[boardingChosen.selectedIndex].id,
-                    pet_id: petChosen.options[petChosen.selectedIndex].id,
-                    details: text
-
+                    formValues: JSON.stringify(jsonParams)
                 }, success: function(response) {
                     Swal.fire({
                         icon: 'success',

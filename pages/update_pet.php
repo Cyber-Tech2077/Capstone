@@ -2,7 +2,7 @@
 <?php
 	//session_start();
 	include ("../php/headernav.html");
-	include_once("../php/DBConnect.php");
+	require_once ("../php/DBConnect.php");
 	//include (__DIR__ . "/../php/modals/Modals.html");
 
 	function comboboxOptions() {
@@ -17,7 +17,7 @@
 			} else {
 				$storeValueId;
 				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
+					echo "<option id = '" . $row->id . "' value = '" . $row->name . "'>" . $row->name . "</option>";
 				}
 			}
 		} catch (Throwable $e) {
@@ -58,6 +58,10 @@
         var petState = document.getElementById("state_id");
         var petZip = document.getElementById("zip_id");
         var petChip = document.getElementById("chip_id");
+        
+        $('#zip_id').keydown(function(event) {
+            return new ContentControl().keyboardNumbers(event);
+        });
         
 		$("#select_pet_control").change(function(){
 			document.getElementById("speciesRadiosOther").value = ""
@@ -100,28 +104,31 @@
 
 			// Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the
 			// selected pet name.
-			$.post({
-				url: "../php/update_petDB.php",
-				data: {	pet_name: petName.value, 
-						pet_species: petSpecies, 
-						pet_birthdate: petBirthDate.value, 
-						pet_weight: petWeight.value,
-						pet_street: petStreet.value, 
-						pet_city: petCity.value,
-						pet_state: petState.value, 
-						pet_zip: petZip.value, 
-						pet_chip: petChip.value, 
-						pet_ID: idNum.options[idNum.selectedIndex].id
-				}, 
-				success: function() {
-					Swal.fire({
-                        icon: 'success',
-                        text: petName.value + " has been updated successfully!"
-                    }).then(result => {
-                        location.reload();
-                    });
-				}
-			});
+            var params = {paramValues: [petName.value, petSpecies, petBirthDate.value, petWeight.value, petStreet.value, petCity.value, petState.value, petZip.value, petChip.value, idNum.options[idNum.selectedIndex].id]};
+            $.post({
+                url: '../php/update_petDB.php',
+                data: {pet: JSON.stringify(params)},
+                dataType: 'json',
+                success: function(response) {
+                    var feedback = JSON.parse(response);
+                    for (var jsonKey in feedback) {
+                        switch (jsonKey.toUpperCase()) {
+                            case 'ERROR':
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: feedback[jsonKey]
+                                });
+                                break;
+                            case 'SUCCESS':
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Pet Updated!'
+                                });
+                                break;
+                        }
+                    }
+                }
+            });
 		});
 	});
 

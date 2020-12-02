@@ -1,30 +1,15 @@
 <?php
-
-include_once ("../php/DBConnect.php");
-
-try {
-    $conn = databaseConnect("Pet");
-
-    //sql statement
-    $sql = "INSERT INTO PetHistory(petId, serviceName, date) VALUES (?,?,?)";
-
-    //data to pass into DB
-    $params = array($_POST[pet_id], "Boarding" ,$_POST[service_date]);
-    
-
-    $stmt = sqlsrv_prepare($conn, $sql, $params);
-
-    if (sqlsrv_execute($stmt) === false) {
-        echo "SQL Statement Error: " . sqlsrv_errors(); 
+    require_once '../php/dynamic-queries/ConstructDBQueries.php';
+    try {
+        $dbParams = json_encode(array('dbName' => 'Pet', 'sqlType' => 'insert', 'tableName' => 'PetHistory'));
+        foreach($_POST as $postKey => $postValue) {
+            $SQLConstruct = new SQL(json_decode($dbParams), json_decode($_POST[$postKey]));
+            $SQLConstruct->constructQueryWithParams();
+        }
+    } catch (Throwable $e) {
+        echo "Throwable Caught: " . $e;
+    } catch (Throwable $ee) {
+        echo "Exception caught: " . $ee;
     }
-
-
-} catch (Throwable $e) {
-    echo "Throwable Caught: " . $e;
-} catch (Throwable $ee) {
-    echo "Exception caught: " . $ee;
-}
-
-sqlsrv_close($conn);
 
 ?>

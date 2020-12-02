@@ -1,22 +1,19 @@
 
 <?php
-
-include_once ("../php/DBConnect.php");
-
-{	 
+    require_once './dynamic-queries/ConstructDBQueries.php';
     try {
-        $conn = databaseConnect("Pet");
-        $sql = "INSERT INTO PetHistory (petId, serviceName, date, locationId, details, nailsClipped) VALUES (?, ?,?,?,?,?)";   
-        $params = array($_POST["pet_id"], "Grooming", $_POST["serviceDate"],$_POST["locationId"], $_POST["details"], $_POST["nails_trimmed"]);     
-        $stmt = sqlsrv_prepare($conn, $sql, $params);
-        if (sqlsrv_execute($stmt) === false) {
-           echo "SQL Statement Error: " . sqlsrv_errors(); 
+        $dbParams = json_encode(array('dbName' => 'Pet', 'sqlType' => 'insert', 'tableName' => 'PetHistory'));
+        $dbTableColumns;
+        foreach ($_POST as $postKey => $postValue) {
+            $dbTableColumns = json_encode(json_decode($_POST[$postKey]));
         }
-   } catch (Throwable $e) {
-       echo "Throwable Caught: " . $e;
-   } catch (Exception $ee) {
-       echo "Exception Caught: " . $ee;
-   }
-   sqlsrv_close($conn);
-}
+        $sqlConstruction = new SQL(json_decode($dbParams), json_decode($dbTableColumns));
+        $sqlConstruction->constructQueryWithParams();
+    } catch (Throwable $e) {
+        echo "Throwable Caught: " . $e;
+    } catch (Exception $ee) {
+        echo "Exception Caught: " . $ee;
+    }
+
+?>
 

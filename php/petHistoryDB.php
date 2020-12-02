@@ -1,78 +1,26 @@
 
 <?php
 
-include_once ("../php/DBConnect.php");
-//require_once ("../pages/pet_history.php");
+require_once './dynamic-queries/ConstructDBQueries.php';
 
-
-try 
-{
-    $conn = databaseConnect("Pet");
-
-    
-    $param = array($_POST["pet_id"]);
-    
-    $sql = "SELECT * FROM PetHistory WHERE petId=? ORDER BY date";
-    //$stmt = sqlsrv_query($conn, $sql);
-    $stmt = sqlsrv_prepare($conn,$sql,$param);
-
-    $execute = sqlsrv_execute($stmt);
-
-    $rowKeyValues = array();
-    if($execute){
-            
-            $num = 0;
-            while($row = sqlsrv_fetch_object($stmt)) {
-                
-                $jsonService = "Service" . $num;
-                $jsonDate = "Date" . $num;
-                $jsonLocation = "Location" . $num;
-                $jsonDetails = "Details" . $num;
-                $jsonNails = "Nails" . $num;
-
-                //change date format to string
-                $sqlDate = $row->date;
-                $dateString =$sqlDate->format('Y-m-d');
-
-                //check for null details
-                $detailString  = $row->details;
-                if(is_null($detailString)) 
-                    $detailString = "No Details";
-
-                //check nails trimmed
-                $nailsTrimmed = $row->nailsClipped;
-                if($nailsTrimmed == 1){
-                    $nailString = "Yes";
-                } else {
-                    $nailString = "No";
-                }
-
-
-                $instance = array(
-                                    $jsonService =>$row->serviceName, 
-                                    $jsonDate =>$dateString, 
-                                    $jsonLocation =>$row->locationId,
-                                    $jsonDetails =>$detailString,
-                                    $jsonNails => $nailString
-                                );
-                $rowKeyValues = array_merge($rowKeyValues, $instance);
-
-                $num++;
-            }
-    
-    } else {
-        $rowKeyValues = array("Service0" => "No Services");
+try {
+    /**
+     * For the SQL class to work, you must order the arguments as follows:
+     * 1) Database name
+     * 2) SQL type
+     * 3) Database table name
+     * Note: The names of the keys like 'dbName', don't have to be named that. The name of the keys can be whatever you like.
+     */
+    $dbParams = json_encode(array('dbName' => 'Pet', 'sqlType' => 'select', 'tableName' => 'PetHistory'));
+    $dbTableColumns = json_encode(array('PetHistory.serviceDate', 'PetHistory.serviceName', 'Locations.business', 'PetHistory.serviceDetails'));
+    $dbInnerJoin = json_encode(array('innerjoin' => array('Locations' => ['PetHistory.locationId', 'Locations.id'])));
+    foreach ($_POST as $postKey => $postValue) {
+        $dbWhereClause = json_encode(array('where' => json_decode($_POST[$postKey])));
     }
-
-    //print_r($rowKeyValues);
-        
-    //send array of files to pet_history.php;
-    echo json_encode($rowKeyValues);
-    
+    $SQLConstruct = new SQL(json_decode($dbParams), json_decode($dbTableColumns), json_decode($dbWhereClause), json_decode($dbInnerJoin));
+    $SQLConstruct->constructSelectQueryAsArray();
 } catch (Throwable $e) {
     echo "Throwable Caught: " . $e;
 } catch (Exception $ee) {
     echo "Exception Caught: " . $ee;
 }
-
-sqlsrv_close($conn);

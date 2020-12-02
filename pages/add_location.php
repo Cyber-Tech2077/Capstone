@@ -27,10 +27,10 @@
 
     $(document).ready(function() {
         $("#zip_id").keydown(function(event) {
-            return new ContentControl(event).keyboardNumbers();
+            return new ContentControl().keyboardNumbers(event);
         });
         $("#phone_id").keydown(function(event) {
-            return new ContentControl(event).keyboardNumbers();
+            return new ContentControl().keyboardNumbers(event);
         });
         $("#addBusiness").click(function() {
 			
@@ -43,34 +43,26 @@
 			var email = document.getElementById("email_id").value;
 			var phone = document.getElementById("phone_id").value;
 			if(document.getElementById('vetservice_id').checked) {
-				var vetserivce = 1
+				var vetservice = 1
 			}else{
-				var vetserivce = 0
+				var vetservice = 0
 			}
 			if(document.getElementById('boardingservice_id').checked) {
-				var boardingserivce = 1
+				var boardingservice = 1
 			}else{
-				var boardingserivce = 0
+				var boardingservice = 0
 			}
 			if(document.getElementById('groomingservice_id').checked) {
-				var groomingserivce = 1
+				var groomingservice = 1
 			}else{
-				var groomingserivce = 0
+				var groomingservice = 0
 			}
+            var locationValues = {location: {business: name, address: street, city: city, state: state, zip: zip, email: email, phoneNumber: phone}};
 			//send to file to send to DB
 			$.post({
                 url: "../php/add_locationDB.php", 
-                data: {	business_name: name,
-						business_street: street,
-						business_city: city,
-						business_state: state,
-						business_zip: zip,
-						business_email: email,
-						business_phone: phone,
-						business_vetservice: vetserivce,
-						business_groomingservice: groomingserivce,
-						business_boardservice: boardingserivce,
-					}, 
+                data: {vetLocations: JSON.stringify(locationValues)},
+                dataType: 'json',
 				success: function() {
 						Swal.fire({
                            icon: 'success',

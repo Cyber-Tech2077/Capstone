@@ -18,13 +18,5 @@
             "cwd": "${fileDirname}",
             "port": 9000
         }
-        {
-            "name": "Run using local php interpreter",
-            "type": "php",
-            "request": "launch",
-            "program": "${file}",
-            "runtimeExecutable": "C:\\xampp\\php\\php.exe",
-            "port": 9000
-        }
     ]
 }

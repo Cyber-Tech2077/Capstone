@@ -5,55 +5,97 @@
     width: 400px;
     margin: auto;
 }
-#selectContainer, #speciesContainer, #nameContainer, #birthContainer, #weightContainer, #chipContainer {
+
+#selectContainer,
+#speciesContainer,
+#nameContainer,
+#birthContainer,
+#weightContainer,
+#chipContainer {
     text-align: center;
     margin: auto;
 }
-#select_pet_control, #speciesRadiosOther, #petname_id, #birthday_id, #weight_id, #chip_id {
+
+#select_pet_control,
+#speciesRadiosOther,
+#petname_id,
+#birthday_id,
+#weight_id,
+#chip_id {
     text-align: center;
     margin: auto;
 }
-#addressContainer, #streetContainer, #cityContainer, #stateContainer, #zipContainer {
+
+#addressContainer,
+#streetContainer,
+#cityContainer,
+#stateContainer,
+#zipContainer {
     text-align: center;
     margin: auto;
 }
-#street_id, #city_id, #state_id, #zip_id {
+
+#street_id,
+#city_id,
+#state_id,
+#zip_id {
     text-align: center;
     margin: auto;
 }
+
 /* Vet Service Page */
-#vetContainer, #detailsContainer {
+#vetContainer,
+#selectServiceContainer,
+#detailsContainer {
     text-align: center;
     margin: auto;
 }
-#select_location_control, #service_date_id {
+
+#select_location_control,
+#select_service_name,
+#service_date_id {
     text-align: center;
     margin: auto;
 }
+
 /* Grooming Service Page */
-#select_groomer_control, #grooming_service_date {
+#select_groomer_control,
+#grooming_service_date {
     text-align: center;
     margin: auto;
 }
-#nailsContainer, #dateGroomerContainer {
+
+#nailsContainer,
+#dateGroomerContainer {
     text-align: center;
     margin: auto;
 }
+
 /* Boarding Service Page */
 #boardingServiceContainer {
     text-align: center;
     margin: auto;
 }
-#select_boarding_location, #boarding_service_date {
+
+#select_boarding_location,
+#boarding_service_date {
     text-align: center;
     margin: auto;
 }
+
 /* Location Page */
-#businessContainer, #servicesContainer, #contactContainer, #emailContainer, #phoneContainer {
+#businessContainer,
+#servicesContainer,
+#contactContainer,
+#emailContainer,
+#phoneContainer {
     text-align: center;
     margin: auto;
 }
-#businessname_id, #email_id, #phone_id {
+
+#businessname_id,
+#email_id,
+#phone_id {
     text-align: center;
     margin: auto;
 }

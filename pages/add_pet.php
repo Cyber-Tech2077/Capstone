@@ -33,7 +33,7 @@
                 });
             });
             $('#zip_id').keydown(function(event) {
-                return new ContentControl(event).keyboardNumbers();;
+                return new ContentControl().keyboardNumbers(event);
             });
             //Assign js variables to html elements and retrieve the values from those html elements
             var name = document.getElementById("petname_id");
@@ -56,33 +56,38 @@
                 }else{
                     var species = document.getElementById("speciesRadiosOther").value
                 }
-
-                //send to file to send to DB
+                
+                var elementValues = {values: {name: name.value, species: species, birthdate: birthdate.value, weight: weight.value, street: street.value, city: city.value, state: state.value, zip: zip.value, chipid: chipId.value}};
                 $.post({
-                    url: "../php/add_petDB.php", 
-                    data: {	pet_name: name,
-                            pet_species: species,
-                            pet_birthday: birthdate.value,
-                            pet_weight: weight.value,
-                            pet_street: street.value,
-                            pet_city: city.value,
-                            pet_state: state.value,
-                            pet_zip: zip.value,
-                            pet_chip: chipId.value
-                    }, 
-                    success: function() {
-                        Swal.fire({
-                            icon: 'error',
-                            text: "This is a test"
-                        });
-                    },
-                    error: function(err) {
-                        alert("Err " + err);
-                    }
-
+                    url: "../php/submitPetInfo.php", 
+                    data: {pet: JSON.stringify(elementValues)},
+                    dataType: 'json',
+                    success: function(feedback) {
+                        for (var jsonKey in feedback) {
+                            switch(jsonKey.toUpperCase()) {
+                                case 'ERROR':
+                                    Swal.fire({
+                                        icon: 'error',
+                                        text: 'An error has occurred, please contact administrator'
+                                    });
+                                    break;
+                                default:
+                                    Swal.fire({
+                                        icon: 'success',
+                                        text: 'Pet Submitted!'
+                                    });
+                                }
+                            }
+                        },
+                        error: function(err) {
+                            Swal.fire({
+                                icon: 'error',
+                                text: 'You have encountered an ajax error, please contact administrator'
+                            });
+                        }
+                    });
                 });
             });
-        });
     </script>
 
     <body>
@@ -128,7 +133,7 @@
             <!-- Weight -->
             <div class="form-group col-sm-10" id="weightContainer">
                 <label class="col-form-label">Weight in lbs.</label>
-                <input class="form-control col-sm-5" type="number" min="0" step="0.1" pattern="d+(.d{1})?" id="weight_id" placeholder="0.0" />
+                <input class="form-control col-sm-5" type="number" value="0" min="0" step="0.1" pattern="d+(.d{1})?" id="weight_id" placeholder="0.0" />
             </div>
 
             <!-- chipId -->

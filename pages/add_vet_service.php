@@ -28,14 +28,14 @@
 	function chooseLocation() {
 		$conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, businessName from Locations WHERE vetChecked = 1";
+			$sql = "select id, business from Locations";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();
 			} else {
 				$storeValueId;
 				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->businessName . ">" . $row->businessName . "</option>";
+					echo "<option id = " . $row->id . " value = " . $row->business . ">" . $row->business . "</option>";
 				}
 			}
 		} catch (Throwable $e) {
@@ -49,58 +49,67 @@
 <!DOCTYPE html>
 <html>
 
-    <title>Team Purple B03</title>
+<title>Team Purple B03</title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- Sweetalert 2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/contentControl.js" type="text/ecmascript"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Sweetalert 2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/contentControl.js" type="text/ecmascript"></script>
 
 
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/organize_elements.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/organize_elements.css" />
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
 
 <head>
 </head>
 <script type="text/javascript">
     $(document).ready(function() {
+        var name = document.getElementById("select_pet_control");
+        var vet = document.getElementById("select_location_control");
+        var serviceName = document.getElementById('select_service_name');
         var vetServiceDate = document.getElementById("service_date_id");
-        var limitedDate = new ContentControl();
-        vetServiceDate.setAttribute('min', limitedDate.limitedDatePeriod());
+        vetServiceDate.setAttribute('min', new ContentControl().limitedDatePeriod());
+        var details = document.getElementById("detail_entry");
         $("#save_service").click(function() {
-            
-            var petChosen = document.getElementById("select_pet_control");
-            var location = document.getElementById("select_location_control");
-            var text = document.getElementById("detail_entry").value;
-			$.post({
-				url: "../php/add_vet_serviceDB.php", 
-                data: { petId: petChosen.options[petChosen.selectedIndex].id, 
-                        serviceDate: document.getElementById("service_date_id").value,
-                        locationId: location.options[location.selectedIndex].id,
-                        details: text
 
-                    }, 
-				success: function(){
+            var elementValues = {
+                values: {
+                    petId: name.options[name.selectedIndex].id,
+                    serviceName: serviceName.value,
+                    locationId: vet.options[vet.selectedIndex].id,
+                    serviceDate: vetServiceDate.value,
+                    serviceDetails: details.value
+                }
+            };
+            $.post({
+                url: "../php/add_vet_serviceDB.php",
+                data: {
+                    vetService: JSON.stringify(elementValues)
+                },
+                dataType: 'json',
+                success: function() {
                     Swal.fire({
                         icon: 'success',
                         text: 'Your vet service has been scheduled for ' + vetServiceDate.value
                     }).then(result => {
                         location.reload();
                     });
-				},
-				error: function(err){
-					alert("Javscript Error: " + err);
-				}
-			});
+                },
+                error: function(err) {
+                    alert("Javscript Error: " + err);
+                }
+            });
         });
     });
+
 </script>
+
 <body>
 
     <div class="jumbotron jumbotron-sm">
@@ -114,7 +123,7 @@
     </div>
 
     <div id="formContainer">
-        
+
         <div class="form-group col-sm-8" id="selectContainer">
             <legend class="control-legend" id="select_pet">Pet Name</legend>
             <select class="form-control" id="select_pet_control">
@@ -123,7 +132,18 @@
                 <?php comboboxOptions(); ?>
             </select>
         </div>
-        
+
+        <div class="form-group col-sm-8" id="selectServiceContainer">
+            <legend class="control-legend" id="select_pet">Service Name</legend>
+            <select class="form-control" id="select_service_name">
+                <!-- Select Pet Dropdown Options -->
+                <option value=""></option>
+                <option value="Vaccination">Vaccination</option>
+                <option value="Surgery">Surgery</option>
+                <option value="Dental Cleaning">Dental Cleaning</option>
+            </select>
+        </div>
+
         <div class="form-group col-sm-8" id="selectContainer">
             <legend class="control-legend" id="select_location">Vet Location</legend>
             <select class="form-control" id="select_location_control">
@@ -132,13 +152,13 @@
                 <option value=""></option>
                 <?php chooseLocation(); ?>
 
-            </select>					
+            </select>
         </div>
 
-         <!-- Vet Date -->
+        <!-- Vet Date -->
         <div class="form-group col-sm-10" id="vetContainer">
             <legend class="control-legend">Date of Veterinary Service</legend>
-            <input class="form-control col-sm-6" type="date" id="service_date_id" name="service_date"/>
+            <input class="form-control col-sm-6" type="date" id="service_date_id" name="service_date" />
         </div>
 
 
@@ -147,8 +167,8 @@
             <legend class="control-legend">Enter Details: </legend>
             <textarea class="from-control" id="detail_entry"></textarea>
         </div>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <!-- Save Button -->
         <div class="form-group text-center">
             <button class="btn btn-primary" id="save_service">Save</button>
@@ -156,4 +176,5 @@
     </div>
 
 </body>
+
 </html>
