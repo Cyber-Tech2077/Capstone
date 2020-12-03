@@ -6,6 +6,7 @@
 
         $query = 'select username, password from users where username = ? AND password = ?';
         foreach ($_POST as $postKey => $postValue) {
+            
             foreach (json_decode($postValue) as $key => $value) {
                 $stmt = sqlsrv_prepare($conn, $query, $value);
             }

@@ -86,8 +86,7 @@
                     }
                 }).then(result => {
                     var loginData = {
-                        username: result.value['login'],
-                        password: result.value['password']
+                        username: [result.value['login'], result.value['password']]
                     };
                     $.post({
                         url: './php/post-usages/simpleLogin.php',
@@ -99,7 +98,7 @@
                             for (var message in json) {
                                 switch (message.toUpperCase()) {
                                     case 'SUCCESSFUL':
-                                        alert('Insert Successful!');
+                                        alert('Login Successful!');
                                         break;
                                 }
                             }
