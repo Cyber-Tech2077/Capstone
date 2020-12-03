@@ -32,103 +32,49 @@ class ContentControl {
         }
         return this.setBoolValue;
     }
-    async preventiveMeasure(categoryArrays) {
-        var queryType;
-        var whereClauseSpecified = false;
-        for (var index in categoryArrays) {
-            for (var key in categoryArrays[index]) {
-                if (key == 'sqlType') {
-                    if (categoryArrays[index][key].toUpperCase() == 'UPDATE' || categoryArrays[index][key].toUpperCase() == 'DELETE') {
-                        queryType = categoryArrays[index][key];
+    async preventiveMeasure(dialogType) {
+        switch (dialogType.toUpperCase()) {
+            case 'SIGNUP':
+                Swal.fire({
+                    title: 'Multiple inputs',
+                    html: '<input type="username" id="swal-input1" class="swal2-input">' +
+                        '<input type="password" id="swal-input2" class="swal2-input">' +
+                        '<input type="email" id="swal-input3" class="swal2-input">',
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        return [
+                            document.getElementById('swal-input1').value,
+                            document.getElementById('swal-input2').value,
+                            document.getElementById('swal-input3').value
+                        ]
                     }
-                } else if (key.toUpperCase() == 'WHERE') {
-                    whereClauseSpecified = true;
-                }
-            }
-        }
-        if (whereClauseSpecified == false) {
-            if (queryType.toUpperCase() == 'UPDATE' || queryType.toUpperCase() == 'DELETE') {
-                return await Swal.fire({
-                    icon: 'error',
-                    title: 'Failure',
-                    allowOutsideClick: false,
-                    text: 'Please contact customer support.',
-                    confirmButtonText: 'Ok'
                 }).then(result => {
-                    return false;
+                    if (result.value[0] !== '' && result.value[1] !== '' & result.value[2] !== '') {
+                        var inputs = {
+                            inputValues: {
+                                username: result.value[0],
+                                password: result.value[1],
+                                email: result.value[2]
+                            }
+                        };
+                        $.post({
+                            url: '../php/dynamic-queries/insertCredentials.php',
+                            data: {
+                                credentials: JSON.stringify(inputs)
+                            },
+                            dataType: 'json',
+                            success: function (feedback) {
+                                return feedback;
+                            }
+                        });
+                    }
                 });
-            } else {
-                return true;
-            }
-        } else {
-            return true;
+                break;
+            case 'SIGNIN':
+                break;
+            default:
+                return 'You must select a dialog type such as "signup" or "signin".';
         }
     }
-    ajaxPostController(linkUrl) {
-        var querySettings;
-        var columnParams;
-        var queryParams;
-        try {
-            var index = 0;
-            for (var name in categoryArrays) {
-                if (index == 0) {
-                    querySettings = categoryArrays[name];
-                } else if (index == 1) {
-                    columnParams = categoryArrays[name];
-                } else {
-                    queryParams = categoryArrays[name];
-                }
-                index++;
-            }
-            $.post({
-                url: linkUrl,
-                data: {
-                    dbQuerySettings: JSON.stringify(querySettings),
-                    dbColumnParams: JSON.stringify(columnParams),
-                    dbQueryParams: JSON.stringify(queryParams)
-                },
-                dataType: 'json',
-                success: function(feedback) {
-                    var jsonResult = JSON.parse(feedback);
-                    for (var jsonKey in jsonResult) {
-                        switch (jsonKey.toUpperCase()) {
-                            case 'MESSAGE':
-                                Swal.fire({
-                                    icon: 'error',
-                                    text: 'An error has occurred: ' + jsonResult[jsonKey]
-                                });
-                                break;
-                            case 'SUCCESSFUL':
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: jsonResult[jsonKey]
-                                }).then(result => {
-                                    location.reload();
-                                });
-                                break;
-                        }
-                    }
-                },
-                error: function(err) {
-                    for (var error in JSON.parse(err['responseText'])) {
-                        switch (error.toUpperCase()) {
-                            case 'RESPONSETEXT':
-                                Swal.fire({
-                                    icon: 'error',
-                                    text: 'An ajax error has occurred: ' + error['message']
-                                }).then(result => {
-                                    location.reload();
-                                });
-                                break;
-                        }
-                    }
-                }
-            });
-        } catch (errorMesage) {
-            Swal.fire({
-                icon: 'error',
-                text: 'An error has occurred: ' + errorMesage
-            });
-        }
-    }
+
 }

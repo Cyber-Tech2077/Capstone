@@ -29,7 +29,7 @@
 
 				$index = 0;
 				
-				foreach ($dbParams as $key => $value) {
+				foreach (json_decode($dbParams) as $key => $value) {
 					switch ($index) {
 						case 0:
 							// Retrieve db name and build connection string
@@ -37,13 +37,13 @@
 						break;
 						case 1:
 							if (isset($dbTableColumnNames)) {
-								if (is_array($dbTableColumnNames)) {
-									SQLSettings::setColumns($dbTableColumnNames, $dbParams->$key);
+								if (is_array(json_decode($dbTableColumnNames))) {
+									SQLSettings::setColumns(json_decode($dbTableColumnNames), $value);
 								} else {
-									foreach ($dbTableColumnNames as $jsonKey => $jsonValues) {
+									foreach (json_decode($dbTableColumnNames) as $jsonKey => $jsonValues) {
 										if (isset($jsonValues)) {
-											SQLSettings::setColumns((object) $jsonValues, $dbParams->$key);
-											SQLSettings::setColumnParams((object) $jsonValues, $dbParams->$key);
+											SQLSettings::setColumns((object) $jsonValues, $value);
+											SQLSettings::setColumnParams((object) $jsonValues, $value);
 											SQLSettings::setColumnParamValues((object) $jsonValues);											
 										}
 									}
@@ -57,15 +57,15 @@
 					$index++;
 				}
 				// Assign dbParams to global variable using $this keyword.
-				$this->dbParams = $dbParams;
+				$this->dbParams = json_decode($dbParams);
 			}
 			if (isset($dbQueryParams)) {
-				foreach ($dbQueryParams as $objectKey => $objectValue) {
+				foreach (json_decode($dbQueryParams) as $objectKey => $objectValue) {
 					$index = 0;
-					if (is_array($dbQueryParams->$objectKey)) {
-						SQLSettings::setParamsString($dbQueryParams->$objectKey, strtoupper($objectKey));
+					if (is_array($objectValue)) {
+						SQLSettings::setParamsString($objectValue, strtoupper($objectKey));
 					} else {
-						SQLSettings::setParamsString((object) $dbQueryParams->$objectKey, strtoupper($objectKey));
+						SQLSettings::setParamsString((object) $objectValue, strtoupper($objectKey));
 					}
 					$index++;
 					if (strtoupper($objectKey) === Constants::SQL_WHERE){
@@ -74,7 +74,7 @@
 				}
 			}
 			if (isset($dbSQLKeywords)) {
-				foreach ($dbSQLKeywords as $sqlKeyWord => $sqlKeyWordValue) {
+				foreach (json_decode($dbSQLKeywords) as $sqlKeyWord => $sqlKeyWordValue) {
 					foreach ($sqlKeyWordValue as $key => $value) {
 						SQLSettings::setSQLKeywords($sqlKeyWord, $key, $value);
 					}
@@ -97,7 +97,7 @@
 				 */
 				$createStmt = '';
 				if (isset($this->dbParams->sqlType)) {
-					$createStmt = strtoupper($this->dbParams->sqlType);
+					$createStmt = strtoupper($this->dbParams->sqlType) . ' ';
 				} else {
 					$createStmt = 'INSERT ';
 				}
@@ -137,7 +137,7 @@
 						break;
 					}
 					$errorText .= '}';
-					echo json_encode($errorText);
+					echo json_encode(json_decode($errorText));
 				}
 				sqlsrv_close($this->dbConn);
 			} catch (Throwable $e) {
@@ -203,7 +203,7 @@
 						break;
 					}
 				}
-				echo json_encode($jsonResult);
+				return json_encode(json_decode($jsonResult));
 			} catch (Throwable $e) {
 				return "Throwable Error: " . $e;
 			}
@@ -266,7 +266,7 @@
 						break;
 					}
 				}
-				echo json_encode($jsonResult);
+				return json_encode(json_decode($jsonResult));
 			} catch (Throwable $e) {
 				return "Throwable Error: " . $e;
 			}

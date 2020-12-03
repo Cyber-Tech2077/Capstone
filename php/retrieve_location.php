@@ -1,27 +1,19 @@
-
 <?php
 
-    include_once ("./DBConnect.php");
+    require_once ("./dynamic-queries/ConstructDBQueries.php");
     
     try{
-    $conn = databaseConnect("Pet"); 
-    $sql = "select * from Locations where id=?";
-    $statement = sqlsrv_prepare($conn,$sql,array($_POST["location_ID"]));
-    $execute = sqlsrv_execute($statement);
 
-    $arrkeyvalues;
-    if ($execute){
-        while ($row = sqlsrv_fetch_object($statement)){
-            $arrkeyvalues = array("Name" => $row->business, "Street" => $row->address, "City" => $row->city, "State" => $row->state, "Zip" => $row->zip, "Email" => $row->email, "Phone" => $row->phoneNumber, "vetService" => $row->veterinary, "groomService" => $row->groom, "boardService" => $row->board);
+        $dbParams = json_encode(array('dbName' => 'Pet', 'sqlType' => 'select', 'tableName' => 'Locations'));
+        $dbColumnNames = json_encode(array('business', 'address', 'city', 'state', 'zip', 'email', 'phoneNumber', 'veterinary', 'groom', 'board'));
+        foreach ($_POST as $postKey => $postValue) {
+            $dbWhereClause = json_encode(array('where' => json_decode($_POST[$postKey])));
         }
-    }
-    
-    sqlsrv_close($conn);
-    
-    echo json_encode($arrkeyvalues);
+        $retrieveLocation = new SQL($dbParams, $dbColumnNames, $dbWhereClause);
+        echo $retrieveLocation->constructSelectQueryAsObject();
 
     } catch (Throwable $e){	
-    echo "Throwable error " . $e;
+        return "Throwable error " . $e;
     }
 
 ?>

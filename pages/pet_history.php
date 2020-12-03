@@ -64,13 +64,11 @@
                         petSelected: JSON.stringify(selectedPet)
                     },
                     dataType: 'json',
-                    success: function(feedback) {
+                    success: function(json) {
 
                         //make sure table is clear
                         $("#output_body tr").remove();
 
-                        //Read entries pulled
-                        var json = JSON.parse(feedback);
                         //loop through array to make new row for each service with date
                         var tbodyRef = document.getElementById('output_body');
 
@@ -166,23 +164,6 @@
 
     });
 
-    function GetLocationName(locationId, row) {
-        $.post({
-            url: "../php/pet_history_get_locationDB.php",
-            data: {
-                id: locationId
-            },
-            success: function(feedback) {
-                var json = JSON.parse(feedback);
-                var cell = document.getElementById("loc" + row);
-                cell.innerHTML = json["Location"];
-            },
-            error: function(err) {
-                alert("Err " + err);
-            }
-        });
-    }
-
 </script>
 
 <body>
@@ -217,7 +198,7 @@
                     <th scrop="col">Date</th>
                     <th scope="col">Service</th>
                     <th scope="col">Location</th>
-                    <th scope="col">Nails Clipped</th>
+                    <th scope="col">Vetted</th>
                     <th scope="col">Groomed</th>
                     <th scope="col">Boarded</th>
                     <th scope="col">Details</th>

@@ -1,23 +1,27 @@
 
   
 <?php
+	require_once "./dynamic-queries/ConstructDBQueries.php";
 
-include_once ("./DBConnect.php");
+	try{
 
-try{
-
-	$conn = databaseConnect("Pet"); 
-	
-	$sql = "UPDATE Locations SET business = ?, address = ?, city = ?, state = ?, zip = ?, email = ?, phoneNumber = ?, veterinary = ?, groom = ?, board = ? WHERE id = ?";
-	
-	$statement = sqlsrv_prepare($conn,$sql,array($_POST["business_name"], $_POST["business_street"], $_POST["business_city"], $_POST["business_state"], $_POST["business_zip"], 
-		$_POST["business_email"], $_POST["business_phone"],$_POST["business_vetservice"], $_POST["business_groomingservice"], $_POST["business_boardservice"], $_POST["location_ID"]));
-	
-	sqlsrv_execute($statement);	
-	
-} catch (Throwable $e){
-	
-	echo "Throwable error " . $e;
-	
-}
+		$dbParams = json_encode(array('dbName' => 'Pet', 'sqlType' => 'update', 'tableName' => 'Locations'));
+		$dbColumnNames;
+		$dbWhereClause;
+		foreach ($_POST as $postKey => $postValue) {
+			switch ($postKey) {
+				case 'updateLocation':
+					$dbColumnNames = json_encode(array('columns' => json_decode($_POST[$postKey])));
+					break;
+				case 'updateTo':
+					$dbWhereClause = json_encode(array('where' => json_decode($_POST[$postKey])));
+					break;
+			}
+		}
+		$updateLocation = new SQL(json_decode($dbParams), json_decode($dbColumnNames), json_decode($dbWhereClause));
+		echo $updateLocation->constructQueryWithParams();
+		
+	} catch (Throwable $e){
+		echo "Throwable error " . $e;
+	}
 ?>

@@ -1,50 +1,7 @@
 <?php
     session_start();
-    include ("../php/headernav.html");
-    include_once("../php/DBConnect.php");
-
-    //Pet Selector
-	function comboboxOptions() {
-		$conn = databaseConnect("Pet");
-		try {
-			$sql = "select id, name from Pets";
-			$stmt = sqlsrv_query($conn, $sql);
-			if ($stmt === false) {
-				echo "Error Occurred: " . sqlsrv_errors();
-			} else {
-				$storeValueId;
-				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
-				}
-			}
-		} catch (Throwable $e) {
-			echo "Throwable Error: " . $e;
-		}
-        sqlsrv_close($conn);
-
-    }
-
-    //Vet Selector
-	function chooseLocation() {
-		$conn = databaseConnect("Pet");
-		try {
-			$sql = "select id, business from Locations";
-			$stmt = sqlsrv_query($conn, $sql);
-			if ($stmt === false) {
-				echo "Error Occurred: " . sqlsrv_errors();
-			} else {
-				$storeValueId;
-				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->business . ">" . $row->business . "</option>";
-				}
-			}
-		} catch (Throwable $e) {
-			echo "Throwable Error: " . $e;
-		}
-        sqlsrv_close($conn);
-
-    }
-        
+    require_once '../php/pages-navbar.html';
+    require_once '../php/Retrieve-Info.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -88,7 +45,7 @@
                 }
             };
             $.post({
-                url: "../php/add_vet_serviceDB.php",
+                url: "../php/add_service.php",
                 data: {
                     vetService: JSON.stringify(elementValues)
                 },
@@ -129,7 +86,10 @@
             <select class="form-control" id="select_pet_control">
                 <!-- Select Pet Dropdown Options -->
                 <option value=""></option>
-                <?php comboboxOptions(); ?>
+                <?php 
+                    $retrievePet = new DataRetrieval();
+                    echo $retrievePet->getPetInfo(array('id', 'name'));
+                ?>
             </select>
         </div>
 
@@ -150,7 +110,10 @@
 
                 <!-- Select Location Dropdown Options -->
                 <option value=""></option>
-                <?php chooseLocation(); ?>
+                <?php 
+                    $retrieveLocation = new DataRetrieval();
+                    echo $retrieveLocation->getPetInfo(array('id', 'business'), 'Locations');
+                ?>
 
             </select>
         </div>

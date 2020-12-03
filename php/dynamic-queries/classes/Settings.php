@@ -208,17 +208,17 @@
                             }
                         endforeach;
                     }
-                } else {
+                } else if (strtoupper($sqlCondition) === Constants::SQL_GROUPBY || strtoupper($sqlCondition) === Constants::SQL_ORDERBY) {
                     $condition;
-                    if ($sqlCondition === Constants::SQL_GROUPBY) {
+                    if (strtoupper($sqlCondition) === Constants::SQL_GROUPBY) {
                         $condition = ' GROUP BY ';
-                    } else if($sqlCondition === Constants::SQL_ORDERBY) {
+                    } else if(strtoupper($sqlCondition) === Constants::SQL_ORDERBY) {
                         $condition = ' ORDER BY ';
                     }
-                        $this->paramString .= $condition;
-                        foreach ($params as $key => $value):
-                            $this->paramString .= $value;
-                        endforeach;
+                    $this->paramString .= $condition;
+                    foreach ($params as $key => $value):
+                        $this->paramString .= $value;
+                    endforeach;
                 }
             }
         }

@@ -1,28 +1,7 @@
 <?php
-	include (__DIR__ . "/../php/pages-navbar.html");
-	include_once(__DIR__."/../php/DBConnect.php");
+	require_once "../php/pages-navbar.html";
+	require_once "../php/Retrieve-Info.php";
 	//include (__DIR__ . "/../php/modals/Modals.html");
-	
-	function comboboxOptions() {
-		// This php code works, all values come out as normal.
-		// No need to mess with this.
-		$conn = databaseConnect("Pet");
-		try {
-			$sql = "select id, business from Locations";
-			$stmt = sqlsrv_query($conn, $sql);
-			if ($stmt === false) {
-				echo "Error Occurred: " . sqlsrv_errors();
-			} else {
-				$storeValueId;
-				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->business . ">" . $row->business . "</option>";
-				}
-			}
-		} catch (Throwable $e) {
-			echo "Throwable Error: " . $e;
-		}
-		sqlsrv_close($conn);
-	}
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +28,16 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var idNum = document.getElementById("select_location_control");
+        var businessName = document.getElementById("businessname_id");
+        var city = document.getElementById("city_id");
+        var street = document.getElementById("street_id");
+        var state = document.getElementById("state_id");
+        var zip = document.getElementById("zip_id");
+        var email = document.getElementById("email_id");
+        var phone = document.getElementById("phone_id");
+        var vetserivce = document.getElementById('vetservice_id');
+        var groomingserivce = document.getElementById("groomingservice_id");
+        var boardingserivce = document.getElementById("boardingservice_id");
         $('#zip_id').keydown(function(event) {
             return new ContentControl(event).keyboardNumbers();
         });
@@ -57,32 +46,35 @@
         });
         $("#select_location_control").change(function() {
             if (document.getElementById('select_location_control').value !== '') {
+                var location = {
+                    id: idNum.options[idNum.selectedIndex].id
+                };
                 $.post({
                     url: "../php/retrieve_location.php",
                     data: {
-                        location_ID: idNum.options[idNum.selectedIndex].id
+                        location_ID: JSON.stringify(location)
                     },
                     dataType: 'json',
                     success: function(json) {
-                        document.getElementById("businessname_id").value = json["Name"];
-                        document.getElementById("street_id").value = json["Street"];
-                        document.getElementById("city_id").value = json["City"];
-                        document.getElementById("state_id").value = json["State"];
-                        document.getElementById("zip_id").value = json["Zip"];
-                        document.getElementById("email_id").value = json["Email"];
-                        document.getElementById("phone_id").value = json["Phone"];
+                        document.getElementById("businessname_id").value = json["business"];
+                        document.getElementById("street_id").value = json["address"];
+                        document.getElementById("city_id").value = json["city"];
+                        document.getElementById("state_id").value = json["state"];
+                        document.getElementById("zip_id").value = json["zip"];
+                        document.getElementById("email_id").value = json["email"];
+                        document.getElementById("phone_id").value = json["phoneNumber"];
                         // If Checkbox Statement
-                        if (json["vetService"] == "1") {
+                        if (json["veterinary"] == "1") {
                             document.getElementById("vetservice_id").checked = true;
                         } else {
                             document.getElementById("vetservice_id").checked = false;
                         }
-                        if (json["groomService"] == "1") {
+                        if (json["groom"] == "1") {
                             document.getElementById("groomingservice_id").checked = true;
                         } else {
                             document.getElementById("groomingservice_id").checked = false;
                         }
-                        if (json["boardService"] == "1") {
+                        if (json["board"] == "1") {
                             document.getElementById("boardingservice_id").checked = true;
                         } else {
                             document.getElementById("boardingservice_id").checked = false;
@@ -91,16 +83,16 @@
                     }
                 });
             } else {
-                document.getElementById("businessname_id").value = '';
-                document.getElementById("street_id").value = '';
-                document.getElementById("city_id").value = '';
-                document.getElementById("state_id").value = '';
-                document.getElementById("zip_id").value = '';
-                document.getElementById("email_id").value = '';
-                document.getElementById("phone_id").value = '';
-                document.getElementById("vetservice_id").checked = false;
-                document.getElementById("groomingservice_id").checked = false;
-                document.getElementById("boardingservice_id").checked = false;
+                businessName.value = '';
+                street.value = '';
+                city.value = '';
+                state.value = '';
+                zip.value = '';
+                email.value = '';
+                phone.value = '';
+                vetserivce.checked = false;
+                groomingserivce.checked = false;
+                boardingserivce.checked = false;
 
             }
         });
@@ -108,46 +100,72 @@
         $("#update_location").click(function() {
             //assign form pieces to variables
             if (document.getElementById("vetservice_id").checked) {
-                var vetserivce = 1
+                vetserivce = 1
             } else {
-                var vetserivce = 0
+                vetserivce = 0
             }
             if (document.getElementById("groomingservice_id").checked) {
-                var groomingserivce = 1
+                groomingserivce = 1
             } else {
-                var groomingserivce = 0
+                groomingserivce = 0
             }
             if (document.getElementById("boardingservice_id").checked) {
-                var boardingserivce = 1
+                boardingserivce = 1
             } else {
-                var boardingserivce = 0
+                boardingserivce = 0
             }
 
-            var businessName = document.getElementById("businessname_id");
-
+            var location = {
+                locationNames: {
+                    business: businessName.value,
+                    address: street.value,
+                    city: city.value,
+                    state: state.value,
+                    zip: zip.value,
+                    email: email.value,
+                    phoneNumber: phone.value,
+                    veterinary: vetserivce,
+                    groom: groomingserivce,
+                    board: boardingserivce
+                },
+                locationSpot: {
+                    id: idNum.options[idNum.selectedIndex].id
+                }
+            };
+            var name1;
+            var name2;
+            var index = 0;
+            for (var names in location) {
+                switch (index) {
+                    case 0:
+                        name1 = location[names];
+                        break;
+                    case 1:
+                        name2 = location[names];
+                        break;
+                }
+                index++;
+            }
             //send to file to send to DB
             $.post({
                 url: "../php/update_locationDB.php",
                 data: {
-                    business_name: businessName.value,
-                    business_street: document.getElementById("street_id").value,
-                    business_city: document.getElementById("city_id").value,
-                    business_state: document.getElementById("state_id").value,
-                    business_zip: document.getElementById("zip_id").value,
-                    business_email: document.getElementById("email_id").value,
-                    business_phone: document.getElementById("phone_id").value,
-                    business_vetservice: vetserivce,
-                    business_groomingservice: groomingserivce,
-                    business_boardservice: boardingserivce,
-                    location_ID: idNum.options[idNum.selectedIndex].id
+                    updateLocation: JSON.stringify(name1),
+                    updateTo: JSON.stringify(name2)
                 },
+                dataType: 'json',
                 success: function() {
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'The ' + businessName.value + ' location has been updated.'
-                    }).then(result => {
-                        location.reload();
-                    });
+                    businessName.value = '';
+                    street.value = '';
+                    city.value = '';
+                    state.value = '';
+                    zip.value = '';
+                    email.value = '';
+                    phone.value = '';
+                    document.getElementById("vetservice_id").checked = false;
+                    document.getElementById("groomingservice_id").checked = false;
+                    document.getElementById("boardingservice_id").checked = false;
+                    window.location.reload();
                 }
             });
         });
@@ -172,7 +190,10 @@
             <legend class="control-legend" id="select_location">Select a Location</legend>
             <select class="form-control" id="select_location_control">
                 <option value=""></option>
-                <?php comboboxOptions(); ?>
+                <?php 
+                    $retrieveLocation = new DataRetrieval();
+                    echo $retrieveLocation->getOptions(array('id', 'business'), 'Locations');
+                ?>
             </select>
         </div>
 

@@ -1,47 +1,7 @@
 <?php
     //session_start();
     require_once '../php/pages-navbar.html';
-    require_once '../php/dynamic-queries/ConstructDBQueries.php';
-
-    //Pet Selector
-	function comboboxOptions() {
-        $conn = databaseConnect("Pet");
-		try {
-			$sql = "select id, name from Pets";
-			$stmt = sqlsrv_query($conn, $sql);
-			if ($stmt === false) {
-				echo "Error Occurred: " . sqlsrv_errors();
-			} else {
-				$storeValueId;
-				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
-				}
-			}
-		} catch (Throwable $e) {
-			echo "Throwable Error: " . $e;
-		}
-        sqlsrv_close($conn);
-    }
-
-     //Groomer Select?
-     function groomerOptions() {
-		$conn = databaseConnect("Pet");
-		try {
-			$sql = "select id, business from Locations";
-			$stmt = sqlsrv_query($conn, $sql);
-			if ($stmt === false) {
-				echo "Error Occurred: " . sqlsrv_errors();
-			} else {
-				$storeValueId;
-				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->business . ">" . $row->business . "</option>";
-				}
-			}
-		} catch (Throwable $e) {
-			echo "Throwable Error: " . $e;
-		}
-        sqlsrv_close($conn);
-    }
+    require_once '../php/Retrieve-Info.php';
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +30,6 @@
         var grooming_date = document.getElementById("grooming_service_date");
         var locationName = document.getElementById("select_groomer_control");
         var contentDetails = document.getElementById("detail_entry");
-        var nailsClipped = document.getElementById("nailsClipped");
         $("#save_grooming_service").click(function() {
             //send to file to send to DB
             var chosenPet = {
@@ -79,12 +38,11 @@
                     serviceName: 'Grooming',
                     serviceDate: grooming_date.value,
                     locationId: locationName.options[locationName.selectedIndex].id,
-                    serviceDetails: contentDetails.value,
-                    nailsClipped: nailsClipped.checked
+                    serviceDetails: contentDetails.value
                 }
             };
             $.post({
-                url: "../php/add_gooming_serviceDB.php",
+                url: "../php/add_service.php",
                 data: {
                     groomingData: JSON.stringify(chosenPet)
                 },
@@ -124,16 +82,11 @@
             <select class="form-control col-md-10" id="select_pet_control">
                 <!-- Select Pet Dropdown Options -->
                 <option value=""></option>
-                <?php comboboxOptions(); ?>
+                <?php 
+                    $retrievePet = new DataRetrieval();
+                    echo $retrievePet->getPetInfo(array('id', 'name'));
+                ?>
             </select>
-        </div>
-        <!-- Service Checkbox -->
-        <div class="form-group col-sm-5" id="nailsContainer">
-            <label class="col-form-label">Service Provided:</label>
-            <div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" name="serviceCheckbox" id="nailsClipped" value="nails_trimmed" checked>Nails Trimmed</label>
-            </div>
         </div>
         <!-- Groomer dropdown list -->
         <div class="form-group col-sm-10" id="selectContainer">
@@ -141,7 +94,10 @@
             <select class="form-control col-md-8" id="select_groomer_control">
                 <!-- Select Groomer Dropdown Options -->
                 <option value=""></option>
-                <?php groomerOptions(); ?>
+                <?php 
+                    $retrieveLocation = new DataRetrieval();
+                    echo $retrieveLocation->getPetInfo(array('id', 'business'), 'Locations');
+                ?>
             </select>
         </div>
 
