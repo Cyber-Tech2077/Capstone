@@ -69,6 +69,10 @@ body {
   background-color: #5400a8 !important;
 }
 
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
+  background-color: #5400a8 !important;
+}
+
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before{
   background-color: #5000a8;
 }
