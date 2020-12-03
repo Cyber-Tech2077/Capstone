@@ -12,6 +12,39 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
   <script src="./js/secondnav_toggle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  
+  <script type="text/javascript">
+  
+  	$(document).ready(function() {
+		
+		$("#login").click(function() {
+			
+			Swal.fire({
+  				title: 'Login Form',
+  				html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
+  				<input type="password" id="password" class="swal2-input" placeholder="Password">
+				<input type="email" id="email" class="swal2-input" placeholder="Email">`,
+  				confirmButtonText: 'Sign in',
+				focusConfirm: false,
+				preConfirm: () => {
+    				const login = Swal.getPopup().querySelector('#login').value
+    				const password = Swal.getPopup().querySelector('#password').value
+					const email = Swal.getPopup().querySelector('#email').value
+    				if (!login || !password || !email) {
+      					Swal.showValidationMessage(`Please enter login, password, and email`)
+    				}
+    				return { login: login, password: password, email: email }
+  				}
+			});
+		});
+		
+	});
+  
+  
+  </script>
+  
+  
 
 </head>
 
@@ -32,7 +65,7 @@
       <div class="navbar navbar-nav ml-auto p-2" id="navbar">
         <a class="btn btn-md btn-outline-warning" id="mode_button" onclick="second_navbar()">User Mode</a>
         <a class="btn btn-md hoverable" data-toggle="modal" data-target="#signupModal">Sign Up</a>
-        <a class="btn btn-md hoverable" data-toggle="modal" data-target="#loginModal">Log In</a>
+        <a class="btn btn-md hoverable" data-toggle="modal" id="login" data-target="#loginModal">Log In</a>
       </div>
     </div>
   </nav>
