@@ -1,3 +1,7 @@
+<?php
+    include ("./php/modals/Login_Signup_Modal.html");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +16,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
   <script src="./js/secondnav_toggle.js"></script>
-
 </head>
 
 <body>
@@ -60,6 +63,7 @@
             <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Veterinary</a>
               <div class="dropdown-menu text-center">
                 <a class="dropdown-item nav-link hoverable" href="./pages/add_vet_service.php">Add Veterinary Service</a>
+                <a class="dropdown-item nav-link hoverable" href="./pages/vet_history.php">Veterinary History</a>
               </div>
             </div>
             <!-- Grooming Dropdown -->
