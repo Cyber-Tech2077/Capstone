@@ -6,16 +6,28 @@
     try {
 
         $query = 'insert into users (username, password, email) values (?,?,?)';
+        $credentials = array();
         foreach ($_POST as $postKey => $postValue) {
             foreach (json_decode($postValue) as $key => $value) {
-                $stmt = sqlsrv_prepare($conn, $query, $value);
+                switch (strtoupper($key)) {
+                    case 'USERNAME':
+                        array_push($credentials, $value);
+                        break;
+                    case 'PASSWORD':
+                        array_push($credentials, password_hash($value, PASSWORD_BCRYPT));
+                        break;
+                    case 'EMAIL':
+                        array_push($credentials, $value);
+                        break;
+                }
             }
         }
+        $stmt = sqlsrv_prepare($conn, $query, $credentials);
         $execute = sqlsrv_execute($stmt);
         if ($execute) {
-            echo json_encode(array('successful' => 'Your insert was successful!'));
+            echo json_encode(array('successful' => 'You have been successfully signed up. Please login with your credentials.'));
         } else {
-            foreach (sqlsrv_errors as $errorKey => $errorValue) {
+            foreach (sqlsrv_errors() as $errorKey => $errorValue) {
                 echo json_encode(array('error' => 'An error has sadly encountered. Please try again later.'));
             }
         }

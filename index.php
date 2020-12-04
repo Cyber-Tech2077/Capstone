@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +12,7 @@
 
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./libaries/Blowfish.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/secondnav_toggle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -23,7 +25,7 @@
                     title: 'Sign Up',
                     html: `<input type="text" id="login" class="swal2-input" placeholder="Username" required>
                                 <input type="password" id="password" class="swal2-input" placeholder="Password" required>
-                                <input type="email" id="email" class="swal2-input" placeholder="Password" required>`,
+                                <input type="email" id="email" class="swal2-input" placeholder="Email" required>`,
                     confirmButtonText: 'Sign Up',
                     focusConfirm: false,
                     preConfirm: () => {
@@ -41,7 +43,9 @@
                     }
                 }).then((result) => {
                     var signUpData = {
-                        credentials: [result.value['login'], result.value['password'], result.value['email']]
+                        username: result.value['login'].toLowerCase(),
+                        password: result.value['password'],
+                        email: result.value['email'].toLowerCase()
                     };
                     $.post({
                         url: './php/post-usages/simpleSignUp.php',
@@ -86,7 +90,8 @@
                     }
                 }).then(result => {
                     var loginData = {
-                        username: [result.value['login'], result.value['password']]
+                        username: result.value['login'],
+                        password: result.value['password']
                     };
                     $.post({
                         url: './php/post-usages/simpleLogin.php',
@@ -95,15 +100,37 @@
                         },
                         dataType: 'json',
                         success: function(json) {
-                            for (var message in json) {
-                                switch (message.toUpperCase()) {
-                                    case 'SUCCESSFUL':
-                                        alert('Login Successful!');
-                                        break;
-                                }
-                            }
+                            window.location.reload();
                         }
                     });
+                });
+            });
+            $('#logout').click(function() {
+                var userOut = {
+                    logout: 'You have been successfully logged out.'
+                };
+                $.post({
+                    url: './php/post-usages/User.php',
+                    data: {
+                        userSignOut: JSON.stringify(userOut)
+                    },
+                    dataType: 'json',
+                    success: function(json) {
+                        for (var message in json) {
+                            switch (message.toUpperCase()) {
+                                case 'LOGOUT':
+                                    Swal.fire({
+                                        icon: 'success',
+                                        text: json[message]
+                                    }).then(result => {
+                                        if (result.isConfirmed) {
+                                            window.location.reload();
+                                        }
+                                    });
+                                    break;
+                            }
+                        }
+                    }
                 });
             });
 
@@ -130,9 +157,14 @@
                     <a class="nav-link hoverable" href="./pages/contact_us.php">Contact Us</a>
                 </div>
                 <div class="navbar navbar-nav ml-auto p-2" id="navbar">
+                    <?php if (isset($_SESSION['currentUser'])): ?>
                     <a class="btn btn-md btn-outline-warning" id="mode_button" onclick="second_navbar()">User Mode</a>
+                    <a class="btn btn-md hoverable" data-toggle="modal" id='currentUser'>Welcome, <?php echo $_SESSION['currentUser'] ?></a>
+                    <a class="btn btn-md hoverable" data-toggle="modal" id='logout'>Log out</a>
+                    <?php else: ?>
                     <a class="btn btn-md hoverable" data-toggle="modal" id='signup' data-target="#signupModal">Sign Up</a>
                     <a class="btn btn-md hoverable" data-toggle="modal" id="login" data-target="#loginModal">Log In</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </nav>
