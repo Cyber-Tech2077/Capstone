@@ -84,7 +84,7 @@
                 <option value=""></option>
                 <?php 
                     $retrievePet = new DataRetrieval();
-                    echo $retrievePet->getPetInfo(array('id', 'name'));
+                    echo $retrievePet->getOptions(array('id', 'name'));
                 ?>
             </select>
         </div>
@@ -96,7 +96,7 @@
                 <option value=""></option>
                 <?php 
                     $retrieveLocation = new DataRetrieval();
-                    echo $retrieveLocation->getPetInfo(array('id', 'business'), 'Locations');
+                    echo $retrieveLocation->getOptions(array('id', 'business'), 'Locations');
                 ?>
             </select>
         </div>

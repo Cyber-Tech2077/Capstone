@@ -1,31 +1,4 @@
-<?php
-	
-	require_once "../php/DBConnect.php";
-
-	//Drop Down Selector for the Pets
-	function comboboxOptions() {
-
-		$conn = databaseConnect("Pet");
-		
-		try {
-			$sql = "select id, name from Pets";
-			$stmt = sqlsrv_query($conn, $sql);
-			if ($stmt === false) {
-				echo "Error Occurred: " . sqlsrv_errors();
-			} else {
-				$storeValueId;
-				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
-				}
-			}
-		} catch (Throwable $e) {
-			echo "Throwable Error: " . $e;
-		}
-
-		sqlsrv_close($conn);
-	}
-
-?>
+<?php require_once "../php/Retrieve-Info.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -185,7 +158,10 @@
 
                 <!-- Select Pet Dropdown Options - Goes Here -->
                 <option value=""></option>
-                <?php comboboxOptions(); ?>
+                <?php
+                    $retrievePet = new DataRetrieval();
+                    echo $retrievePet->getOptions(array('id', 'name'));
+                ?>
 
             </select>
         </div>

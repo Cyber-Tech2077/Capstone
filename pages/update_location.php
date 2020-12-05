@@ -46,40 +46,47 @@
         });
         $("#select_location_control").change(function() {
             if (document.getElementById('select_location_control').value !== '') {
+                var data = {
+                    locationData: ['business', 'address', 'city', 'state', 'zip', 'email', 'phoneNumber']
+                };
                 var location = {
                     id: idNum.options[idNum.selectedIndex].id
                 };
                 $.post({
-                    url: "../php/retrieve_location.php",
+                    url: "../php/Retrieve-Info.php",
                     data: {
-                        location_ID: JSON.stringify(location)
+                        locationinfo: JSON.stringify(data),
+                        additionalinfo: JSON.stringify(location)
                     },
                     dataType: 'json',
                     success: function(json) {
-                        document.getElementById("businessname_id").value = json["business"];
-                        document.getElementById("street_id").value = json["address"];
-                        document.getElementById("city_id").value = json["city"];
-                        document.getElementById("state_id").value = json["state"];
-                        document.getElementById("zip_id").value = json["zip"];
-                        document.getElementById("email_id").value = json["email"];
-                        document.getElementById("phone_id").value = json["phoneNumber"];
-                        // If Checkbox Statement
-                        if (json["veterinary"] == "1") {
-                            document.getElementById("vetservice_id").checked = true;
-                        } else {
-                            document.getElementById("vetservice_id").checked = false;
+                        if (Array.isArray(json)) {
+                            for (var index = 0; index < json.length; index++) {
+                                document.getElementById("businessname_id").value = json[index]["business"];
+                                document.getElementById("street_id").value = json[index]["address"];
+                                document.getElementById("city_id").value = json[index]["city"];
+                                document.getElementById("state_id").value = json[index]["state"];
+                                document.getElementById("zip_id").value = json[index]["zip"];
+                                document.getElementById("email_id").value = json[index]["email"];
+                                document.getElementById("phone_id").value = json[index]["phoneNumber"];
+                                // If Checkbox Statement
+                                if (json[index]["veterinary"] == "1") {
+                                    document.getElementById("vetservice_id").checked = true;
+                                } else {
+                                    document.getElementById("vetservice_id").checked = false;
+                                }
+                                if (json[index]["groom"] == "1") {
+                                    document.getElementById("groomingservice_id").checked = true;
+                                } else {
+                                    document.getElementById("groomingservice_id").checked = false;
+                                }
+                                if (json[index]["board"] == "1") {
+                                    document.getElementById("boardingservice_id").checked = true;
+                                } else {
+                                    document.getElementById("boardingservice_id").checked = false;
+                                }
+                            }
                         }
-                        if (json["groom"] == "1") {
-                            document.getElementById("groomingservice_id").checked = true;
-                        } else {
-                            document.getElementById("groomingservice_id").checked = false;
-                        }
-                        if (json["board"] == "1") {
-                            document.getElementById("boardingservice_id").checked = true;
-                        } else {
-                            document.getElementById("boardingservice_id").checked = false;
-                        }
-
                     }
                 });
             } else {
