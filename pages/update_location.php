@@ -13,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../js/contentControl.js" type="text/ecmascript"></script>
@@ -47,16 +46,22 @@
         $("#select_location_control").change(function() {
             if (document.getElementById('select_location_control').value !== '') {
                 var data = {
-                    locationData: ['business', 'address', 'city', 'state', 'zip', 'email', 'phoneNumber']
+                    locationData: ['business', 'veterinary', 'groom', 'board', 'address', 'city', 'state', 'zip', 'email', 'phoneNumber']
+                };
+                var connect = {
+                    directory: 'location'
                 };
                 var location = {
                     id: idNum.options[idNum.selectedIndex].id
                 };
                 $.post({
-                    url: "../php/Retrieve-Info.php",
+                    url: '../php/add_service.php',
                     data: {
-                        locationinfo: JSON.stringify(data),
-                        additionalinfo: JSON.stringify(location)
+                        fetch: {
+                            items: JSON.stringify(data),
+                            connect: JSON.stringify(connect),
+                            whenever: JSON.stringify(location)
+                        }
                     },
                     dataType: 'json',
                     success: function(json) {
@@ -100,7 +105,6 @@
                 vetserivce.checked = false;
                 groomingserivce.checked = false;
                 boardingserivce.checked = false;
-
             }
         });
 

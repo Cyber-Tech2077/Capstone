@@ -57,24 +57,22 @@
                 var groomingservice = 0
             }
             var locationValues = {
-                location: {
-                    business: name,
-                    address: street,
-                    city: city,
-                    state: state,
-                    zip: zip,
-                    email: email,
-                    phoneNumber: phone,
-                    veterinary: vetservice,
-                    groom: groomingservice,
-                    board: boardingservice
-                }
+                business: name,
+                address: street,
+                city: city,
+                state: state,
+                zip: zip,
+                email: email,
+                phoneNumber: phone,
+                veterinary: vetservice,
+                groom: groomingservice,
+                board: boardingservice
             };
             //send to file to send to DB
             $.post({
                 url: "../php/add_locationDB.php",
                 data: {
-                    vetLocations: JSON.stringify(locationValues)
+                    amend: JSON.stringify(locationValues)
                 },
                 dataType: 'json',
                 success: function() {

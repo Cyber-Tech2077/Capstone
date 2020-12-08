@@ -49,10 +49,9 @@
                 id: idNum.options[idNum.selectedIndex].id
             };
             $.post({
-                url: '../php/Retrieve-Info.php',
+                url: '../php/add_service.php',
                 data: {
-                    petinfo: JSON.stringify(data),
-                    additionalInfo: JSON.stringify(petData)
+                    fetch: {items: JSON.stringify(data), whenever: JSON.stringify(petData)}
                 },
                 dataType: 'json',
                 success: function(jsonData) {
@@ -94,16 +93,18 @@
             // Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the
             // selected pet name.
             var params = {
-                paramValues: [petName.value, petSpecies, petBirthDate.value, petWeight.value, petStreet.value, petCity.value, petState.value, petZip.value, petChip.value, idNum.options[idNum.selectedIndex].id]
+                items: {name: petName.value, species: petSpecies, birthdate: petBirthDate.value, weight: petWeight.value, street: petStreet.value, city: petCity.value, state: petState.value, zip: petZip.value, chipId: petChip.value}
+            };
+            var when = {
+                whenever: {id: idNum.options[idNum.selectedIndex].id}
             };
             $.post({
-                url: '../php/update_petDB.php',
+                url: '../php/add_service.php',
                 data: {
-                    pet: JSON.stringify(params)
+                    amend: {items: JSON.stringify(params), whenever: JSON.stringify(when)}
                 },
                 dataType: 'json',
-                success: function(response) {
-                    var feedback = JSON.parse(response);
+                success: function(feedback) {
                     for (var jsonKey in feedback) {
                         switch (jsonKey.toUpperCase()) {
                             case 'ERROR':
@@ -112,7 +113,7 @@
                                     text: feedback[jsonKey]
                                 });
                                 break;
-                            case 'SUCCESS':
+                            case 'SUCCESSFUL':
                                 Swal.fire({
                                     icon: 'success',
                                     text: 'Pet Updated!'

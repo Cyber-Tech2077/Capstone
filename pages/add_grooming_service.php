@@ -33,18 +33,19 @@
         $("#save_grooming_service").click(function() {
             //send to file to send to DB
             var chosenPet = {
-                petGrooming: {
-                    petId: petChosen.options[petChosen.selectedIndex].id,
-                    serviceName: 'Grooming',
-                    serviceDate: grooming_date.value,
-                    locationId: locationName.options[locationName.selectedIndex].id,
-                    serviceDetails: contentDetails.value
-                }
+                petId: petChosen.options[petChosen.selectedIndex].id,
+                serviceName: 'Grooming',
+                serviceDate: grooming_date.value,
+                locationId: locationName.options[locationName.selectedIndex].id,
+                serviceDetails: contentDetails.value
             };
             $.post({
                 url: "../php/add_service.php",
                 data: {
-                    groomingData: JSON.stringify(chosenPet)
+                    push: {
+                        items: JSON.stringify(chosenPet),
+                        connect: 'history'
+                    }
                 },
                 dataType: 'json',
                 success: function(feedback) {

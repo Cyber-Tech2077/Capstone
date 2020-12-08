@@ -36,18 +36,19 @@
         $("#save_service").click(function() {
 
             var elementValues = {
-                values: {
-                    petId: name.options[name.selectedIndex].id,
-                    serviceName: serviceName.value,
-                    locationId: vet.options[vet.selectedIndex].id,
-                    serviceDate: vetServiceDate.value,
-                    serviceDetails: details.value
-                }
+                petId: name.options[name.selectedIndex].id,
+                serviceName: serviceName.value,
+                locationId: vet.options[vet.selectedIndex].id,
+                serviceDate: vetServiceDate.value,
+                serviceDetails: details.value
             };
             $.post({
                 url: "../php/add_service.php",
                 data: {
-                    vetService: JSON.stringify(elementValues)
+                    push: {
+                        items: JSON.stringify(elementValues),
+                        connect: 'history'
+                    }
                 },
                 dataType: 'json',
                 success: function() {

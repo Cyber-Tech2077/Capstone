@@ -63,13 +63,13 @@
 				foreach (json_decode($dbQueryParams) as $objectKey => $objectValue) {
 					$index = 0;
 					if (is_array($objectValue)) {
-						SQLSettings::setParamsString($objectValue, strtoupper($objectKey));
+						SQLSettings::setParamsString(json_decode($objectValue), strtoupper($objectKey));
 					} else {
-						SQLSettings::setParamsString((object) $objectValue, strtoupper($objectKey));
+						SQLSettings::setParamsString((object) json_decode($objectValue), strtoupper($objectKey));
 					}
 					$index++;
 					if (strtoupper($objectKey) === Constants::SQL_WHERE){
-						SQLSettings::setParamValues(get_object_vars((object) $objectValue));
+						SQLSettings::setParamValues(get_object_vars((object) json_decode($objectValue)));
 					}
 				}
 			}
@@ -121,7 +121,7 @@
 				$stmt = sqlsrv_prepare($this->dbConn, $createStmt, SQLSettings::getParamValues());
 				$execute = sqlsrv_execute($stmt);
 				if ($execute) {
-					echo json_encode('{' . '"successful":' . '"' . $this->dbParams->sqlType . ' successful!' . '"' . '}');
+					echo '{' . '"successful":' . '"' . $this->dbParams->sqlType . ' successful!' . '"' . '}';
 				} else {
 					$errorText = '{';
 					foreach (sqlsrv_errors() as $errorKey => $errorValue) {
@@ -137,7 +137,7 @@
 						break;
 					}
 					$errorText .= '}';
-					echo json_encode(json_decode($errorText));
+					echo $errorText;
 				}
 				sqlsrv_close($this->dbConn);
 			} catch (Throwable $e) {

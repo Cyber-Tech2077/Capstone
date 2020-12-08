@@ -1,7 +1,7 @@
   
 <?php
 
-require_once ("./DBConnect.php");
+require_once ("./php/dynamic-queries/ConstructDBQueries.php");
 
 try{
 

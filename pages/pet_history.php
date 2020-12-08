@@ -29,12 +29,26 @@
             var petChosen = document.getElementById("select_pet_control");
             if (petChosen.value !== '') {
                 var selectedPet = {
+                    items: 'history'
+                };
+                var connect = {
+                    directory: 'history'
+                }
+                var seatbelt = {
+                    click: 'location'
+                };
+                var whenever = {
                     petId: petChosen.options[petChosen.selectedIndex].id
                 };
                 $.post({
-                    url: "../php/petHistoryDB.php",
+                    url: "../php/add_service.php",
                     data: {
-                        petSelected: JSON.stringify(selectedPet)
+                        fetch: {
+                            items: JSON.stringify(selectedPet),
+                            connect: JSON.stringify(connect),
+                            fasten: JSON.stringify(seatbelt),
+                            whenever: JSON.stringify(whenever)
+                        }
                     },
                     dataType: 'json',
                     success: function(json) {

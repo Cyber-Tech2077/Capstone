@@ -56,18 +56,19 @@
             }
             var detailEntry = document.getElementById("detail_entry");
             var jsonParams = {
-                values: {
-                    petId: petChosen.options[petChosen.selectedIndex].id,
-                    serviceName: 'Boarding',
-                    locationId: boardingChosen.options[boardingChosen.selectedIndex].id,
-                    serviceDate: startDate.value,
-                    serviceDetails: detailEntry.value
-                }
+                petId: petChosen.options[petChosen.selectedIndex].id,
+                serviceName: 'Boarding',
+                locationId: boardingChosen.options[boardingChosen.selectedIndex].id,
+                serviceDate: startDate.value,
+                serviceDetails: detailEntry.value
             }
             $.post({
                 url: "../php/add_service.php",
                 data: {
-                    formValues: JSON.stringify(jsonParams)
+                    push: {
+                        items: JSON.stringify(jsonParams),
+                        connect: 'history'
+                    }
                 },
                 success: function(response) {
                     Swal.fire({
