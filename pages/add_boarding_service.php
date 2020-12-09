@@ -148,9 +148,9 @@
     <br />
     <br />
     <!-- Save Button -->
-    <div class="form-group text-center">
-        <button class="btn btn-primary" id="save_service">Save</button>
-    </div>
+<div class="form-group text-center">
+    <button class="btn btn-primary" id="save_service">Submit</button>
+</div>
 
 </body>
 
