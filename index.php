@@ -1,7 +1,11 @@
+<?php
+    include ("./php/modals/Login_Signup_Modal.html");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Team Purple B03</title>  
+  <title>Companion Vault</title>  
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -12,7 +16,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
   <script src="./js/secondnav_toggle.js"></script>
-
 </head>
 <?php require_once "./php/home-navbar.html"; ?>
 <body>
@@ -25,6 +28,7 @@
         </div>
     </div>
   </div>
+</div>
 
   <?php
     include ("./php/carousel.html");
