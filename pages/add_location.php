@@ -68,20 +68,39 @@
                 groom: groomingservice,
                 board: boardingservice
             };
+            var connect = {
+                connect: 'location'
+            };
             //send to file to send to DB
             $.post({
-                url: "../php/add_locationDB.php",
+                url: "../php/add_service.php",
                 data: {
-                    amend: JSON.stringify(locationValues)
+                    push: {
+                        items: JSON.stringify(locationValues),
+                        connect: JSON.stringify(connect)
+                    }
                 },
                 dataType: 'json',
-                success: function() {
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'The ' + name + ' location has been added.'
-                    }).then(result => {
-                        location.reload();
-                    });
+                success: function(json) {
+                    for (var response in json) {
+                        switch (response.toUpperCase()) {
+                            case 'SUCCESSFUL':
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'The ' + name + ' location has been added.'
+                                }).then(result => {
+                                    location.reload();
+                                });
+                                break;
+                            default:
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: 'An ajax error has occurred. Please contact Administrator.'
+                                }).then(result => {
+                                    location.reload();
+                                });
+                        }
+                    }
 
                 },
                 error: function(err) {

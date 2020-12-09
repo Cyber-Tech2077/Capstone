@@ -77,7 +77,7 @@
                                     var cellNum = newRow.insertCell(currentIndex);
                                     switch (currentIndex) {
                                         case 3:
-                                            cellNum.setAttribute('style', 'text-align: center');
+                                            cellNum.setAttribute('style', 'text-align: center;');
                                             cellNum.appendChild(checkbox1);
                                             if (json[index][result] == '1') {
                                                 checkbox1.checked = true;
@@ -98,6 +98,7 @@
                                             }
                                             break;
                                         default:
+                                            cellNum.setAttribute('style', 'text-align: center');
                                             cellNum.innerHTML = json[index][result];
                                     }
                                     currentIndex++;
@@ -185,13 +186,13 @@
         <table class="table" id="outputHistory">
             <thead>
                 <tr>
-                    <th scrop="col">Date</th>
-                    <th scope="col">Service</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Vetted</th>
-                    <th scope="col">Groomed</th>
-                    <th scope="col">Boarded</th>
-                    <th scope="col">Details</th>
+                    <th class="histColHdr" scrop="col">Date</th>
+                    <th class="histColHdr" scope="col">Service</th>
+                    <th class="histColHdr" scope="col">Location</th>
+                    <th class="histColHdr" scope="col">Vetted</th>
+                    <th class="histColHdr" scope="col">Groomed</th>
+                    <th class="histColHdr" scope="col">Boarded</th>
+                    <th class="histColHdr" scope="col">Details</th>
                 </tr>
             </thead>
             <tbody id="output_body">

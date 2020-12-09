@@ -43,6 +43,11 @@
     margin: auto;
 }
 
+/* Pet History */
+.histColHdr {
+    text-align: center;
+}
+
 /* Vet Service Page */
 #vetContainer,
 #selectServiceContainer,

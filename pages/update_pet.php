@@ -51,7 +51,10 @@
             $.post({
                 url: '../php/add_service.php',
                 data: {
-                    fetch: {items: JSON.stringify(data), whenever: JSON.stringify(petData)}
+                    fetch: {
+                        items: JSON.stringify(data),
+                        whenever: JSON.stringify(petData)
+                    }
                 },
                 dataType: 'json',
                 success: function(jsonData) {
@@ -93,15 +96,26 @@
             // Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the
             // selected pet name.
             var params = {
-                items: {name: petName.value, species: petSpecies, birthdate: petBirthDate.value, weight: petWeight.value, street: petStreet.value, city: petCity.value, state: petState.value, zip: petZip.value, chipId: petChip.value}
+                name: petName.value,
+                species: petSpecies,
+                birthdate: petBirthDate.value,
+                weight: petWeight.value,
+                street: petStreet.value,
+                city: petCity.value,
+                state: petState.value,
+                zip: petZip.value,
+                chipId: petChip.value
             };
             var when = {
-                whenever: {id: idNum.options[idNum.selectedIndex].id}
+                id: idNum.options[idNum.selectedIndex].id
             };
             $.post({
                 url: '../php/add_service.php',
                 data: {
-                    amend: {items: JSON.stringify(params), whenever: JSON.stringify(when)}
+                    amend: {
+                        items: JSON.stringify(params),
+                        whenever: JSON.stringify(when)
+                    }
                 },
                 dataType: 'json',
                 success: function(feedback) {

@@ -127,45 +127,53 @@
             }
 
             var location = {
-                locationNames: {
-                    business: businessName.value,
-                    address: street.value,
-                    city: city.value,
-                    state: state.value,
-                    zip: zip.value,
-                    email: email.value,
-                    phoneNumber: phone.value,
-                    veterinary: vetserivce,
-                    groom: groomingserivce,
-                    board: boardingserivce
-                },
-                locationSpot: {
-                    id: idNum.options[idNum.selectedIndex].id
-                }
+                business: businessName.value,
+                address: street.value,
+                city: city.value,
+                state: state.value,
+                zip: zip.value,
+                email: email.value,
+                phoneNumber: phone.value,
+                veterinary: vetserivce,
+                groom: groomingserivce,
+                board: boardingserivce
             };
-            var name1;
-            var name2;
-            var index = 0;
-            for (var names in location) {
-                switch (index) {
-                    case 0:
-                        name1 = location[names];
-                        break;
-                    case 1:
-                        name2 = location[names];
-                        break;
-                }
-                index++;
+            var connect = {
+                directory: 'location'
+            };
+            var identifer = {
+                id: idNum.options[idNum.selectedIndex].id
             }
             //send to file to send to DB
             $.post({
-                url: "../php/update_locationDB.php",
+                url: "../php/add_service.php",
                 data: {
-                    updateLocation: JSON.stringify(name1),
-                    updateTo: JSON.stringify(name2)
+                    amend: {
+                        items: JSON.stringify(location),
+                        connect: JSON.stringify(connect),
+                        whenever: JSON.stringify(identifer)
+                    }
                 },
                 dataType: 'json',
-                success: function() {
+                success: function(json) {
+                    for (var name in json) {
+                        switch (name.toUpperCase()) {
+                            case 'ERROR':
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: 'An ajax error has occurred, please contact Administrator'
+                                })
+                                break;
+                            case 'SUCCESSFUL':
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Location updated'
+                                }).then(result => {
+                                    window.location.reload();
+                                });
+                                break;
+                        }
+                    }
                     businessName.value = '';
                     street.value = '';
                     city.value = '';
@@ -176,7 +184,6 @@
                     document.getElementById("vetservice_id").checked = false;
                     document.getElementById("groomingservice_id").checked = false;
                     document.getElementById("boardingservice_id").checked = false;
-                    window.location.reload();
                 }
             });
         });
@@ -258,9 +265,7 @@
             <!-- State  -->
             <label class="control-label">State</label>
             <select class="form-control" id="state_id">
-                <?php
-            include_once ("../php/data_lists/states.html");
-            ?>
+                <?php include_once ("../php/data_lists/states.html"); ?>
             </select>
         </div>
 
