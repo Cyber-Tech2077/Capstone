@@ -9,7 +9,7 @@
 		// No need to mess with this.
 		$conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, businessName from Locations";
+			$sql = "select id, businessName from Locations where visible = 1";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();
@@ -80,6 +80,24 @@ $(document).ready(function() {
 				}				
 			});
 		});
+
+        $("#remove_location_btn").click(function() {
+			$('#remove_location_modal').modal();
+		});
+
+        $("#remove_location").click(function() {
+			var visible = 0;
+			$.post({
+                url: "../php/remove_locationDB.php", 
+				data: { visible: visible,
+					    location_ID: idNum.options[idNum.selectedIndex].id
+				}, 
+				success: function() {
+						$('#update_successful').modal();
+				}            
+			});
+		});
+
 
         $("#update_location").click(function() {
 			//assign form pieces to variables
@@ -232,10 +250,14 @@ $(document).ready(function() {
 </form>
 
 <!-- Submit Button -->
-<div class="form-group text-center">
-	<button type="submit" class="btn btn-primary" id="update_location">Submit</button>
+<div class="col justify-content-center">
+	<div class="form-group text-center">
+		<button type="submit" class="btn btn-primary btn-lg" id="update_location">Submit</button>
+	</div>
+	<div class="form-group text-center">
+		<button type="submit" class="btn btn-danger  btn-sm" id="remove_location_btn">Remove Location</button>
+	</div>
 </div>
-
 </body>
 
 </html>
