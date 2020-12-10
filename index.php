@@ -60,7 +60,7 @@
                                         Swal.fire({
                                             icon: 'success',
                                             text: json[message]
-                                        })
+                                        });
                                         break;
                                 }
                             }

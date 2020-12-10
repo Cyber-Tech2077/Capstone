@@ -48,6 +48,67 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+        function signUpUser() {
+            Swal.fire({
+                title: 'Sign Up',
+                html: `<input type="text" id="login" class="swal2-input" placeholder="Username" required>
+                    <input type="password" id="password" class="swal2-input" placeholder="Password" required>
+                    <input type="email" id="email" class="swal2-input" placeholder="Email" required>`,
+                confirmButtonText: 'Sign Up',
+                showCancelButton: true,
+                focusConfirm: false,
+                preConfirm: () => {
+                    const login = Swal.getPopup().querySelector('#login').value;
+                    const password = Swal.getPopup().querySelector('#password').value;
+                    const email = Swal.getPopup().querySelector('#email').value;
+                    if (!login || !password || !email) {
+                        Swal.showValidationMessage(`Please enter login, password and email.`);
+                    }
+                    return {
+                        login: login,
+                        password: password,
+                        email: email
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var signUpData = {
+                        username: result.value['login'].toLowerCase(),
+                        password: result.value['password'],
+                        email: result.value['email'].toLowerCase()
+                    };
+                    $.post({
+                        url: '../php/post-usages/simpleSignUp.php',
+                        data: {
+                            signup: JSON.stringify(signUpData)
+                        },
+                        dataType: 'json',
+                        success: function(json) {
+                            for (var message in json) {
+                                switch (message.toUpperCase()) {
+                                    case 'SUCCESSFUL':
+                                        Swal.fire({
+                                            icon: 'success',
+                                            text: json[message]
+                                        })
+                                        break;
+                                    case 'ERROR':
+                                        Swal.fire({
+                                            icon: 'error',
+                                            text: json[message]
+                                        }).then(result => {
+                                            signUpUser();
+                                        });
+                                        break;
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
         var idNum = document.getElementById("select_pet_control");
         var hidePet = document.getElementById("hidePet_id");
         $("#select_pet_control").change(function() {
@@ -88,52 +149,7 @@
         });
 
         $("#signup").click(function() {
-            Swal.fire({
-                title: 'Sign Up',
-                html: `<input type="text" id="login" class="swal2-input" placeholder="Username" required>
-                                <input type="password" id="password" class="swal2-input" placeholder="Password" required>
-                                <input type="email" id="email" class="swal2-input" placeholder="Email" required>`,
-                confirmButtonText: 'Sign Up',
-                focusConfirm: false,
-                preConfirm: () => {
-                    const login = Swal.getPopup().querySelector('#login').value;
-                    const password = Swal.getPopup().querySelector('#password').value;
-                    const email = Swal.getPopup().querySelector('#email').value;
-                    if (!login || !password || !email) {
-                        Swal.showValidationMessage(`Please enter login, password and email.`);
-                    }
-                    return {
-                        login: login,
-                        password: password,
-                        email: email
-                    }
-                }
-            }).then((result) => {
-                var signUpData = {
-                    username: result.value['login'].toLowerCase(),
-                    password: result.value['password'],
-                    email: result.value['email'].toLowerCase()
-                };
-                $.post({
-                    url: '../php/post-usages/simpleSignUp.php',
-                    data: {
-                        signup: JSON.stringify(signUpData)
-                    },
-                    dataType: 'json',
-                    success: function(json) {
-                        for (var message in json) {
-                            switch (message.toUpperCase()) {
-                                case 'SUCCESSFUL':
-                                    Swal.fire({
-                                        icon: 'success',
-                                        text: json[message]
-                                    })
-                                    break;
-                            }
-                        }
-                    }
-                })
-            });
+            signUpUser();
         });
 
         $("#login").click(function() {
