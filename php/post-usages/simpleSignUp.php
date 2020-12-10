@@ -40,7 +40,6 @@
             }
         } else {
             echo json_encode(json_decode('{"error": "Username already exists. Please try using a different username."}'));
-            
         }
     } catch (Exception $e) {
         return 'Exception: ' . $e;

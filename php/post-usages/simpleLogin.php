@@ -28,7 +28,7 @@
                         case 'PASSWORD':
                             if (password_verify($value, $row[0])) {
                                 $_SESSION['currentUser'] = $username;
-                                echo json_encode(array('successful' => $value));
+                                echo json_encode(array('successful' => 'Login successful.'));
                             }
                             break;
                     }

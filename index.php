@@ -65,16 +65,14 @@
                                 }
                             }
                         }
-                    })
+                    });
                 });
             });
-
             $("#login").click(function() {
-
                 Swal.fire({
                     title: 'Login Form',
                     html: `<input type="text" id="login" class="swal2-input" placeholder="Username" required>
-                    <input type="password" id="password" class="swal2-input" placeholder="Password" required>`,
+                          <input type="password" id="password" class="swal2-input" placeholder="Password" required>`,
                     confirmButtonText: 'Sign in',
                     focusConfirm: false,
                     preConfirm: () => {
@@ -104,7 +102,6 @@
                         }
                     });
                 });
-            });
             $('#logout').click(function() {
                 var userOut = {
                     logout: 'You have been successfully logged out.'
@@ -133,7 +130,6 @@
                     }
                 });
             });
-
         });
 
     </script>
@@ -143,90 +139,11 @@
 </head>
 
 <body>
+    <?php require_once './navigation/home-navbar.php'; ?>
 
-    <div id="main_nav">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Team Purple B03</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar navbar-nav p-2">
-                    <a class="nav-link hoverable active" href="./index.php">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-link hoverable" href="./pages/faq.php">FAQ</a>
-                    <a class="nav-link hoverable" href="./pages/contact_us.php">Contact Us</a>
-                </div>
-                <div class="navbar navbar-nav ml-auto p-2" id="navbar">
-                    <?php if (isset($_SESSION['currentUser'])): ?>
-                    <a class="btn btn-md btn-outline-warning" id="mode_button" onclick="second_navbar()">User Mode</a>
-                    <a class="btn btn-md hoverable" data-toggle="modal" id='currentUser'>Welcome, <?php echo $_SESSION['currentUser'] ?></a>
-                    <a class="btn btn-md hoverable" data-toggle="modal" id='logout'>Log out</a>
-                    <?php else: ?>
-                    <a class="btn btn-md hoverable" data-toggle="modal" id='signup' data-target="#signupModal">Sign Up</a>
-                    <a class="btn btn-md hoverable" data-toggle="modal" id="login" data-target="#loginModal">Log In</a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </nav>
-    </div>
-
-    <div id="user_nav">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup2" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup2">
-                <div class="navbar navbar-nav p-2">
-                    <!-- Veterinary Dropdown -->
-                    <div class="dropdown text-center">
-                        <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Pet</a>
-                        <div class="dropdown-menu text-center">
-                            <a class="dropdown-item nav-link hoverable" href="./pages/add_pet.php">Add a Pet</a>
-                            <a class="dropdown-item nav-link hoverable" href="./pages/update_pet.php">Update Pet</a>
-                            <a class="dropdown-item nav-link hoverable" href="./pages/pet_history.php">Pet History</a>
-                        </div>
-                    </div>
-                    <!-- Veterinary Dropdown -->
-                    <div class="dropdown text-center">
-                        <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Veterinary</a>
-                        <div class="dropdown-menu text-center">
-                            <a class="dropdown-item nav-link hoverable" href="./pages/add_vet_service.php">Add Veterinary Service</a>
-                        </div>
-                    </div>
-                    <!-- Grooming Dropdown -->
-                    <div class="dropdown text-center">
-                        <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Grooming</a>
-                        <div class="dropdown-menu text-center">
-                            <a class="dropdown-item nav-link hoverable" href="./pages/add_grooming_service.php">Add Grooming Service</a>
-                        </div>
-                    </div>
-                    <!-- Boarding Dropdown -->
-                    <div class="dropdown text-center">
-                        <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Boarding</a>
-                        <div class="dropdown-menu text-center">
-                            <a class="dropdown-item nav-link hoverable" href="./pages/add_boarding_service.php">Add Boarding Service</a>
-                        </div>
-                    </div>
-                    <!-- Location Dropdown -->
-                    <div class="dropdown text-center">
-                        <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Location</a>
-                        <div class="dropdown-menu text-center">
-                            <a class="dropdown-item nav-link hoverable" href="./pages/add_location.php">Add a Location</a>
-                            <a class="dropdown-item nav-link hoverable" href="./pages/update_location.php">Update a Location</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
-
-    <div class="jumbotron jumbotron-sm">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-12">
-                    <h1 class="h1">Team Purple B03</h1>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <img src=" ./images/title_banner/Companion_Vault.png" class="img-fluid mx-auto" alt="Home Page Banner">
         </div>
     </div>
 
