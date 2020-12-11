@@ -4,7 +4,6 @@
 
     $conn = databaseConnect('Pet');
     try {
-        
         $query = 'select [username] from users where [username] = ?';
         $queryStmt = sqlsrv_query($conn, $query, array(json_decode($_POST['signup'])->username));
         if ($queryStmt === false) {
@@ -13,7 +12,6 @@
             }
         }
         if (sqlsrv_fetch_array($queryStmt, SQLSRV_FETCH_ASSOC) == null) {
-        
             $query = 'insert into users (username, password, email) values (?,?,?)';
             $credentials = array();
             foreach ($_POST as $postKey => $postValue) {
