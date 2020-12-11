@@ -8,28 +8,34 @@
         $query = 'select [password] from users where [username] = ?';
         $credentials = array();
         foreach ($_POST as $postKey => $postValue) {
-            foreach (json_decode($postValue) as $userKey => $userPassValue) {
-                switch (strtoupper($userKey)) {
-                    case 'USERNAME':
-                        array_push($credentials, $userPassValue);
-                        break;
-                }
+            switch (strtoupper($postKey)) {
+                case 'USERNAME':
+                    array_push($credentials, $postValue);
+                    break;
             }
         }
-        $stmt = sqlsrv_query($conn, $query, $credentials);
-        while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_NUMERIC)) {
-            foreach ($_POST as $postKey => $postValue) {
-                foreach (json_decode($postValue) as $key => $value) {
-                    switch (strtoupper($key)) {
+        $stmt = sqlsrv_query($conn, $query, $credentials, array( "Scrollable" => SQLSRV_CURSOR_KEYSET ));
+        if (sqlsrv_num_rows($stmt) > 0) {
+            while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_NUMERIC)) {
+                foreach ($_POST as $postKey => $postValue) {
+                    $username;
+                    switch (strtoupper($postKey)) {
+                        case 'USERNAME':
+                            $username = $postValue;
+                            break;
                         case 'PASSWORD':
-                            if (password_verify($value, $row[0])) {
-                                $_SESSION['currentUser'] = $value;
-                                echo json_encode(array('successful' => $value));
+                            if (password_verify($postValue, $row[0])) {
+                                $_SESSION['currentUser'] = $username;
+                                echo json_encode(array('successful' => ''));
+                            } else {
+                                echo json_encode(json_decode('{"error": "Username or password is incorrect."}'));
                             }
                             break;
                     }
                 }
             }
+        } else {
+            echo json_encode(json_decode('{"unknown": "This username doesn\'t exist."}'));
         }
     } catch (Exception $e) {
         return 'Exception: ' . $e;
