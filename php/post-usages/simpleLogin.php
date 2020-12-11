@@ -19,16 +19,12 @@
         $stmt = sqlsrv_query($conn, $query, $credentials);
         while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_NUMERIC)) {
             foreach ($_POST as $postKey => $postValue) {
-                $username;
                 foreach (json_decode($postValue) as $key => $value) {
                     switch (strtoupper($key)) {
-                        case 'USERNAME':
-                            $username = $value;
-                            break;
                         case 'PASSWORD':
                             if (password_verify($value, $row[0])) {
-                                $_SESSION['currentUser'] = $username;
-                                echo json_encode(array('successful' => 'Login successful.'));
+                                $_SESSION['currentUser'] = $value;
+                                echo json_encode(array('successful' => $value));
                             }
                             break;
                     }

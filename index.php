@@ -60,19 +60,22 @@
                                         Swal.fire({
                                             icon: 'success',
                                             text: json[message]
-                                        });
+                                        })
                                         break;
                                 }
                             }
                         }
-                    });
+                    })
                 });
             });
+
+
             $("#login").click(function() {
+
                 Swal.fire({
                     title: 'Login Form',
                     html: `<input type="text" id="login" class="swal2-input" placeholder="Username" required>
-                          <input type="password" id="password" class="swal2-input" placeholder="Password" required>`,
+            <input type="password" id="password" class="swal2-input" placeholder="Password" required>`,
                     confirmButtonText: 'Sign in',
                     focusConfirm: false,
                     preConfirm: () => {
@@ -102,6 +105,12 @@
                         }
                     });
                 });
+
+            });
+            $('#logout').click(function() {
+
+            });
+
             $('#logout').click(function() {
                 var userOut = {
                     logout: 'You have been successfully logged out.'
@@ -139,6 +148,7 @@
 </head>
 
 <body>
+
     <?php require_once './navigation/home-navbar.php'; ?>
 
     <div class="container">
