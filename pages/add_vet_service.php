@@ -27,7 +27,7 @@
 	function chooseLocation() {
 		$conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, businessName from Locations WHERE vetChecked = 1";
+			$sql = "select id, businessName from Locations WHERE vetChecked = 1 and visible = 1";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();

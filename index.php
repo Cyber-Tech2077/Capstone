@@ -28,7 +28,7 @@
             $("#login").click(function() {
                 new UserLogin('.').userLogin();
             });
-
+          
             $('#logout').click(function() {
                 new UserLogin('.').userLogOut();
             });
@@ -41,7 +41,6 @@
 </head>
 
 <body>
-
     <?php require_once './navigation/home-navbar.php'; ?>
 
     <div class="container">

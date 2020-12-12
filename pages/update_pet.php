@@ -1,5 +1,6 @@
 <?php
 	session_start();
+
 	include_once(__DIR__."/../php/DBConnect.php");
 	include (__DIR__ . "/../php/modals/Modals.html");
 
@@ -8,14 +9,16 @@
 		// No need to mess with this.
 		$conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, name from Pets";
+			$sql = "select id, name, hidepet from Pets";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();
 			} else {
 				$storeValueId;
 				while ($row = sqlsrv_fetch_object($stmt)) {
-					echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
+                    if ($row->hidepet !== 1) {
+                        echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
+                    }
 				}
 			}
 		} catch (Throwable $e) {
@@ -40,15 +43,16 @@
     <script src="../js/secondnav_toggle.js"></script>
     <script src="../js/bootstrap.min.js"></script>
 
-    <link href="../css/bootstrap.min" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
 </head>
 
 <script type="text/javascript">
     $(document).ready(function() {
+      
         var idNum = document.getElementById("select_pet_control");
-
+        var hidePet = document.getElementById("hidePet_id");
+      
         $("#signup").click(function() {
             new UserLogin('..').signup();
         });
@@ -60,7 +64,7 @@
         $('#logout').click(function() {
             new UserLogin('..').userLogOut();
         });
-
+      
         $("#select_pet_control").change(function() {
             document.getElementById("speciesRadiosOther").value = ""
             $.post({
@@ -88,6 +92,12 @@
                     document.getElementById("state_id").value = json["State"];
                     document.getElementById("zip_id").value = json["Zip"];
                     document.getElementById("chip_id").value = json["Chip"];
+                  
+                    if (json["HidePet"] == 1) {
+                        hidePet.checked = true;
+                    } else {
+                        hidePet.checked = false;
+                    }
                 }
 
             });
@@ -102,10 +112,13 @@
             } else {
                 var petSpecies = document.getElementById("speciesRadiosOther").value
             }
-
-            // Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the
-            // selected pet name.
-
+          
+            var hidePetValue = 0;
+            if (hidePet.checked) {
+                hidePetValue = 1;
+            }
+          
+            // Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the selected pet name.
             $.post({
                 url: "../php/update_petDB.php",
                 data: {
@@ -118,10 +131,19 @@
                     pet_state: document.getElementById("state_id").value,
                     pet_zip: document.getElementById("zip_id").value,
                     pet_chip: document.getElementById("chip_id").value,
-                    pet_ID: idNum.options[idNum.selectedIndex].id
+                    pet_ID: idNum.options[idNum.selectedIndex].id,
+                    hidepet: hidePetValue
                 },
                 success: function() {
-                    $('#update_successful').modal();
+                    document.getElementById("petname_id").value = "";
+                    document.getElementsByTagName("speciesRadios").checked = false;
+                    document.getElementById("birthday_id").value = "";
+                    document.getElementById("weight_id").value = "";
+                    document.getElementById("street_id").value = "";
+                    document.getElementById("city_id").value = "";
+                    document.getElementById("state_id").value = "";
+                    document.getElementById("zip_id").value = "";
+                    document.getElementById("chip_id").value = "";
                 }
             });
         });
@@ -133,7 +155,7 @@
 <body>
 
     <?php require_once '../navigation/pages-navbar.php'; ?>
-
+                 
     <div class="container">
         <div class="row">
             <img src=" ../images/title_banner/Update_Pet.png" class="img-fluid mx-auto" alt="Update Pet">
@@ -241,6 +263,15 @@
                         <label class="control-label">Zip Code</label>
                         <input class="form-control" type="text" id="zip_id">
                     </div>
+
+                    <?php if (isset($_SESSION['currentUser'])): ?>
+                    <div class="row col-6">
+                        <div class="form-group col-sm-4">
+                            <label class="control-label">Hide Pet</label>
+                            <input type='checkbox' class='form-control' id='hidePet_id' />
+                        </div>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

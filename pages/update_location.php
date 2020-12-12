@@ -1,14 +1,14 @@
 <?php
     session_start();
 	include_once(__DIR__."/../php/DBConnect.php");
-	include (__DIR__ . "/../php/modals/Modals.html");
+	// include (__DIR__ . "/../php/modals/Modals.html");
 	
 	function comboboxOptions() {
 		// This php code works, all values come out as normal.
 		// No need to mess with this.
 		$conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, businessName from Locations";
+			$sql = "select id, businessName from Locations where visible = 1";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();
@@ -96,6 +96,24 @@
                 }
             });
         });
+
+        $("#remove_location_btn").click(function() {
+			$('#remove_location_modal').modal();
+		});
+
+        $("#remove_location").click(function() {
+			var visible = 0;
+			$.post({
+                url: "../php/remove_locationDB.php", 
+				data: { visible: visible,
+					    location_ID: idNum.options[idNum.selectedIndex].id
+				}, 
+				success: function() {
+						$('#update_successful').modal();
+				}            
+			});
+		});
+
 
         $("#update_location").click(function() {
             //assign form pieces to variables
@@ -226,9 +244,7 @@
                         <!-- State  -->
                         <label class="control-label">State</label>
                         <select class="form-control" id="state_id">
-                            <?php
-				include (__DIR__ . "/../php/data_lists/states.html");
-				?>
+                            <?php include (__DIR__ . "/../php/data_lists/states.html"); ?>
                         </select>
                     </div>
 
@@ -264,7 +280,13 @@
     <div class="form-group text-center">
         <button type="submit" class="btn btn-primary" id="update_location">Submit</button>
     </div>
-
+  
+  <?php if (isset($_SESSION['currentUser'])): ?>
+	<div class="form-group text-center">
+		<button type="submit" class="btn btn-danger  btn-sm" id="remove_location_btn">Remove Location</button>
+	</div>
+  <?php endif; ?>
+</div>
 </body>
 
 </html>

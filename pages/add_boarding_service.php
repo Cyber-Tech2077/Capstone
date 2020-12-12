@@ -26,7 +26,7 @@
     function boardingLocations() {
         $conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, businessName as name from Locations where boarderChecked = '1'";
+			$sql = "select id, businessName as name from Locations where boarderChecked = 1 and visible = 1";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();
