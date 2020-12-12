@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include (__DIR__ . "/../php/headernav.php");
+
 	include_once(__DIR__."/../php/DBConnect.php");
 	include (__DIR__ . "/../php/modals/Modals.html");
 
@@ -38,20 +38,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
+    <script src="../js/LoginClass.js" type="text/ecmascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <style href="../css/bootstrap.min" rel="stylesheet" type="text/css"></style>
+    <script src="../js/secondnav_toggle.js"></script>
     <script src="../js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
 </head>
 
 <script type="text/javascript">
     $(document).ready(function() {
-
-
+      
         var idNum = document.getElementById("select_pet_control");
         var hidePet = document.getElementById("hidePet_id");
+      
+        $("#signup").click(function() {
+            new UserLogin('..').signup();
+        });
+
+        $("#login").click(function() {
+            new UserLogin('..').userLogin();
+        });
+
+        $('#logout').click(function() {
+            new UserLogin('..').userLogOut();
+        });
+      
         $("#select_pet_control").change(function() {
             document.getElementById("speciesRadiosOther").value = ""
             $.post({
@@ -79,6 +92,7 @@
                     document.getElementById("state_id").value = json["State"];
                     document.getElementById("zip_id").value = json["Zip"];
                     document.getElementById("chip_id").value = json["Chip"];
+                  
                     if (json["HidePet"] == 1) {
                         hidePet.checked = true;
                     } else {
@@ -98,13 +112,13 @@
             } else {
                 var petSpecies = document.getElementById("speciesRadiosOther").value
             }
-
-            // Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the
-            // selected pet name.
+          
             var hidePetValue = 0;
             if (hidePet.checked) {
                 hidePetValue = 1;
             }
+          
+            // Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the selected pet name.
             $.post({
                 url: "../php/update_petDB.php",
                 data: {
@@ -121,7 +135,6 @@
                     hidepet: hidePetValue
                 },
                 success: function() {
-                    $('#update_successful').modal();
                     document.getElementById("petname_id").value = "";
                     document.getElementsByTagName("speciesRadios").checked = false;
                     document.getElementById("birthday_id").value = "";
@@ -141,6 +154,8 @@
 
 <body>
 
+    <?php require_once '../navigation/pages-navbar.php'; ?>
+                 
     <div class="container">
         <div class="row">
             <img src=" ../images/title_banner/Update_Pet.png" class="img-fluid mx-auto" alt="Update Pet">
@@ -248,6 +263,7 @@
                         <label class="control-label">Zip Code</label>
                         <input class="form-control" type="text" id="zip_id">
                     </div>
+
                     <?php if (isset($_SESSION['currentUser'])): ?>
                     <div class="row col-6">
                         <div class="form-group col-sm-4">
