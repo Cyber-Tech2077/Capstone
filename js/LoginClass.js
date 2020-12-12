@@ -1,7 +1,21 @@
 class UserLogin {
     constructor(dotPath) {
         this.pathDots = dotPath;
+
+        this.modalResource();
     }
+
+    modalResource() {
+        if (document.getElementById('sweetalert2') === null) {
+            var styleElement = document.createElement('link');
+            styleElement.href = this.pathDots + '/css/sweetalert2.css';
+            styleElement.rel = 'stylesheet';
+            styleElement.id = 'sweetalert2';
+            styleElement.type = 'text/css';
+            document.getElementsByTagName('head')[0].appendChild(styleElement);
+        }
+    }
+
     signup() {
         Swal.fire({
             title: 'Sign Up',
@@ -22,7 +36,8 @@ class UserLogin {
                 return {
                     login: login,
                     password: password,
-                    email: email
+                    email: email,
+                    pathDot: this.pathDots
                 }
             }
         }).then((result) => {
@@ -43,6 +58,8 @@ class UserLogin {
                                         icon: 'success',
                                         allowOutsideClick: false,
                                         text: json[message]
+                                    }).then(response => {
+                                        new UserLogin(result.value['pathDot']).signup();
                                     });
                                     break;
                                 case 'ERROR':
@@ -50,6 +67,8 @@ class UserLogin {
                                         icon: 'error',
                                         allowOutsideClick: false,
                                         text: json[message]
+                                    }).then(response => {
+                                        new UserLogin(result.value['pathDot']).signup();
                                     });
                                     break;
                             }
@@ -77,7 +96,8 @@ class UserLogin {
                 }
                 return {
                     login: login,
-                    password: password
+                    password: password,
+                    pathDot: this.pathDots
                 }
             }
         }).then(result => {
@@ -100,6 +120,8 @@ class UserLogin {
                                         icon: 'info',
                                         allowOutsideClick: false,
                                         text: json[items]
+                                    }).then(response => {
+                                        new UserLogin(result.value['pathDot']).userLogin();
                                     });
                                     break;
                                 case 'ERROR':
@@ -107,6 +129,8 @@ class UserLogin {
                                         icon: 'error',
                                         allowOutsideClick: false,
                                         text: json[items]
+                                    }).then(response => {
+                                        new UserLogin(result.value['pathDot']).userLogin();
                                     });
                                     break;
                             }
