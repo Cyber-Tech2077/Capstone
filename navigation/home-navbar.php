@@ -13,7 +13,6 @@
                 </div>
                 <div class="navbar navbar-nav ml-auto" id="navbar">
                     <?php if (isset($_SESSION['currentUser'])): ?>
-                    <a class="btn btn-md btn-outline-warning" id="mode_button" onclick="second_navbar();">User Mode</a>
                     <a class="btn btn-md btn-outline-light hoverable m-2" id="currentUser">Welcome, <?php echo $_SESSION['currentUser']; ?></a>
                     <a class="btn btn-md btn-outline-light hoverable m-2" id="logout">Log out</a>
                     <?php else: ?>
@@ -24,58 +23,58 @@
             </div>
         </nav>
     </div>
-    
+
     <?php if (isset($_SESSION['currentUser'])): ?>
-        <div id="user_nav">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup2" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup2">
-                    <div class="navbar navbar-nav p-2">
-                        <!-- Veterinary Dropdown -->
-                        <div class="dropdown text-center">
-                            <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Pet</a>
-                            <div class="dropdown-menu text-center">
-                                <a class="dropdown-item nav-link hoverable" href="./pages/add_pet.php">Add Pet</a>
-                                <a class="dropdown-item nav-link hoverable" href="./pages/update_pet.php">Update Pet</a>
-                                <a class="dropdown-item nav-link hoverable" href="./pages/pet_history.php">Pet History</a>
-                            </div>
+    <div id="user_nav">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup2" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup2">
+                <div class="navbar navbar-nav p-2">
+                    <!-- Veterinary Dropdown -->
+                    <div class="dropdown text-center">
+                        <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Pet</a>
+                        <div class="dropdown-menu text-center">
+                            <a class="dropdown-item nav-link hoverable" href="./pages/add_pet.php">Add Pet</a>
+                            <a class="dropdown-item nav-link hoverable" href="./pages/update_pet.php">Update Pet</a>
+                            <a class="dropdown-item nav-link hoverable" href="./pages/pet_history.php">Pet History</a>
                         </div>
-                        <!-- Veterinary Dropdown -->
-                        <div class="dropdown text-center">
-                            <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Veterinary</a>
-                            <div class="dropdown-menu text-center">
-                                <a class="dropdown-item nav-link hoverable" href="./pages/add_vet_service.php">Add Veterinary Service</a>
-                                <a class="dropdown-item nav-link hoverable" href="./pages/vet_history.php">Veterinary History</a>
-                            </div>
+                    </div>
+                    <!-- Veterinary Dropdown -->
+                    <div class="dropdown text-center">
+                        <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Veterinary</a>
+                        <div class="dropdown-menu text-center">
+                            <a class="dropdown-item nav-link hoverable" href="./pages/add_vet_service.php">Add Veterinary Service</a>
+                            <a class="dropdown-item nav-link hoverable" href="./pages/vet_history.php">Veterinary History</a>
                         </div>
-                        <!-- Grooming Dropdown -->
-                        <div class="dropdown text-center">
-                            <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Grooming</a>
-                            <div class="dropdown-menu text-center">
-                                <a class="dropdown-item nav-link hoverable" href="./pages/add_grooming_service.php">Add Grooming Service</a>
-                            </div>
+                    </div>
+                    <!-- Grooming Dropdown -->
+                    <div class="dropdown text-center">
+                        <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Grooming</a>
+                        <div class="dropdown-menu text-center">
+                            <a class="dropdown-item nav-link hoverable" href="./pages/add_grooming_service.php">Add Grooming Service</a>
                         </div>
-                        <!-- Boarding Dropdown -->
-                        <div class="dropdown text-center">
-                            <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Boarding</a>
-                            <div class="dropdown-menu text-center">
-                                <a class="dropdown-item nav-link hoverable" href="./pages/add_boarding_service.php">Add Boarding Service</a>
-                            </div>
+                    </div>
+                    <!-- Boarding Dropdown -->
+                    <div class="dropdown text-center">
+                        <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Boarding</a>
+                        <div class="dropdown-menu text-center">
+                            <a class="dropdown-item nav-link hoverable" href="./pages/add_boarding_service.php">Add Boarding Service</a>
                         </div>
-                        <!-- Location Dropdown -->
-                        <div class="dropdown text-center">
-                            <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Location</a>
-                            <div class="dropdown-menu text-center">
-                                <a class="dropdown-item nav-link hoverable" href="./pages/add_location.php">Add Location</a>
-                                <a class="dropdown-item nav-link hoverable" href="./pages/update_location.php">Update Location</a>
-                            </div>
+                    </div>
+                    <!-- Location Dropdown -->
+                    <div class="dropdown text-center">
+                        <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Location</a>
+                        <div class="dropdown-menu text-center">
+                            <a class="dropdown-item nav-link hoverable" href="./pages/add_location.php">Add Location</a>
+                            <a class="dropdown-item nav-link hoverable" href="./pages/update_location.php">Update Location</a>
                         </div>
                     </div>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
+    </div>
     <?php endif; ?>
     <hr class="form-group col-10 solid">
 </div>

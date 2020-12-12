@@ -13,7 +13,6 @@
                 </div>
                 <div class="navbar navbar-nav ml-auto" id="navbar">
                     <?php if (isset($_SESSION['currentUser'])): ?>
-                    <a class="btn btn-md btn-outline-warning" id="mode_button" onclick="second_navbar();">User Mode</a>
                     <a class="btn btn-md btn-outline-light hoverable m-2" id="currentUser">Welcome, <?php echo $_SESSION['currentUser']; ?></a>
                     <a class="btn btn-md btn-outline-light hoverable m-2" id="logout">Log out</a>
                     <?php else: ?>
@@ -24,7 +23,7 @@
             </div>
         </nav>
     </div>
-    
+
     <?php if (isset($_SESSION['currentUser'])): ?>
     <div id="user_nav">
         <nav class="navbar navbar-expand-lg navbar-light">
