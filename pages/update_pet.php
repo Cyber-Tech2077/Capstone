@@ -9,14 +9,14 @@
 		// No need to mess with this.
 		$conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, name, hidepet from Pets";
+			$sql = "select id, name, visible from Pets";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();
 			} else {
 				$storeValueId;
 				while ($row = sqlsrv_fetch_object($stmt)) {
-                    if ($row->hidepet !== 1) {
+                    if ($row->visible !== 1) {
                         echo "<option id = " . $row->id . " value = " . $row->name . ">" . $row->name . "</option>";
                     }
 				}
@@ -49,10 +49,11 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-      
+
         var idNum = document.getElementById("select_pet_control");
         var hidePet = document.getElementById("hidePet_id");
-      
+        var submitPet = document.getElementById("update_pet");
+
         $("#signup").click(function() {
             new UserLogin('..').signup();
         });
@@ -64,46 +65,62 @@
         $('#logout').click(function() {
             new UserLogin('..').userLogOut();
         });
-      
+
+        if (idNum.selectedIndex === 0) {
+            hidePet.disabled = true;
+            hidePet.setAttribute('class', 'btn btn-danger disabled');
+            submitPet.disabled = true;
+            submitPet.setAttribute('class', 'btn btn-primary disabled');
+        }
+
         $("#select_pet_control").change(function() {
             document.getElementById("speciesRadiosOther").value = ""
-            $.post({
-                url: "../php/retrieve_pet.php",
-                data: {
-                    pet_ID: idNum.options[idNum.selectedIndex].id
-                },
-                success: function(feedback) {
-                    var json = JSON.parse(feedback);
-                    document.getElementById("petname_id").value = json["Name"];
-                    if (json["Species"] == "Dog") {
-                        document.getElementById("speciesRadios1").checked = true;
-                    } else if (json["Species"] == "Cat") {
-                        document.getElementById("speciesRadios2").checked = true;
-                    } else {
-                        document.getElementById("speciesRadios3").checked = true;
-                        document.getElementById("speciesRadiosOther").value = json["Species"];
-                        $('#speciesRadiosOther').show();
-                    }
+            if (idNum.selectedIndex !== 0) {
 
-                    document.getElementById("birthday_id").value = json["Birthdate"];
-                    document.getElementById("weight_id").value = json["Weight"];
-                    document.getElementById("street_id").value = json["Street"];
-                    document.getElementById("city_id").value = json["City"];
-                    document.getElementById("state_id").value = json["State"];
-                    document.getElementById("zip_id").value = json["Zip"];
-                    document.getElementById("chip_id").value = json["Chip"];
-                  
-                    if (json["HidePet"] == 1) {
-                        hidePet.checked = true;
-                    } else {
-                        hidePet.checked = false;
-                    }
-                }
+                // When a pet is selected, enable the "Submit" and "Hide Pet" buttons.
+                hidePet.disabled = false;
+                hidePet.setAttribute('class', 'btn btn-danger');
+                submitPet.disabled = false;
+                submitPet.setAttribute('class', 'btn btn-primary');
 
-            });
+                $.post({
+                    url: "../php/retrieve_pet.php",
+                    data: {
+                        pet_ID: idNum.options[idNum.selectedIndex].id
+                    },
+                    success: function(feedback) {
+                        var json = JSON.parse(feedback);
+                        document.getElementById("petname_id").value = json["Name"];
+                        if (json["Species"] == "Dog") {
+                            document.getElementById("speciesRadios1").checked = true;
+                        } else if (json["Species"] == "Cat") {
+                            document.getElementById("speciesRadios2").checked = true;
+                        } else {
+                            document.getElementById("speciesRadios3").checked = true;
+                            document.getElementById("speciesRadiosOther").value = json["Species"];
+                            $('#speciesRadiosOther').show();
+                        }
+
+                        document.getElementById("birthday_id").value = json["Birthdate"];
+                        document.getElementById("weight_id").value = json["Weight"];
+                        document.getElementById("street_id").value = json["Street"];
+                        document.getElementById("city_id").value = json["City"];
+                        document.getElementById("state_id").value = json["State"];
+                        document.getElementById("zip_id").value = json["Zip"];
+                        document.getElementById("chip_id").value = json["Chip"];
+
+                        if (json["HidePet"] == 1) {
+                            hidePet.visible = false;
+                        } else {
+                            hidePet.visible = true;
+                        }
+                    }
+                });
+            }
         });
 
-        $("#update_pet").click(function() {
+        var hidePetValue = 0;
+        $("#hidePet_id").click(function(response) {
             // Changed id assocaited with select html element.
             if (document.getElementById("speciesRadios1").checked) {
                 var petSpecies = document.getElementById("speciesRadios1").value
@@ -112,12 +129,39 @@
             } else {
                 var petSpecies = document.getElementById("speciesRadiosOther").value
             }
-          
-            var hidePetValue = 0;
-            if (hidePet.checked) {
-                hidePetValue = 1;
+
+            // Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the selected pet name.
+            $.post({
+                url: "../php/update_petDB.php",
+                data: {
+                    pet_name: document.getElementById("petname_id").value,
+                    pet_species: petSpecies,
+                    pet_birthdate: document.getElementById("birthday_id").value,
+                    pet_weight: document.getElementById("weight_id").value,
+                    pet_street: document.getElementById("street_id").value,
+                    pet_city: document.getElementById("city_id").value,
+                    pet_state: document.getElementById("state_id").value,
+                    pet_zip: document.getElementById("zip_id").value,
+                    pet_chip: document.getElementById("chip_id").value,
+                    pet_ID: idNum.options[idNum.selectedIndex].id,
+                    hidepet: hidePetValue + 1
+                },
+                success: function() {
+                    window.location.reload();
+                }
+            });
+        });
+
+        $("#update_pet").click(function(response) {
+            // Changed id assocaited with select html element.
+            if (document.getElementById("speciesRadios1").checked) {
+                var petSpecies = document.getElementById("speciesRadios1").value
+            } else if (document.getElementById("speciesRadios2").checked) {
+                var petSpecies = document.getElementById("speciesRadios2").value
+            } else {
+                var petSpecies = document.getElementById("speciesRadiosOther").value
             }
-          
+
             // Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the selected pet name.
             $.post({
                 url: "../php/update_petDB.php",
@@ -135,15 +179,12 @@
                     hidepet: hidePetValue
                 },
                 success: function() {
-                    document.getElementById("petname_id").value = "";
-                    document.getElementsByTagName("speciesRadios").checked = false;
-                    document.getElementById("birthday_id").value = "";
-                    document.getElementById("weight_id").value = "";
-                    document.getElementById("street_id").value = "";
-                    document.getElementById("city_id").value = "";
-                    document.getElementById("state_id").value = "";
-                    document.getElementById("zip_id").value = "";
-                    document.getElementById("chip_id").value = "";
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Your pet has been updated!'
+                    }).then(response => {
+                        window.location.reload();
+                    });
                 }
             });
         });
@@ -155,7 +196,7 @@
 <body>
 
     <?php require_once '../navigation/pages-navbar.php'; ?>
-                 
+
     <div class="container">
         <div class="row">
             <img src=" ../images/title_banner/Update_Pet.png" class="img-fluid mx-auto" alt="Update Pet">
@@ -170,7 +211,7 @@
             </div>
             <div class="form-group col-lg-10">
                 <select class="form-control" id="select_pet_control">
-                    <option value=""></option>
+                    <option id="emptyOption" value="" selected disabled>Select Pet</option>
                     <?php comboboxOptions(); ?>
                 </select>
             </div>
@@ -267,8 +308,9 @@
                     <?php if (isset($_SESSION['currentUser'])): ?>
                     <div class="row col-6">
                         <div class="form-group col-sm-4">
-                            <label class="control-label">Hide Pet</label>
-                            <input type='checkbox' class='form-control' id='hidePet_id' />
+                            <br />
+                            <br />
+                            <button type="button" class="btn btn-danger" id="hidePet_id">Hide Pet</button>
                         </div>
                     </div>
                     <?php endif; ?>

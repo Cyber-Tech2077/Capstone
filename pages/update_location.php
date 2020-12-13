@@ -1,7 +1,7 @@
 <?php
     session_start();
 	include_once(__DIR__."/../php/DBConnect.php");
-	// include (__DIR__ . "/../php/modals/Modals.html");
+	include (__DIR__ . "/../php/modals/Modals.html");
 	
 	function comboboxOptions() {
 		// This php code works, all values come out as normal.
@@ -48,6 +48,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var idNum = document.getElementById("select_location_control");
+        var removeLocationBtn = document.getElementById("remove_location_btn");
+        var submitLocation = document.getElementById("update_location");
 
         $("#signup").click(function() {
             new UserLogin('..').signup();
@@ -61,58 +63,75 @@
             new UserLogin('..').userLogOut();
         });
 
-        $("#select_location_control").change(function() {
-            $.post({
-                url: "../php/retrieve_location.php",
-                data: {
-                    location_ID: idNum.options[idNum.selectedIndex].id
-                },
-                success: function(feedback) {
-                    var json = JSON.parse(feedback);
-                    document.getElementById("businessname_id").value = json["Name"];
-                    document.getElementById("street_id").value = json["Street"];
-                    document.getElementById("city_id").value = json["City"];
-                    document.getElementById("state_id").value = json["State"];
-                    document.getElementById("zip_id").value = json["Zip"];
-                    document.getElementById("email_id").value = json["Email"];
-                    document.getElementById("phone_id").value = json["Phone"];
-                    // If Checkbox Statement
-                    if (json["vetservice"] == "1") {
-                        document.getElementById("vetservice_id").checked = true;
-                    } else {
-                        document.getElementById("vetservice_id").checked = false;
-                    }
-                    if (json["groomingservice"] == "1") {
-                        document.getElementById("groomingservice_id").checked = true;
-                    } else {
-                        document.getElementById("groomingservice_id").checked = false;
-                    }
-                    if (json["boardingservice"] == "1") {
-                        document.getElementById("boardingservice_id").checked = true;
-                    } else {
-                        document.getElementById("boardingservice_id").checked = false;
-                    }
+        if (idNum.selectedIndex == 0) {
+            removeLocationBtn.disabled = true;
+            removeLocationBtn.setAttribute('class', 'btn btn-danger btn-sm disabled');
+            submitLocation.disabled = true;
+            submitLocation.setAttribute('class', 'btn btn-primary disabled');
+        }
 
-                }
-            });
+        $("#select_location_control").change(function() {
+            if (idNum.selectedIndex !== 0) {
+
+                // When a location is selected, enable the "Submit" and "Remove Location" buttons.
+                removeLocationBtn.disabled = false;
+                removeLocationBtn.setAttribute('class', 'btn btn-danger btn-sm');
+                submitLocation.disabled = false;
+                submitLocation.setAttribute('class', 'btn btn-primary');
+
+                $.post({
+                    url: "../php/retrieve_location.php",
+                    data: {
+                        location_ID: idNum.options[idNum.selectedIndex].id
+                    },
+                    success: function(feedback) {
+                        var json = JSON.parse(feedback);
+                        document.getElementById("businessname_id").value = json["Name"];
+                        document.getElementById("street_id").value = json["Street"];
+                        document.getElementById("city_id").value = json["City"];
+                        document.getElementById("state_id").value = json["State"];
+                        document.getElementById("zip_id").value = json["Zip"];
+                        document.getElementById("email_id").value = json["Email"];
+                        document.getElementById("phone_id").value = json["Phone"];
+                        // If Checkbox Statement
+                        if (json["vetservice"] == "1") {
+                            document.getElementById("vetservice_id").checked = true;
+                        } else {
+                            document.getElementById("vetservice_id").checked = false;
+                        }
+                        if (json["groomingservice"] == "1") {
+                            document.getElementById("groomingservice_id").checked = true;
+                        } else {
+                            document.getElementById("groomingservice_id").checked = false;
+                        }
+                        if (json["boardingservice"] == "1") {
+                            document.getElementById("boardingservice_id").checked = true;
+                        } else {
+                            document.getElementById("boardingservice_id").checked = false;
+                        }
+
+                    }
+                });
+            }
         });
 
         $("#remove_location_btn").click(function() {
-			$('#remove_location_modal').modal();
-		});
+            $('#remove_location_modal').modal();
+        });
 
         $("#remove_location").click(function() {
-			var visible = 0;
-			$.post({
-                url: "../php/remove_locationDB.php", 
-				data: { visible: visible,
-					    location_ID: idNum.options[idNum.selectedIndex].id
-				}, 
-				success: function() {
-						$('#update_successful').modal();
-				}            
-			});
-		});
+            var visible = 0;
+            $.post({
+                url: "../php/remove_locationDB.php",
+                data: {
+                    visible: visible,
+                    location_ID: idNum.options[idNum.selectedIndex].id
+                },
+                success: function() {
+                    $('#update_successful').modal();
+                }
+            });
+        });
 
 
         $("#update_location").click(function() {
@@ -280,13 +299,12 @@
     <div class="form-group text-center">
         <button type="submit" class="btn btn-primary" id="update_location">Submit</button>
     </div>
-  
-  <?php if (isset($_SESSION['currentUser'])): ?>
-	<div class="form-group text-center">
-		<button type="submit" class="btn btn-danger  btn-sm" id="remove_location_btn">Remove Location</button>
-	</div>
-  <?php endif; ?>
-</div>
+
+    <?php if (isset($_SESSION['currentUser'])): ?>
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-danger btn-sm" id="remove_location_btn">Remove Location</button>
+    </div>
+    <?php endif; ?>
 </body>
 
 </html>

@@ -58,8 +58,6 @@ class UserLogin {
                                         icon: 'success',
                                         allowOutsideClick: false,
                                         text: json[message]
-                                    }).then(response => {
-                                        new UserLogin(result.value['pathDot']).signup();
                                     });
                                     break;
                                 case 'ERROR':
@@ -142,6 +140,7 @@ class UserLogin {
     }
 
     userLogOut() {
+        var pathDot = this.pathDots;
         $.post({
             url: this.pathDots + '/php/post-usages/User.php',
             data: {
@@ -158,7 +157,7 @@ class UserLogin {
                                 text: json[message]
                             }).then(result => {
                                 if (result.isConfirmed) {
-                                    window.location.reload();
+                                    window.location.assign(pathDot + '/');
                                 }
                             });
                             break;
