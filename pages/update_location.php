@@ -1,7 +1,7 @@
 <?php
     session_start();
 	include_once(__DIR__."/../php/DBConnect.php");
-	include (__DIR__ . "/../php/modals/Modals.html");
+	// include (__DIR__ . "/../php/modals/Modals.html");
 	
 	function comboboxOptions() {
 		// This php code works, all values come out as normal.
@@ -283,6 +283,7 @@
 	<div class="form-group text-center">
 		<button type="submit" class="btn btn-danger  btn-sm" id="remove_location_btn">Remove Location</button>
 	</div>
+  <?php endif; ?>
 </div>
 </body>
 
