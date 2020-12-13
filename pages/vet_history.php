@@ -44,7 +44,7 @@
         $("#login").click(function() {
             new UserLogin('..').userLogin();
         });
-      
+
         $('#logout').click(function() {
             new UserLogin('..').userLogOut();
         });
@@ -101,7 +101,6 @@
                     <div class="card bg-light col-4 p-1">
                         <p class="mb-0" id="name_card"></p>
                     </div>
-
                 </div>
                 <div class="form-group col-12">
                     <legend class="control-legend" id="select_location">Veterinary Location</legend>
@@ -109,7 +108,6 @@
                         <p class="mb-0" id="location_card"></p>
                     </div>
                 </div>
-
                 <!-- Veterinary Service Date -->
                 <div class="form-group col-lg-10">
                     <legend class="control-legend">Date of Veterinary Service</legend>
@@ -208,6 +206,7 @@
             </div>
         </div>
         </div>
+
         <!-- Details -->
         <div class="col-md-6 mx-auto">
             <div class="form-group">
@@ -216,6 +215,7 @@
             </div>
         </div>
     </form>
+
     <script>
         var $table = $('#table')
 
@@ -246,7 +246,8 @@
                             $('#k9_vaccine_checkboxes').hide();
                             $('#feline_vaccine_checkboxes').hide();
                         };
-                      
+
+
                         // K9 Vaccine Left Column
                         if (json["k9_rabies"] == "1") {
                             document.getElementById("k9_rabies_Id").checked = true;
