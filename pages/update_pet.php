@@ -9,7 +9,7 @@
 		// No need to mess with this.
 		$conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, name, hidepet from Pets";
+			$sql = "select id, name from Pets where visible = 1";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();
@@ -49,10 +49,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-      
-        var idNum = document.getElementById("select_pet_control");
-        var hidePet = document.getElementById("hidePet_id");
-      
+        var idNum = document.getElementById("select_pet_control");      
         $("#signup").click(function() {
             new UserLogin('..').signup();
         });
@@ -92,16 +89,27 @@
                     document.getElementById("state_id").value = json["State"];
                     document.getElementById("zip_id").value = json["Zip"];
                     document.getElementById("chip_id").value = json["Chip"];
-                  
-                    if (json["HidePet"] == 1) {
-                        hidePet.checked = true;
-                    } else {
-                        hidePet.checked = false;
-                    }
                 }
 
             });
         });
+
+        $("#remove_pet_btn").click(function() {
+			$('#remove_pet_modal').modal();
+		});
+
+        $("#remove_pet").click(function() {
+			var visible = 0;
+			$.post({
+                url: "../php/remove_petDB.php", 
+				data: { visible: visible,
+                        pet_ID: idNum.options[idNum.selectedIndex].id
+				}, 
+				success: function() {
+						$('#update_successful').modal();
+				}            
+			});
+		});
 
         $("#update_pet").click(function() {
             // Changed id assocaited with select html element.
@@ -111,11 +119,6 @@
                 var petSpecies = document.getElementById("speciesRadios2").value
             } else {
                 var petSpecies = document.getElementById("speciesRadiosOther").value
-            }
-          
-            var hidePetValue = 0;
-            if (hidePet.checked) {
-                hidePetValue = 1;
             }
           
             // Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the selected pet name.
@@ -132,7 +135,6 @@
                     pet_zip: document.getElementById("zip_id").value,
                     pet_chip: document.getElementById("chip_id").value,
                     pet_ID: idNum.options[idNum.selectedIndex].id,
-                    hidepet: hidePetValue
                 },
                 success: function() {
                     document.getElementById("petname_id").value = "";
@@ -170,7 +172,7 @@
             </div>
             <div class="form-group col-lg-10">
                 <select class="form-control" id="select_pet_control">
-                    <option value=""></option>
+                    <option value="" selected disabled>Select Pet</option>
                     <?php comboboxOptions(); ?>
                 </select>
             </div>
@@ -263,25 +265,19 @@
                         <label class="control-label">Zip Code</label>
                         <input class="form-control" type="text" id="zip_id">
                     </div>
-
-                    <?php if (isset($_SESSION['currentUser'])): ?>
-                    <div class="row col-6">
-                        <div class="form-group col-sm-4">
-                            <label class="control-label">Hide Pet</label>
-                            <input type='checkbox' class='form-control' id='hidePet_id' />
-                        </div>
-                    </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </form>
 
-    <!-- Save Button -->
+    <!-- Submit and Remove Button -->
     <div class="form-group text-center">
         <button class="btn btn-primary" id="update_pet">Submit</button>
     </div>
-
+    <div class="form-group text-center">
+	    <button type="submit" class="btn btn-danger  btn-sm" id="remove_pet_btn">Remove Pet</button>
+    </div>
+</div>  
 </body>
 
 </html>

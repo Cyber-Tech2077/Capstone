@@ -44,7 +44,7 @@
         $("#login").click(function() {
             new UserLogin('..').userLogin();
         });
-
+      
         $('#logout').click(function() {
             new UserLogin('..').userLogOut();
         });
@@ -101,6 +101,7 @@
                     <div class="card bg-light col-4 p-1">
                         <p class="mb-0" id="name_card"></p>
                     </div>
+
                 </div>
                 <div class="form-group col-12">
                     <legend class="control-legend" id="select_location">Veterinary Location</legend>
@@ -108,6 +109,7 @@
                         <p class="mb-0" id="location_card"></p>
                     </div>
                 </div>
+
                 <!-- Veterinary Service Date -->
                 <div class="form-group col-lg-10">
                     <legend class="control-legend">Date of Veterinary Service</legend>
@@ -118,10 +120,13 @@
             </div>
             <!-- Right Column-->
             <div class="col-md-6">
-                <!-- K9 Vaccines-->
+            <div class="container">
+            <!-- K9 Vaccines-->
                 <div class="row" id="k9_vaccine_checkboxes" style="display: none">
-                    <legend>Canine Vaccines</legend>
-                    <!-- K9 Vaccines Left Column-->
+                    <div class="form-group col-lg-12">
+                        <legend class="control-legend">Canine Vaccines</legend>
+                    </div>
+                        <!-- K9 Vaccines Left Column-->
                     <div class="col">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="k9_rabies_Id" name="k9_vaccines" value="">
@@ -170,8 +175,10 @@
                 </div>
                 <!-- Feline Vaccines-->
                 <div class="row" id="feline_vaccine_checkboxes" style="display: none">
-                    <legend>Feline Vaccines</legend>
-                    <div class="col">
+                <div class="col">
+                        <div class="form-group col-lg-10">
+                            <legend class="control-legend">Feline Vaccines</legend>
+                        </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="feline_rabies_Id" name="feline_vaccines" value="">
                             <label class="custom-control-label">Rabies</label>
@@ -200,7 +207,7 @@
                 </div>
             </div>
         </div>
-
+        </div>
         <!-- Details -->
         <div class="col-md-6 mx-auto">
             <div class="form-group">
@@ -239,8 +246,7 @@
                             $('#k9_vaccine_checkboxes').hide();
                             $('#feline_vaccine_checkboxes').hide();
                         };
-
-
+                      
                         // K9 Vaccine Left Column
                         if (json["k9_rabies"] == "1") {
                             document.getElementById("k9_rabies_Id").checked = true;

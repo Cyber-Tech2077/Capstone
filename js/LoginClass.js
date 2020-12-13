@@ -58,8 +58,6 @@ class UserLogin {
                                         icon: 'success',
                                         allowOutsideClick: false,
                                         text: json[message]
-                                    }).then(response => {
-                                        new UserLogin(result.value['pathDot']).signup();
                                     });
                                     break;
                                 case 'ERROR':

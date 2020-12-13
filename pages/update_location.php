@@ -175,7 +175,7 @@
             </div>
             <div class="form-group col-lg-10">
                 <select class="form-control" id="select_location_control">
-                    <option value=""></option>
+                    <option value="" selected disabled>Select Location</option>
                     <?php comboboxOptions(); ?>
                 </select>
             </div>
@@ -276,12 +276,10 @@
         </div>
     </form>
 
-    <!-- Submit Button -->
+    <!-- Submit and Remove Button -->
     <div class="form-group text-center">
         <button type="submit" class="btn btn-primary" id="update_location">Submit</button>
     </div>
-  
-  <?php if (isset($_SESSION['currentUser'])): ?>
 	<div class="form-group text-center">
 		<button type="submit" class="btn btn-danger  btn-sm" id="remove_location_btn">Remove Location</button>
 	</div>

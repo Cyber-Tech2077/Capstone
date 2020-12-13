@@ -7,7 +7,7 @@
 	function comboboxOptions() {
 		$conn = databaseConnect("Pet");
 		try {
-			$sql = "select id, name from Pets";
+			$sql = "select id, name from Pets where visible = 1";
 			$stmt = sqlsrv_query($conn, $sql);
 			if ($stmt === false) {
 				echo "Error Occurred: " . sqlsrv_errors();

@@ -13,11 +13,11 @@
                 </div>
                 <div class="navbar navbar-nav ml-auto" id="navbar">
                     <?php if (isset($_SESSION['currentUser'])): ?>
-                    <a class="btn btn-md btn-outline-light hoverable m-2" id="currentUser">Welcome, <?php echo $_SESSION['currentUser']; ?></a>
-                    <a class="btn btn-md btn-outline-light hoverable m-2" id="logout">Log out</a>
+                    <a class="btn btn-md btn-outline-light m-2" id="currentUser">Welcome, <?php echo $_SESSION['currentUser']; ?></a>
+                    <a class="btn btn-md btn-outline-light m-2" id="logout">Log out</a>
                     <?php else: ?>
-                    <a class="btn btn-md btn-outline-light hoverable m-2" id="signup" data-toggle="modal" data-target="#signupModal">Sign Up</a>
-                    <a class="btn btn-md btn-outline-light hoverable" id="login" data-toggle="modal" data-target="#loginModal">Log In</a>
+                    <a class="btn btn-md btn-outline-light m-2" id="signup" data-toggle="modal" data-target="#signupModal">Sign Up</a>
+                    <a class="btn btn-md btn-outline-light" id="login" data-toggle="modal" data-target="#loginModal">Log In</a>
                     <?php endif; ?>
                 </div>
             </div>
