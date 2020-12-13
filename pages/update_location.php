@@ -175,7 +175,7 @@
             </div>
             <div class="form-group col-lg-10">
                 <select class="form-control" id="select_location_control">
-                    <option value=""></option>
+                    <option value="" selected disabled>Select Location</option>
                     <?php comboboxOptions(); ?>
                 </select>
             </div>
