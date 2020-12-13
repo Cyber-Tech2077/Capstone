@@ -49,11 +49,11 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-
+      
         var idNum = document.getElementById("select_pet_control");
         var hidePet = document.getElementById("hidePet_id");
         var submitPet = document.getElementById("update_pet");
-
+      
         $("#signup").click(function() {
             new UserLogin('..').signup();
         });
@@ -152,7 +152,24 @@
             });
         });
 
-        $("#update_pet").click(function(response) {
+        $("#remove_pet_btn").click(function() {
+			$('#remove_pet_modal').modal();
+		});
+
+        $("#remove_pet").click(function() {
+			var visible = 0;
+			$.post({
+                url: "../php/remove_petDB.php", 
+				data: { visible: visible,
+                        pet_ID: idNum.options[idNum.selectedIndex].id
+				}, 
+				success: function() {
+						$('#update_successful').modal();
+				}            
+			});
+		});
+
+        $("#update_pet").click(function() {
             // Changed id assocaited with select html element.
             if (document.getElementById("speciesRadios1").checked) {
                 var petSpecies = document.getElementById("speciesRadios1").value
@@ -161,7 +178,6 @@
             } else {
                 var petSpecies = document.getElementById("speciesRadiosOther").value
             }
-
             // Used idNum.options[idNum.selectedIndex].id to fetch the id associated with the selected pet name.
             $.post({
                 url: "../php/update_petDB.php",
@@ -176,7 +192,6 @@
                     pet_zip: document.getElementById("zip_id").value,
                     pet_chip: document.getElementById("chip_id").value,
                     pet_ID: idNum.options[idNum.selectedIndex].id,
-                    hidepet: hidePetValue
                 },
                 success: function() {
                     Swal.fire({
@@ -211,7 +226,7 @@
             </div>
             <div class="form-group col-lg-10">
                 <select class="form-control" id="select_pet_control">
-                    <option id="emptyOption" value="" selected disabled>Select Pet</option>
+                    <option value="" selected disabled>Select Pet</option>
                     <?php comboboxOptions(); ?>
                 </select>
             </div>
@@ -304,7 +319,6 @@
                         <label class="control-label">Zip Code</label>
                         <input class="form-control" type="text" id="zip_id">
                     </div>
-
                     <?php if (isset($_SESSION['currentUser'])): ?>
                     <div class="row col-6">
                         <div class="form-group col-sm-4">
@@ -319,11 +333,14 @@
         </div>
     </form>
 
-    <!-- Save Button -->
+    <!-- Submit and Remove Button -->
     <div class="form-group text-center">
         <button class="btn btn-primary" id="update_pet">Submit</button>
     </div>
-
+    <div class="form-group text-center">
+	    <button type="submit" class="btn btn-danger  btn-sm" id="remove_pet_btn">Remove Pet</button>
+    </div>
+</div>  
 </body>
 
 </html>
