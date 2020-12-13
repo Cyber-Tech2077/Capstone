@@ -7,17 +7,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar navbar-nav">
-                    <a class="nav-link hoverable active" href="./">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-link hoverable" href="./pages/faq.php">FAQ</a>
-                    <a class="nav-link hoverable" href="./pages/contact_us.php">Contact Us</a>
+                    <a class="nav-link hoverable active" href="../">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link hoverable" href="./faq.php">FAQ</a>
+                    <a class="nav-link hoverable" href="./contact_us.php">Contact Us</a>
                 </div>
                 <div class="navbar navbar-nav ml-auto" id="navbar">
                     <?php if (isset($_SESSION['currentUser'])): ?>
-                    <a class="btn btn-md btn-outline-light m-2" id="currentUser">Welcome, <?php echo $_SESSION['currentUser']; ?></a>
-                    <a class="btn btn-md btn-outline-light m-2" id="logout">Log out</a>
+                    <a class="btn btn-md btn-outline-light hoverable m-2" id="currentUser">Welcome, <?php echo $_SESSION['currentUser']; ?></a>
+                    <a class="btn btn-md btn-outline-light hoverable m-2" id="logout">Log out</a>
                     <?php else: ?>
-                    <a class="btn btn-md btn-outline-light m-2" id="signup" data-toggle="modal" data-target="#signupModal">Sign Up</a>
-                    <a class="btn btn-md btn-outline-light" id="login" data-toggle="modal" data-target="#loginModal">Log In</a>
+                    <a class="btn btn-md btn-outline-light hoverable m-2" id="signup" data-toggle="modal">Sign Up</a>
+                    <a class="btn btn-md btn-outline-light hoverable" id="login" data-toggle="modal">Log In</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -36,39 +36,39 @@
                     <div class="dropdown text-center">
                         <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Pet</a>
                         <div class="dropdown-menu text-center">
-                            <a class="dropdown-item nav-link hoverable" href="./pages/add_pet.php">Add Pet</a>
-                            <a class="dropdown-item nav-link hoverable" href="./pages/update_pet.php">Update Pet</a>
-                            <a class="dropdown-item nav-link hoverable" href="./pages/pet_history.php">Pet History</a>
+                            <a class="dropdown-item nav-link hoverable" href="./add_pet.php">Add Pet</a>
+                            <a class="dropdown-item nav-link hoverable" href="./update_pet.php">Update Pet</a>
+                            <a class="dropdown-item nav-link hoverable" href="./pet_history.php">Pet History</a>
                         </div>
                     </div>
                     <!-- Veterinary Dropdown -->
                     <div class="dropdown text-center">
                         <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Veterinary</a>
                         <div class="dropdown-menu text-center">
-                            <a class="dropdown-item nav-link hoverable" href="./pages/add_vet_service.php">Add Veterinary Service</a>
-                            <a class="dropdown-item nav-link hoverable" href="./pages/vet_history.php">Veterinary History</a>
+                            <a class="dropdown-item nav-link hoverable" href="./add_vet_service.php">Add Veterinary Service</a>
+                            <a class="dropdown-item nav-link hoverable" href="./vet_history.php">Veterinary History</a>
                         </div>
                     </div>
                     <!-- Grooming Dropdown -->
                     <div class="dropdown text-center">
                         <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Grooming</a>
                         <div class="dropdown-menu text-center">
-                            <a class="dropdown-item nav-link hoverable" href="./pages/add_grooming_service.php">Add Grooming Service</a>
+                            <a class="dropdown-item nav-link hoverable" href="./add_grooming_service.php">Add Grooming Service</a>
                         </div>
                     </div>
                     <!-- Boarding Dropdown -->
                     <div class="dropdown text-center">
                         <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Boarding</a>
                         <div class="dropdown-menu text-center">
-                            <a class="dropdown-item nav-link hoverable" href="./pages/add_boarding_service.php">Add Boarding Service</a>
+                            <a class="dropdown-item nav-link hoverable" href="./add_boarding_service.php">Add Boarding Service</a>
                         </div>
                     </div>
                     <!-- Location Dropdown -->
                     <div class="dropdown text-center">
                         <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Location</a>
                         <div class="dropdown-menu text-center">
-                            <a class="dropdown-item nav-link hoverable" href="./pages/add_location.php">Add Location</a>
-                            <a class="dropdown-item nav-link hoverable" href="./pages/update_location.php">Update Location</a>
+                            <a class="dropdown-item nav-link hoverable" href="./add_location.php">Add Location</a>
+                            <a class="dropdown-item nav-link hoverable" href="./update_location.php">Update Location</a>
                         </div>
                     </div>
                 </div>
