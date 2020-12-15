@@ -4,35 +4,33 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Companion Vault</title>  
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="stylesheet" href="./css/style.css"/>
-  
-  
-  <link rel="stylesheet" href="./css/bootstrap.min.css"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="./js/bootstrap.min.js"></script>
-  <script src="./js/secondnav_toggle.js"></script>
+<head>
+    <title>Companion Vault</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./css/style.css" />
+
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/secondnav_toggle.js"></script>
 </head>
-<?php require_once "./php/home-navbar.html"; ?>
+
 <body>
-  <div class="jumbotron jumbotron-sm">
+    <?php require_once "./php/home-navbar.html"; ?>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-lg-12">
-                <h1 class="h1">Team Purple B03</h1>
-            </div>
+            <img src=" ./images/title_banner/Companion_Vault.png" class="img-fluid mx-auto" alt="Home Page Banner">
         </div>
     </div>
-  </div>
-</div>
 
-  <?php
+    <?php
     include ("./php/carousel.html");
   ?>
 
 </body>
+
 </html>

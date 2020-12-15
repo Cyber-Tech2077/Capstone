@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 
-    <title>Companion Vault</title>
+<title>Companion Vault</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,13 +67,9 @@
 
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-12">
-                    <h1 class="h1">Grooming</h1>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <img src=" ../images/title_banner/Add_Grooming_Service.png" class="img-fluid mx-auto" alt="Add Grooming Service">
         </div>
     </div>
 
@@ -116,9 +112,9 @@
     <br />
     <br />
     <!-- Save Button -->
-<div class="form-group text-center">
-    <button class="btn btn-primary" id="save_grooming_service">Submit</button>
-</div>
+    <div class="form-group text-center">
+        <button class="btn btn-primary" id="save_grooming_service">Submit</button>
+    </div>
 
 </body>
 

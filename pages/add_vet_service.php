@@ -36,18 +36,17 @@
         $("#save_service").click(function() {
 
             var elementValues = {
-                petId: name.options[name.selectedIndex].id,
-                serviceName: serviceName.value,
-                locationId: vet.options[vet.selectedIndex].id,
-                serviceDate: vetServiceDate.value,
-                serviceDetails: details.value
+                name: serviceName.value,
+                location: vet.options[vet.selectedIndex].id,
+                date: vetServiceDate.value,
+                details: details.value
             };
             $.post({
                 url: "../php/add_service.php",
                 data: {
                     push: {
                         items: JSON.stringify(elementValues),
-                        connect: 'history'
+                        connect: 'VetHistory'
                     }
                 },
                 dataType: 'json',
@@ -70,13 +69,9 @@
 
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-12">
-                    <h1 class="h1">Add Veterinary Service</h1>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <img src=" ../images/title_banner/Add_Veterinary_Service.png" class="img-fluid mx-auto" alt="Add Veterinary Service">
         </div>
     </div>
 

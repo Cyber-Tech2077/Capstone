@@ -96,13 +96,9 @@
 
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-12">
-                    <h1 class="h1">Add a Boarding Service</h1>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <img src=" ../images/title_banner/Add_Boarding_Service.png" class="img-fluid mx-auto" alt="Add Boarding Service">
         </div>
     </div>
 
@@ -148,9 +144,9 @@
     <br />
     <br />
     <!-- Save Button -->
-<div class="form-group text-center">
-    <button class="btn btn-primary" id="save_service">Submit</button>
-</div>
+    <div class="form-group text-center">
+        <button class="btn btn-primary" id="save_service">Submit</button>
+    </div>
 
 </body>
 

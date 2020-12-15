@@ -156,13 +156,9 @@
 
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-12">
-                    <h1 class="h1">Pet History</h1>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <img src=" ../images/title_banner/Pet_History.png" class="img-fluid mx-auto" alt="Pet History">
         </div>
     </div>
 

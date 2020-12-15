@@ -50,12 +50,15 @@
                     $dbParams = json_encode(array('dbName' => 'Pet', 'sqlType' => 'select', 'tableName' => $this->tableName));
                     if (isset($this->whereClause)) {
                         $whereClauseString = json_encode(array('WHERE' => $this->whereClause));
-                    }
-                    if (isset($this->sqlKeyword)) {
-                        $SQLConstruct = new SQL($dbParams, json_encode($this->columNames), $whereClauseString, $this->sqlKeyword);
-                        echo $SQLConstruct->constructSelectQueryAsArray();
+                        if (isset($this->sqlKeyword)) {
+                            $SQLConstruct = new SQL($dbParams, json_encode($this->columNames), $whereClauseString, $this->sqlKeyword);
+                            echo $SQLConstruct->constructSelectQueryAsArray();
+                        } else {
+                            $SQLConstruct = new SQL($dbParams, json_encode($this->columNames), $whereClauseString);
+                            echo $SQLConstruct->constructSelectQueryAsArray();
+                        }
                     } else {
-                        $SQLConstruct = new SQL($dbParams, json_encode($this->columNames), $whereClauseString);
+                        $SQLConstruct = new SQL($dbParams, json_encode($this->columNames));
                         echo $SQLConstruct->constructSelectQueryAsArray();
                     }
                 } else {
@@ -172,16 +175,16 @@
                     }
                 }
                 $select;
-                if (isset($tableName) && isset($sqlKeyword)) {
+                if (isset($tableName) && isset($whereClause) && isset($sqlKeyword) ) {
                     $select = new SQLTypes($columns, $tableName, $whereClause, $sqlKeyword);
                 } else {
-                    if (isset($tableName)) {
+                    if (isset($tableName) && isset($whereClause)) {
                         $select = new SQLTypes($columns, $tableName, $whereClause);
                     } else {
-                        if (isset($sqlKeyword)) {
-                            $select = new SQLTypes($columns, 'Pets', $whereClause, $sqlKeyword);
+                        if (isset($tableName)) {
+                            $select = new SQLTypes($columns, $tableName);
                         } else {
-                            $select = new SQLTypes($columns, 'Pets', $whereClause);
+                            $select = new SQLTypes($columns, 'Pets');
                         }
                     }
                 }

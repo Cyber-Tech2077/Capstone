@@ -1,5 +1,5 @@
 <?php
-	include (__DIR__ . "/../php/headernav.html");
+	include ("../php/pages-navbar.html");
 	//include (__DIR__ . "/../php/modals/Modals.html");
 ?>
 
@@ -115,15 +115,12 @@
 
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-12">
-                    <h1 class="h1">Add a Location</h1>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <img src=" ../images/title_banner/Add_Location.png" class="img-fluid mx-auto" alt="Add Location">
         </div>
     </div>
+
     <div id="formContainer">
         <!-- Business Name -->
         <div class="form-group col-sm-10" id="businessContainer">

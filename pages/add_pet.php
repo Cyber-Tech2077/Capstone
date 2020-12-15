@@ -1,7 +1,3 @@
-<?php
-	include ("../php/headernav.html");
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,13 +104,11 @@
 
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-12">
-                    <h1 class="h1">Add a Pet</h1>
-                </div>
-            </div>
+    <?php include ("../php/pages-navbar.html"); ?>
+
+    <div class="container">
+        <div class="row">
+            <img src=" ../images/title_banner/Add_Pet.png" class="img-fluid mx-auto" alt="Add Location">
         </div>
     </div>
 

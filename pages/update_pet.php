@@ -145,13 +145,9 @@
 
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-12">
-                    <h1 class="h1">Update Pet</h1>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <img src=" ../images/title_banner/Update_Pet.png" class="img-fluid mx-auto" alt="Update Pet">
         </div>
     </div>
 

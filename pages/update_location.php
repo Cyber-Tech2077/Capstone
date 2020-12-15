@@ -8,9 +8,9 @@
 <html lang="en">
 
 <head>
-  <title>Companion Vault</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Companion Vault</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
     <script src="../js/bootstrap.min.js"></script>
@@ -193,13 +193,9 @@
 
 <body>
 
-    <div class="jumbotron jumbotron-sm">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-12">
-                    <h1 class="h1">Update a Location</h1>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <img src=" ../images/title_banner/Update_Location.png" class="img-fluid mx-auto" alt="Update Location">
         </div>
     </div>
 
