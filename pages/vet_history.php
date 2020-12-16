@@ -40,8 +40,7 @@
     $(document).ready(function() {
         var items = {
             columns: [
-                'date', 'name', 'location', 'details', 'k9_rabies', 'k9_distemper',
-                'k9_parvo', 'k9_adeno1', 'k9_adeno2', 'k9_parainfluenza', 'k9_bordetella', 'k9_lyme'
+                '*'
             ]
         };
         var connect = {
@@ -92,38 +91,67 @@
                                 '<label for="k9_distemper" class="custom-control-label">Distemper</label>',
                             '</div>',
                             '<div class="custom-control custom-checkbox">',
-                                '<input type="checkbox" name="k9_vaccines" id="k9_parvovirus" class="custom-control-input" disabled/>',
-                                '<label for="k9_parvovirus" class="custom-control-label">Parvovirus</label>',
+                                '<input type="checkbox" name="k9_vaccines" id="k9_parvo" class="custom-control-input" disabled/>',
+                                '<label for="k9_parvo" class="custom-control-label">Parvovirus</label>',
                             '</div>',
                             '<div class="custom-control custom-checkbox">',
-                                '<input type="checkbox" name="k9_vaccines" id="k9_adenovirus_type1" class="custom-control-input" disabled/>',
-                                '<label for="k9_adenovirus_type1" class="custom-control-label">Adenovirus Type 1</label>',
+                                '<input type="checkbox" name="k9_vaccines" id="k9_adeno1" class="custom-control-input" disabled/>',
+                                '<label for="k9_adeno1" class="custom-control-label">Adenovirus Type 1</label>',
                             '</div>',
                             '<div class="custom-control custom-checkbox">',
-                                '<input type="checkbox" name="k9_vaccines" id="k9_adenovirus_type2" class="custom-control-input" disabled/>',
-                                '<label for="k9_adenovirus_type2" class="custom-control-label">Adenovirus Type 2</label>',
+                                '<input type="checkbox" name="k9_vaccines" id="k9_adeno2" class="custom-control-input" disabled/>',
+                                '<label for="k9_adeno2" class="custom-control-label">Adenovirus Type 2</label>',
                             '</div>',
                         '</div>',
                         '<div class="form-group col-auto">',
                             '<div class="custom-control custom-checkbox">',
                                 '<input type="checkbox" name="k9_vaccines" id="k9_parainfluenza" class="custom-control-input" disabled/>',
-                                '<label for="k9_parainfluenza" class="custom-control-label">Parainfluenza</label>',
+                                '<label for="k9_influenza" class="custom-control-label">Parainfluenza</label>',
                             '</div>',
                             '<div class="custom-control custom-checkbox">',
                                 '<input type="checkbox" name="k9_vaccines" id="k9_bordetella" class="custom-control-input" disabled/>',
                                 '<label for="k9_bordetella" class="custom-control-label">Bordetella</label>',
                             '</div>',
                             '<div class="custom-control custom-checkbox">',
-                                '<input type="checkbox" name="k9_vaccines" id="k9_lyme_disease" class="custom-control-input" disabled/>',
-                                '<label for="k9_lyme_disease" class="custom-control-label">Lyme Disease</label>',
+                                '<input type="checkbox" name="k9_vaccines" id="k9_lyme" class="custom-control-input" disabled/>',
+                                '<label for="k9_lyme" class="custom-control-label">Lyme Disease</label>',
                             '</div>',
                             '<div class="custom-control custom-checkbox">',
                                 '<input type="checkbox" name="k9_vaccines" id="k9_leptospirosis" class="custom-control-input" disabled/>',
                                 '<label for="k9_leptospirosis" class="custom-control-label">Leptospirosis</label>',
                             '</div>',
                             '<div class="custom-control custom-checkbox">',
-                                '<input type="checkbox" name="k9_vaccines" id="k9_canine_influenza" class="custom-control-input" disabled/>',
-                                '<label for="k9_canine_influenza" class="custom-control-label">Canine Influenza</label>',
+                                '<input type="checkbox" name="k9_vaccines" id="k9_influenza" class="custom-control-input" disabled/>',
+                                '<label for="k9_influenza" class="custom-control-label">Canine Influenza</label>',
+                            '</div>',
+                        '</div>',
+                    '</div>',
+                    '<div style="margin: auto;" class="form-group row">',
+                        '<legend style="text-align: center;">Feline Vaccines</legend>',
+                        '<div class="form-group col-auto">',
+                            '<div class="custom-control custom-checkbox">',
+                                '<input type="checkbox" name="feline_vaccines" id="feline_rabies" class="custom-control-input" disabled/>',
+                                '<label for="feline_rabies" class="custom-control-label">Feline Rabies</label>',
+                            '</div>',
+                            '<div class="custom-control custom-checkbox">',
+                                '<input type="checkbox" name="feline_vaccines" id="feline_distemper" class="custom-control-input" disabled/>',
+                                '<label for="feline_distemper" class="custom-control-label">Feline Distemper</label>',
+                            '</div>',
+                            '<div class="custom-control custom-checkbox">',
+                                '<input type="checkbox" name="feline_vaccines" id="feline_herpes" class="custom-control-input" disabled/>',
+                                '<label for="feline_herpes" class="custom-control-label">Feline Herpesvirus</label>',
+                            '</div>',
+                            '<div class="custom-control custom-checkbox">',
+                                '<input type="checkbox" name="feline_vaccines" id="feline_calici" class="custom-control-input" disabled/>',
+                                '<label for="feline_calici" class="custom-control-label">Feline Calicivirus</label>',
+                            '</div>',
+                            '<div class="custom-control custom-checkbox">',
+                                '<input type="checkbox" name="feline_vaccines" id="feline_leukemia" class="custom-control-input" disabled/>',
+                                '<label for="feline_leukemia" class="custom-control-label">Feline Leukemia Virus</label>',
+                            '</div>',
+                            '<div class="custom-control custom-checkbox">',
+                                '<input type="checkbox" name="feline_vaccines" id="feline_bordetella" class="custom-control-input" disabled/>',
+                                '<label for="feline_bordetella" class="custom-control-label">Feline Bordetella</label>',
                             '</div>',
                         '</div>',
                     '</div>'
@@ -133,10 +161,12 @@
             document.getElementById('petName').value = row['name'];
             document.getElementById('vetLocation').value = row['location'];
             document.getElementById('vetDetails').value = row['details'];
-            if (row['k9_rabies'] == '1') {
-                document.getElementById('k9_rabies').checked = true;
-            } else {
-                document.getElementById('k9_rabies').checked = false;
+            for (const [itemKey, itemValue] of Object.entries(row)) {
+                if (itemKey !== 'location' || itemKey !== 'date' || itemKey !== 'name' || itemKey !== 'details') {
+                    if (row[itemKey] == '1') {
+                        document.getElementById(itemKey).checked = true;
+                    }
+                }
             }
         });
     });

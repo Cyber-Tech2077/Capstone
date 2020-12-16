@@ -36,7 +36,7 @@
         $("#save_service").click(function() {
 
             var elementValues = {
-                name: serviceName.value,
+                name: name.value,
                 location: vet.options[vet.selectedIndex].id,
                 date: vetServiceDate.value,
                 details: details.value
