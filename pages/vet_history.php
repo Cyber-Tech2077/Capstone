@@ -39,9 +39,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var items = {
-            columns: [
-                '*'
-            ]
+            columns: ['*']
         };
         var connect = {
             connect: 'VetHistory'
@@ -68,11 +66,11 @@
                             '<label for="vetService">Service Date</label>',
                             '<input type="text" style="text-align: center;" class="form-control" name="vetService" id="dateVetService" disabled/>',
                         '</div>',
-                        '<div class="col">',
+                        '<div class="col-sm-4">',
                             '<label for="petName">Pet Name</label>',
                             '<input type="text" style="text-align: center;" class="form-control" name="petName" id="petName" disabled/>',
                         '</div>',
-                        '<div class="col-sm-2">',
+                        '<div class="col-sm-4">',
                             '<label for="vetLocation">Location</label>',
                             '<input type="text" style="text-align: center;" class="form-control" name="vetLocation" id="vetLocation" disabled/>',
                         '</div>',
@@ -199,131 +197,8 @@
                     <th data-field="details" data-filter-control="input">Details</th>
                 </tr>
             </thead>
-            <tbody>
-
-            </tbody>
         </table>
     </div>
-
-
-    <form id="filled_form" hidden>
-        <div class="row">
-            <!-- Left Column-->
-            <div class="col-md-6">
-                <!-- Pet Name -->
-                <div class="form-group col-md-12">
-                    <legend class="control-legend" id="select_pet">Pet</legend>
-                    <div class="card bg-light col-4 p-1">
-                        <p class="mb-0" id="name_card"></p>
-                    </div>
-                </div>
-                <div class="form-group col-12">
-                    <legend class="control-legend" id="select_location">Veterinary Location</legend>
-                    <div class="card bg-light col-4 p-1">
-                        <p class="mb-0" id="location_card"></p>
-                    </div>
-                </div>
-                <!-- Veterinary Service Date -->
-                <div class="form-group col-lg-10">
-                    <legend class="control-legend">Date of Veterinary Service</legend>
-                    <div class="card bg-light col-4 p-1">
-                        <p class="mb-0" id="date_card"></p>
-                    </div>
-                </div>
-            </div>
-            <!-- Right Column-->
-            <div class="col-md-6">
-                <!-- K9 Vaccines-->
-                <div class="row" id="k9_vaccine_checkboxes" style="display: none">
-                    <legend>Canine Vaccines</legend>
-                    <!-- K9 Vaccines Left Column-->
-                    <div class="col">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="k9_rabies_Id" name="k9_vaccines" value="">
-                            <label class="custom-control-label">Rabies</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="k9_distemper_Id" name="k9_vaccines" value="">
-                            <label class="custom-control-label">Distemper</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="k9_parvo_Id" name="k9_vaccines" value="">
-                            <label class="custom-control-label">Parvovirus</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="k9_adeno1_Id" name="k9_vaccines" value="">
-                            <label class="custom-control-label">Adenovirus, Type 1</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="k9_adeno2_Id" name="k9_vaccines" value="">
-                            <label class="custom-control-label">Adenovirus, Type 2</label>
-                        </div>
-                    </div>
-                    <!-- K9 Vaccines Right Column-->
-                    <div class="col">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="k9_parainfluenza_Id" name="k9_vaccines" value="">
-                            <label class="custom-control-label">Parainfluenza</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="k9_bordetella_Id" name="k9_vaccines" value="">
-                            <label class="custom-control-label">Bordetella</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="k9_lyme_Id" name="k9_vaccines" value="">
-                            <label class="custom-control-label">Lyme Disease</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="k9_leptospirosis_Id" name="k9_vaccines" value="">
-                            <label class="custom-control-label">Leptospirosis</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="k9_influenza_Id" name="k9_vaccines" value="">
-                            <label class="custom-control-label">Canine Influenza</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- Feline Vaccines-->
-                <div class="row" id="feline_vaccine_checkboxes" style="display: none">
-                    <legend>Feline Vaccines</legend>
-                    <div class="col">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="feline_rabies_Id" name="feline_vaccines" value="">
-                            <label class="custom-control-label">Rabies</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="feline_distemper_Id" name="feline_vaccines" value="">
-                            <label class="custom-control-label">Feline Distemper</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="feline_herpes_Id" name="feline_vaccines" value="">
-                            <label class="custom-control-label">Feline Herpesvirus</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="feline_calici_Id" name="feline_vaccines" value="">
-                            <label class="custom-control-label">Calicivirus</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="feline_leukemia_Id" name="feline_vaccines" value="">
-                            <label class="custom-control-label">Feline Leukemia Virus</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="feline_bordetella_Id" name="feline_vaccines" value="">
-                            <label class="custom-control-label">Bordetella</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Details -->
-        <div class="col-md-6 mx-auto">
-            <div class="form-group">
-                <legend class="control-legend">Enter Details</legend>
-                <textarea class="form-control no-gray" rows="9" cols="50" id="detail_entry" readonly></textarea>
-            </div>
-        </div>
-    </form>
 </body>
 
 </html>

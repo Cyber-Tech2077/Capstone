@@ -16,7 +16,6 @@
     <script src="../js/secondnav_toggle.js"></script>
 
     <link rel="stylesheet" href="../css/style.css" type="text/css" />
-    <link rel="stylesheet" href="../css/bootstrap.min" type="text/css" />
     <link rel="stylesheet" href="../css/organize_elements.css" type="text/css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
 </head>

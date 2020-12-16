@@ -37,7 +37,7 @@
 
             var elementValues = {
                 name: name.value,
-                location: vet.options[vet.selectedIndex].id,
+                location: vet.value,
                 date: vetServiceDate.value,
                 details: details.value
             };

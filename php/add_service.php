@@ -136,7 +136,7 @@
                                     switch (strtoupper($columnValues)) {
                                         case 'HISTORY':
                                             // This is a prefab for an inner join.
-                                            $columns = array('PetHistory.serviceDate', 'PetHistory.serviceName', 'Locations.business', 'PetHistory.vetted', 'PetHistory.grooming', 'PetHistory.boarding', 'PetHistory.serviceDetails');
+                                            $columns = array('PetHistory.date', 'PetHistory.serviceName', 'Locations.business', 'PetHistory.vetted', 'PetHistory.grooming', 'PetHistory.boarding', 'PetHistory.details');
                                             break;
                                     }
                                 } else {
