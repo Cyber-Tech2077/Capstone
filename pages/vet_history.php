@@ -161,11 +161,15 @@
             document.getElementById('petName').value = row['name'];
             document.getElementById('vetLocation').value = row['location'];
             document.getElementById('vetDetails').value = row['details'];
-            for (const [itemKey, itemValue] of Object.entries(row)) {
-                if (itemKey !== 'location' || itemKey !== 'date' || itemKey !== 'name' || itemKey !== 'details') {
+            // Loop through Object keys, find a specific string and 
+            // if the conditions are true. Check mark the box.
+            for (var itemKey in row) {
+                if (itemKey.indexOf('k9') == 0 || itemKey.indexOf('feline') == 0) {
                     if (row[itemKey] == '1') {
                         document.getElementById(itemKey).checked = true;
                     }
+                } else {
+                    continue;
                 }
             }
         });
