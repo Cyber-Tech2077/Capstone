@@ -1,3 +1,4 @@
+<!-- Login Modal -->
 <div class="gradient-nav">
     <div id="main_nav">
         <nav class="navbar navbar-expand-lg navbar-dark">
@@ -19,6 +20,7 @@
             </div>
         </nav>
     </div>
+    
     <div id="user_nav">
         <nav class="navbar navbar-expand-lg navbar-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup2" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +42,7 @@
                         <a class="nav-link dropdown-toggle hoverable" data-toggle="dropdown">Veterinary</a>
                         <div class="dropdown-menu text-center">
                             <a class="dropdown-item nav-link hoverable" href="./add_vet_service.php">Add Veterinary Service</a>
+                            <a class="dropdown-item nav-link hoverable" href="./vet_history.php">Veterinary History</a>
                         </div>
                     </div>
                     <!-- Grooming Dropdown -->
@@ -69,56 +72,4 @@
         </nav>
     </div>
     <hr class="form-group col-10 solid">
-</div>
-<!-- Login Modal -->
-<div id="loginModal" class="modal fade" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="LoginModalLabel">Log In</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="form-signin">
-                    <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                    <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Remember Me
-                        </label>
-                    </div>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Sign Up Modal -->
-<div id="signupModal" class="modal fade" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="signupModal">Sign Up</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="form-signin">
-                    <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                    <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                    <label for="inputConfirmPassword" class="sr-only">Re-enter Password</label>
-                    <input type="confirmPassword" id="inputPassword" class="form-control" placeholder="Confirm Password" required>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>

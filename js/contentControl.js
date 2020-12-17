@@ -76,5 +76,4 @@ class ContentControl {
                 return 'You must select a dialog type such as "signup" or "signin".';
         }
     }
-
 }

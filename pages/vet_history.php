@@ -54,6 +54,7 @@
             },
             dataType: 'json',
             success: function(json) {
+                $('#table')[0].children[1].setAttribute('style', 'text-align: center;');
                 $('#table').bootstrapTable('load', json);
             }
         });
@@ -153,7 +154,8 @@
                             '</div>',
                         '</div>',
                     '</div>'
-                ].join('')
+                ].join(''),
+                overlayClosesOnClick: false
             });
             document.getElementById('dateVetService').value = row['date'];
             document.getElementById('petName').value = row['name'];

@@ -5,6 +5,9 @@
     width: 400px;
     margin: auto;
 }
+#updatePetTable {
+    margin: auto;
+}
 
 #selectContainer,
 #speciesContainer,
